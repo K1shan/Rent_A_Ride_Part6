@@ -44,6 +44,8 @@ public class CustomerManager{
 	public void store(Customer customer) throws RARException{
 		
 		// TODO
+		boolean persist = false;
+		
 		String userInsertQuery = 
 				"INSERT INTO USER "
 				+ "(fname, lname, uname, pword, email, address, create_date) "
@@ -66,6 +68,10 @@ public class CustomerManager{
 				+ "user_id=?, member_until=?, lic_state=?, lic_num=?, cc_num=?, cc_exp=?, status=? "
 				+ "WHERE customer_id=?";
 		
+		String selectUserIdQuery = 
+				"SELECT user_id "
+				+ "FROM USER "
+				+ "WHERE USER.email=?";
 		
 		PreparedStatement stmt;
 		int inscnt;
@@ -79,9 +85,11 @@ public class CustomerManager{
 			 */
 			if( !customer.isPersistent() ){
 				System.out.println("Insert");
+				persist = false;
                 stmt = (PreparedStatement) con.prepareStatement( userInsertQuery );
 			}else{
 				System.out.println("Update");
+				persist = true;
                 stmt = (PreparedStatement) con.prepareStatement( updateUserQuery );
 			}
 
@@ -163,15 +171,35 @@ public class CustomerManager{
 		
 		
 		
-
+		/*
+		 * Get userId
+		 */
+		long userId = 0;
 		
+		try {
+			stmt = (PreparedStatement) con.prepareStatement( selectUserIdQuery );
+			stmt.setString(1, customer.getEmail());
+			System.out.println(stmt.asSql());
+
+			ResultSet rs = stmt.executeQuery();
+			
+            while( rs.next() ) {
+                userId = rs.getLong( 1 );
+            }
+        
+			
+		} catch(SQLException e){
+			e.printStackTrace();
+			throw new RARException( "CustomerManager.save: failed to save a customer: " + e );
+		}
+
 		
 		try {
 			
 			/*
 			 * CUSTOMER
 			 */
-			if( customer.isPersistent() ){
+			if( !persist ){
 				System.out.println("Insert");
 				stmt = (PreparedStatement) con.prepareStatement( customerInsertQuery );
 			}else{
@@ -180,8 +208,8 @@ public class CustomerManager{
 			}
 
 
-            if( customer.getUserName() != null )
-                stmt.setLong( 1, 0 );
+            if( userId != 0 )
+                stmt.setLong( 1, userId );
             else{
                 throw new RARException( "CustomerManager.save: can't save a customer: userName undefined" );
             }
@@ -211,7 +239,6 @@ public class CustomerManager{
                 throw new RARException( "CustomerManager.save: can't save a customer: last name undefined" );
          
             if( customer.getCreditCardExpiration() != null ){
-            	
             	java.sql.Date sqlDate = new java.sql.Date(customer.getCreditCardExpiration().getTime());
         		stmt.setDate(6, sqlDate);
             } else
@@ -223,12 +250,12 @@ public class CustomerManager{
                 throw new RARException( "CustomerManager.save: can't save a customer: last name undefined" );
          
         
-            if( customer.isPersistent() )
-                //stmt.setLong( 8, customer.getId() );
+            if( persist )
+                stmt.setLong( 8, customer.getId() );
 
+            System.out.println(stmt.asSql());
             inscnt = stmt.executeUpdate();
             
-            System.out.println(stmt.asSql());
 
             if( !customer.isPersistent() ) {
                 // in case this this object is stored for the first time,
