@@ -78,70 +78,58 @@ public class CustomerImpl
 		this.state =  licenseState;
 		this.licenseNumber = licenseNumber;
 		this.cardNumber = cardNumber;
-		this.userStatus = userStatus;
-		
+		this.userStatus = UserStatus.ACTIVE;
 	}
 	
 	
 	@Override
 	public String getFirstName() {
-		// TODO Auto-generated method stub
 		return this.firstName;
 	}
 
 	@Override
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
-		
 	}
 
 	@Override
 	public String getLastName() {
-		// TODO Auto-generated method stub
 		return this.lastName;
 	}
 
 	@Override
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
-		
 	}
 
 	@Override
 	public String getUserName() {
-		// TODO Auto-generated method stub
 		return this.userName;
 	}
 
 	@Override
 	public void setUserName(String userName) throws RARException {
 		this.userName = userName;
-		
 	}
 
 	@Override
 	public String getEmail() {
-		// TODO Auto-generated method stub
 		return this.email;
 	}
 
 	@Override
 	public void setEmail(String email) {
 		this.email = email;
-		
 	}
 
 	@Override
 	public String getPassword() {
-		// TODO Auto-generated method stub
 		return this.password;
 	}
 
 	@Override
 	public void setPassword(String password) {
-		
 		this.password = password;
-		
 	}
 
 	@Override
@@ -156,78 +144,62 @@ public class CustomerImpl
 
 	@Override
 	public String getAddress() {
-		// TODO Auto-generated method stub
 		return this.address;
 	}
 
 	@Override
 	public void setAddress(String address) {
-		
 		this.address = address;
-		
 	}
 
 	@Override
 	public UserStatus getUserStatus() {
-		// TODO Auto-generated method stub
 		return this.userStatus;
 	}
 
 	@Override
 	public void setUserStatus(UserStatus userStatus) {
 		this.userStatus = userStatus;
-		
 	}
 
 	@Override
 	public Date getMemberUntil() {
-		// TODO Auto-generated method stub
 		return this.memberUntil;
 	}
 
 	@Override
 	public void setMemberUntil(Date memberUntil) throws RARException {
 		this.memberUntil = memberUntil;
-		
 	}
 
 	@Override
 	public String getLicenseState() {
-		
 		return this.state;
 	}
 
 	@Override
 	public void setLicenseState(String state) {
-		
 		this.state = state;
 	}
 
 	@Override
 	public String getLicenseNumber() {
-		// TODO Auto-generated method stub
 		return this.licenseNumber;
 	}
 
 	@Override
 	public void setLicenseNumber(String licenseNumber) {
-		
 		this.licenseNumber = licenseNumber;
-		
 	}
 
 	@Override
 	public String getCreditCardNumber() {
-		// TODO Auto-generated method stub
 		return this.cardNumber;
 	}
 
 	@Override
 	public void setCreditCardNumber(String cardNumber) {
-		// TODO Auto-generated method stub
-		
 		this.cardNumber = cardNumber;
-		
 	}
 
 	@Override
@@ -243,28 +215,27 @@ public class CustomerImpl
 
 	@Override
 	public List<Reservation> getReservations() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public List<Comment> getComments() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public List<Rental> getRentals() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public String toString() {
-		return "CustomerImpl [createDate=" + createDate + ", memberUntil=" + memberUntil + ", cardExpiration="
-				+ cardExpiration + ", firstName=" + firstName + ", lastName=" + lastName + ", userName=" + userName
-				+ ", email=" + email + ", password=" + password + ", address=" + address + ", state=" + state
-				+ ", licenseNumber=" + licenseNumber + ", cardNumber=" + cardNumber + ", userStatus=" + userStatus
+		return "CustomerImpl ["
+				+ "customerId=" + this.getId() + ", firstName=" + firstName + ", lastName=" + lastName + ", userName=" + userName
+				+ ", password=" + password + ", email=" + email + ", address=" + address 
+				+ ", createDate=" + createDate + ", memberUntil=" + memberUntil + ", licenseState=" + state
+				+ ", licenseNum=" + licenseNumber + ", cardNumber=" + cardNumber + ", cardExpiration=" + cardExpiration
+				+ ", userStatus=" + userStatus
 				+ "]";
 	}
 	

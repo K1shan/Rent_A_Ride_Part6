@@ -43,7 +43,6 @@ public class CustomerManager{
 	@SuppressWarnings("resource")
 	public void store(Customer customer) throws RARException{
 		
-		// TODO
 		boolean persist = false;
 		
 		String userInsertQuery = 
@@ -56,7 +55,6 @@ public class CustomerManager{
 				"INSERT INTO CUSTOMER "
 				+ "(user_id, member_until, lic_state, lic_num, cc_num, cc_exp, status) "
 				+ "VALUES ( ?, ?, ?, ?, ?, ?, ? )";
-				//+ "(SELECT USER.user_id FROM USER WHERE USER.uname = " + customer.getUserName() + ")";
 		
 		String updateUserQuery = 
 				"UPDATE USER SET "
@@ -73,100 +71,85 @@ public class CustomerManager{
 				+ "FROM USER "
 				+ "WHERE USER.email=?";
 		
-		PreparedStatement stmt;
+		PreparedStatement pstmt;
 		int inscnt;
 		long customerID;
+		long userId = 0;
 	    
-		
+		/*
+		 * USER
+		 */
 		try {
-			
-			/*
-			 * USER
-			 */
 			if( !customer.isPersistent() ){
-				System.out.println("Insert");
 				persist = false;
-                stmt = (PreparedStatement) con.prepareStatement( userInsertQuery );
+                pstmt = (PreparedStatement) con.prepareStatement( userInsertQuery );
 			}else{
-				System.out.println("Update");
 				persist = true;
-                stmt = (PreparedStatement) con.prepareStatement( updateUserQuery );
+                pstmt = (PreparedStatement) con.prepareStatement( updateUserQuery );
 			}
-
-
-            if( customer.getFirstName() != null )
-                stmt.setString( 1, customer.getFirstName() );
+			
+			if( customer.getFirstName() != null )
+                pstmt.setString( 1, customer.getFirstName() );
             else{
-                throw new RARException( "CustomerManager.save: can't save a customer: userName undefined" );
-            }
-
-            
-            if( customer.getLastName() != null )
-                stmt.setString( 2, customer.getLastName() );
+                throw new RARException( "CustomerManager.save: can't save a user: FirstName undefined" );
+            }if( customer.getLastName() != null )
+                pstmt.setString( 2, customer.getLastName() );
             else
-                throw new RARException( "CustomerManager.save: can't save a customer: last name undefined" );
-            
-            
+                throw new RARException( "CustomerManager.save: can't save a user: LastName undefined" );
             if( customer.getUserName() != null )
-                stmt.setString( 3, customer.getUserName() );
+                pstmt.setString( 3, customer.getUserName() );
             else
-                throw new RARException( "CustomerManager.save: can't save a customer: last name undefined" );
-         
+                throw new RARException( "CustomerManager.save: can't save a user: UserName undefined" );
             if( customer.getPassword() != null )
-                stmt.setString( 4, customer.getPassword());
+                pstmt.setString( 4, customer.getPassword());
             else
-                throw new RARException( "CustomerManager.save: can't save a customer: last name undefined" );
-         
+                throw new RARException( "CustomerManager.save: can't save a user: Password undefined" );
             if( customer.getEmail() != null )
-                stmt.setString( 5, customer.getEmail());
+                pstmt.setString( 5, customer.getEmail());
             else
-                throw new RARException( "CustomerManager.save: can't save a customer: last name undefined" );
-         
+                throw new RARException( "CustomerManager.save: can't save a user: Email undefined" );
             if( customer.getAddress() != null )
-                stmt.setString( 6, customer.getAddress());
+                pstmt.setString( 6, customer.getAddress());
             else
-                throw new RARException( "CustomerManager.save: can't save a customer: last name undefined" );
+                throw new RARException( "CustomerManager.save: can't save a user: Address undefined" );
          
             if( customer.getCreatedDate() != null ){
             	java.util.Date myDate = customer.getCreatedDate();
             	java.sql.Date sqlDate = new java.sql.Date(myDate.getTime());
-            	stmt.setDate(7, sqlDate);
-            }
-
-            else
-                throw new RARException( "CustomerManager.save: can't save a customer: last name undefined" );
-     
-            
+            	pstmt.setDate(7, sqlDate);
+            }else
+                throw new RARException( "CustomerManager.save: can't save a user: CreatedDate undefined" );
             if( customer.isPersistent() )
-                stmt.setLong( 8, customer.getId() );
+                pstmt.setLong( 8, customer.getId() );
 
-            inscnt = stmt.executeUpdate();
+			System.out.println("query: "+pstmt.asSql());
+            inscnt = pstmt.executeUpdate();
 
-            if( !customer.isPersistent() ) {
-                // in case this this object is stored for the first time,
-                // we need to establish its persistent identifier (primary key)
-                if( inscnt == 1 ) {
-                    String sql = "select last_insert_id()";
-                    if( stmt.execute( sql ) ) { // statement returned a result
-                        // retrieve the result
-                        ResultSet r = stmt.getResultSet();
-                        // we will use only the first row!
-                        while( r.next() ) {
-                            // retrieve the last insert auto_increment value
-                            customerID = r.getLong( 1 );
-                            if( customerID > 0 )
-                                customer.setId( customerID ); // set this person's db id (proxy object)
-                        }
-                    }
-                }
-            }
-            else {
-                if( inscnt < 1 )
-                    throw new RARException( "CustomerManager.save: failed to save a customer" ); 
-            }
+//            if( !customer.isPersistent() ) {
+//                // in case this this object is stored for the first time,
+//                // we need to establish its persistent identifier (primary key)
+//                if( inscnt == 1 ) {
+//                    String sql = "select last_insert_id()";
+//                    if( pstmt.execute( sql ) ) { // statement returned a result
+//                        // retrieve the result
+//                        ResultSet r = pstmt.getResultSet();
+//                        // we will use only the first row!
+//                        while( r.next() ) {
+//                            // retrieve the last insert auto_increment value
+//                            customerID = r.getLong( 1 );
+//                            if( customerID > 0 )
+//                                customer.setId( customerID ); // set this person's db id (proxy object)
+//                        }
+//                    }
+//                }
+//            }
+//            else {
+//                if( inscnt < 1 )
+//                    throw new RARException( "CustomerManager.save: failed to save a user" ); 
+//            }
 		}catch(SQLException e){
 			e.printStackTrace();
-			throw new RARException( "CustomerManager.save: failed to save a customer: " + e );
+			throw new RARException( "CustomerManager.save: failed to save a user: " + e );
 		}
 		
 		
@@ -174,88 +157,71 @@ public class CustomerManager{
 		/*
 		 * Get userId
 		 */
-		long userId = 0;
-		
 		try {
-			stmt = (PreparedStatement) con.prepareStatement( selectUserIdQuery );
-			stmt.setString(1, customer.getEmail());
-			System.out.println(stmt.asSql());
-
-			ResultSet rs = stmt.executeQuery();
-			
-            while( rs.next() ) {
+			pstmt = (PreparedStatement) con.prepareStatement( selectUserIdQuery );
+			pstmt.setString(1, customer.getEmail());
+			System.out.println("query: "+pstmt.asSql());
+			ResultSet rs = pstmt.executeQuery();
+			while( rs.next() ) {
                 userId = rs.getLong( 1 );
             }
-        
-			
 		} catch(SQLException e){
 			e.printStackTrace();
-			throw new RARException( "CustomerManager.save: failed to save a customer: " + e );
+			throw new RARException( "CustomerManager.save: failed to get userId: " + e );
 		}
 
-		
+		/*
+		 * CUSTOMER
+		 */
 		try {
-			
-			/*
-			 * CUSTOMER
-			 */
 			if( !persist ){
-				System.out.println("Insert");
-				stmt = (PreparedStatement) con.prepareStatement( customerInsertQuery );
+				pstmt = (PreparedStatement) con.prepareStatement( customerInsertQuery );
 			}else{
-				System.out.println("Update");
-				stmt = (PreparedStatement) con.prepareStatement( updateCustomerQuery );
+				pstmt = (PreparedStatement) con.prepareStatement( updateCustomerQuery );
 			}
-
-
-            if( userId != 0 )
-                stmt.setLong( 1, userId );
+			if( userId != 0 )
+                pstmt.setLong( 1, userId );
             else{
-                throw new RARException( "CustomerManager.save: can't save a customer: userName undefined" );
+                throw new RARException( "CustomerManager.save: can't save a customer: userId undefined" );
             }
-
-            
-            if( customer.getMemberUntil() != null ){java.util.Date myDate = customer.getMemberUntil();
+			if( customer.getMemberUntil() != null ){
+				java.util.Date myDate = customer.getMemberUntil();
             	java.sql.Date sqlDate = new java.sql.Date(myDate.getTime());
-        		stmt.setDate(2, sqlDate);
+        		pstmt.setDate(2, sqlDate);
             }
             else
-                throw new RARException( "CustomerManager.save: can't save a customer: last name undefined" );
-            
-            
+                throw new RARException( "CustomerManager.save: can't save a customer: MemberUntil undefined" );
             if( customer.getLicenseState() != null )
-                stmt.setString( 3, customer.getLicenseState() );
+                pstmt.setString( 3, customer.getLicenseState() );
             else
-                throw new RARException( "CustomerManager.save: can't save a customer: last name undefined" );
-         
+                throw new RARException( "CustomerManager.save: can't save a customer: LicenseState undefined" );
             if( customer.getLicenseNumber() != null )
-                stmt.setString( 4, customer.getLicenseNumber());
+                pstmt.setString( 4, customer.getLicenseNumber());
             else
-                throw new RARException( "CustomerManager.save: can't save a customer: last name undefined" );
-         
+                throw new RARException( "CustomerManager.save: can't save a customer: LicenseNumber undefined" );
             if( customer.getCreditCardNumber() != null )
-                stmt.setString( 5, customer.getCreditCardNumber());
+                pstmt.setString( 5, customer.getCreditCardNumber());
             else
-                throw new RARException( "CustomerManager.save: can't save a customer: last name undefined" );
+                throw new RARException( "CustomerManager.save: can't save a customer: CreditCardNumber undefined" );
          
             if( customer.getCreditCardExpiration() != null ){
             	java.util.Date myDate = customer.getCreditCardExpiration();
             	java.sql.Date sqlDate = new java.sql.Date(myDate.getTime());
-        		stmt.setDate(6, sqlDate);
+        		pstmt.setDate(6, sqlDate);
             } else
-                throw new RARException( "CustomerManager.save: can't save a customer: last name undefined" );
+                throw new RARException( "CustomerManager.save: can't save a customer: CreditCardExpiration undefined" );
          
-            if(customer.getUserStatus() == null ) 
-                stmt.setLong( 7, 0);
+            if(customer.getUserStatus() != null ) 
+                pstmt.setLong( 7, 0);
             else
-                throw new RARException( "CustomerManager.save: can't save a customer: last name undefined" );
+                throw new RARException( "CustomerManager.save: can't save a customer: UserStatus undefined" );
          
         
             if( persist )
-                stmt.setLong( 8, customer.getId() );
+                pstmt.setLong( 8, customer.getId() );
 
-            System.out.println(stmt.asSql());
-            inscnt = stmt.executeUpdate();
+            System.out.println("query: "+pstmt.asSql());
+            inscnt = pstmt.executeUpdate();
             
 
             if( !customer.isPersistent() ) {
@@ -263,9 +229,9 @@ public class CustomerManager{
                 // we need to establish its persistent identifier (primary key)
                 if( inscnt == 1 ) {
                     String sql = "select last_insert_id()";
-                    if( stmt.execute( sql ) ) { // statement returned a result
+                    if( pstmt.execute( sql ) ) { // statement returned a result
                         // retrieve the result
-                        ResultSet r = stmt.getResultSet();
+                        ResultSet r = pstmt.getResultSet();
                         // we will use only the first row!
                         while( r.next() ) {
                             // retrieve the last insert auto_increment value
@@ -291,12 +257,14 @@ public class CustomerManager{
 		throws RARException{
 		
 		String selectCustomerQuery = 
-				"SELECT * FROM USER INNER JOIN CUSTOMER ON USER.user_id = CUSTOMER.user_id";
+				"SELECT "
+				+ "USER.user_id, USER.fname, USER.lname, USER.uname, USER.pword, USER.email, USER.address, USER.create_date, "
+				+ "CUSTOMER.customer_id, CUSTOMER.member_until, CUSTOMER.lic_state, CUSTOMER.lic_num, CUSTOMER.cc_num, CUSTOMER.cc_exp, CUSTOMER.status "
+				+ "FROM USER INNER JOIN CUSTOMER ON USER.user_id = CUSTOMER.user_id";
 		
+		System.out.println("query: "+selectCustomerQuery);
 		List<Customer> customers = new ArrayList<Customer>();
 		Statement stmt = null;
-		int inscnt;
-		long customerID;
 		
 		try {
 			
@@ -315,9 +283,6 @@ public class CustomerManager{
 	            String address;
 	            
 	            Date createDate;
-	        	//java.sql.Date mySQLDate = new java.sql.Date(myDate.getTime());
-	            java.sql.Date mySQLDate;// = new java.sql.Date(myDate.getTime());
-	            
 	            long customerId;
 	            Date memberUntil;
 	            String licState;
@@ -338,18 +303,18 @@ public class CustomerManager{
 	                
 	                customerId = r.getLong(9);
 	                // SKIP USER_ID FK
-	                memberUntil = r.getDate(11);
-	                licState = r.getString(12);
-	                licNum = r.getString(13);
-	                ccNum = r.getString(14);
-	                ccExp = r.getDate(15);
-	                status = r.getLong(16);
+	                memberUntil = r.getDate(10);
+	                licState = r.getString(11);
+	                licNum = r.getString(12);
+	                ccNum = r.getString(13);
+	                ccExp = r.getDate(14);
+	                status = r.getLong(15);
 	                
 	                
-	                Customer customer = objectLayer.createCustomer(fname, lname, uname, pword, email,
-	            			address, createDate, memberUntil, licState, licNum,
-	           			ccNum, ccExp);
-	                customer.setId(id);
+	                Customer customer = 
+	                		objectLayer.createCustomer(fname, lname, uname, pword, email,
+	            			address, createDate, memberUntil, licState, licNum, ccNum, ccExp);
+	                customer.setId(customerId);
 	                customers.add(customer);
 	            }
 			}
@@ -359,6 +324,5 @@ public class CustomerManager{
 			e.printStackTrace();
 			throw new RARException( "CustomerManager.get: failed to get any customers: " + e );
 		}
-		//throw new RARException( "CustomerManager.restore: Could not restore persistent Customer objects" );
 	}
 }
