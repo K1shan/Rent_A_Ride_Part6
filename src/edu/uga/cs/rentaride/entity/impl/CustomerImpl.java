@@ -31,14 +31,14 @@ public class CustomerImpl
 	private Date memberUntil;
 	private Date cardExpiration;
 	private String firstName;
-	String lastName;
-	String userName;
-	String email;
-	String password;
-	String address;
-	String state;
-	String licenseNumber;
-	String cardNumber;
+	private String lastName;
+	private String userName;
+	private String email;
+	private String password;
+	private String address;
+	private String state;
+	private String licenseNumber;
+	private String cardNumber;
 	private UserStatus userStatus;
 	
 	
@@ -81,17 +81,38 @@ public class CustomerImpl
 		this.userStatus = UserStatus.ACTIVE;
 	}
 	
+	@Override
+	public List<Reservation> getReservations() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Comment> getComments() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Rental> getRentals() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	@Override
 	public String getFirstName() {
+
 		return this.firstName;
+		
+		return firstName;
+
 	}
 
 	@Override
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
-
+	
 	@Override
 	public String getLastName() {
 		return this.lastName;
@@ -99,6 +120,7 @@ public class CustomerImpl
 
 	@Override
 	public void setLastName(String lastName) {
+		
 		this.lastName = lastName;
 	}
 
@@ -139,6 +161,7 @@ public class CustomerImpl
 
 	@Override
 	public void setCreateDate(Date createDate) {
+		
 		this.createDate = createDate;
 	}
 
@@ -159,6 +182,7 @@ public class CustomerImpl
 
 	@Override
 	public void setUserStatus(UserStatus userStatus) {
+		
 		this.userStatus = userStatus;
 	}
 
@@ -184,6 +208,7 @@ public class CustomerImpl
 
 	@Override
 	public String getLicenseNumber() {
+
 		return this.licenseNumber;
 	}
 
@@ -204,6 +229,7 @@ public class CustomerImpl
 
 	@Override
 	public Date getCreditCardExpiration() {
+		
 		return this.cardExpiration;
 	}
 
@@ -238,5 +264,4 @@ public class CustomerImpl
 				+ ", userStatus=" + userStatus
 				+ "]";
 	}
-	
 }

@@ -2,22 +2,8 @@ package edu.uga.cs.rentaride.entity.impl;
 
 
 
-import edu.uga.cs.rentaride.entity.Administrator;
-import edu.uga.cs.rentaride.entity.Comment;
-import edu.uga.cs.rentaride.entity.Customer;
-import edu.uga.cs.rentaride.entity.HourlyPrice;
-import edu.uga.cs.rentaride.entity.Rental;
 import edu.uga.cs.rentaride.entity.RentalLocation;
-import edu.uga.cs.rentaride.entity.RentARideParams;
-import edu.uga.cs.rentaride.entity.Reservation;
-import edu.uga.cs.rentaride.entity.User;
-import edu.uga.cs.rentaride.entity.UserStatus;
-import edu.uga.cs.rentaride.entity.Vehicle;
-import edu.uga.cs.rentaride.entity.VehicleCondition;
-import edu.uga.cs.rentaride.entity.VehicleStatus;
-import edu.uga.cs.rentaride.entity.VehicleType;
 import edu.uga.cs.rentaride.persistence.impl.Persistent;
-import edu.uga.cs.rentaride.RARException;
 
 
 public class RentalLocationImpl 
@@ -25,40 +11,51 @@ public class RentalLocationImpl
 	implements RentalLocation 
 {
 
-	@Override
+	String name;
+	String address;
+	int capacity;
+	
+	public RentalLocationImpl(){
+		
+		super( -1 );
+		
+		this.name = null;
+		this.address = null;
+		this.capacity = 0;
+
+	}
+	
+	public RentalLocationImpl(String name, String address, int capacity){
+		
+		super( -1 );
+		
+		this.name = name;
+		this.address = address;
+		this.capacity = capacity;
+	}
+
 	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
+		return name;
 	}
 
-	@Override
-	public void setName(String name) throws RARException {
-		// TODO Auto-generated method stub
-		
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	@Override
 	public String getAddress() {
-		// TODO Auto-generated method stub
-		return null;
+		return address;
 	}
 
-	@Override
 	public void setAddress(String address) {
-		// TODO Auto-generated method stub
-		
+		this.address = address;
 	}
 
-	@Override
 	public int getCapacity() {
-		// TODO Auto-generated method stub
-		return 0;
+		return capacity;
 	}
 
-	@Override
-	public void setCapacity(int capacity) throws RARException {
-		// TODO Auto-generated method stub
-		
+	public void setCapacity(int capacity) {
+		this.capacity = capacity;
 	}
 	
 }

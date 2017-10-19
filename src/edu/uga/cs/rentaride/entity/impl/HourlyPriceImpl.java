@@ -2,62 +2,61 @@ package edu.uga.cs.rentaride.entity.impl;
 
 
 
-import edu.uga.cs.rentaride.entity.Administrator;
-import edu.uga.cs.rentaride.entity.Comment;
-import edu.uga.cs.rentaride.entity.Customer;
 import edu.uga.cs.rentaride.entity.HourlyPrice;
-import edu.uga.cs.rentaride.entity.Rental;
-import edu.uga.cs.rentaride.entity.RentalLocation;
-import edu.uga.cs.rentaride.entity.RentARideParams;
-import edu.uga.cs.rentaride.entity.Reservation;
-import edu.uga.cs.rentaride.entity.User;
-import edu.uga.cs.rentaride.entity.UserStatus;
-import edu.uga.cs.rentaride.entity.Vehicle;
-import edu.uga.cs.rentaride.entity.VehicleCondition;
-import edu.uga.cs.rentaride.entity.VehicleStatus;
 import edu.uga.cs.rentaride.entity.VehicleType;
 import edu.uga.cs.rentaride.persistence.impl.Persistent;
-import edu.uga.cs.rentaride.RARException;
 
 public class HourlyPriceImpl 
 	extends Persistent
 	implements HourlyPrice 
 {
+	
+	int maxHours;
+	int price;
+	VehicleType vehicleType;
+	
+	public HourlyPriceImpl(){
+		
+		super( -1 );
+		
+		this.maxHours = 0;
+		this.price = 0;
+		this.vehicleType = null;
 
-	@Override
+	}
+	
+	public HourlyPriceImpl(int maxHours, int price, VehicleType vehicleType){
+		
+		super( -1 );
+		
+		this.maxHours = maxHours;
+		this.price = price;
+		this.vehicleType = vehicleType;
+		
+	}
+
 	public int getMaxHours() {
-		// TODO Auto-generated method stub
-		return 0;
+		return maxHours;
 	}
 
-	@Override
-	public void setMaxHours(int maxHours) throws RARException {
-		// TODO Auto-generated method stub
-		
+	public void setMaxHours(int maxHours) {
+		this.maxHours = maxHours;
 	}
 
-	@Override
 	public int getPrice() {
-		// TODO Auto-generated method stub
-		return 0;
+		return price;
 	}
 
-	@Override
-	public void setPrice(int price) throws RARException {
-		// TODO Auto-generated method stub
-		
+	public void setPrice(int price) {
+		this.price = price;
 	}
 
-	@Override
 	public VehicleType getVehicleType() {
-		// TODO Auto-generated method stub
-		return null;
+		return vehicleType;
 	}
 
-	@Override
-	public void setVehicleType(VehicleType vehicleType) throws RARException {
-		// TODO Auto-generated method stub
-		
+	public void setVehicleType(VehicleType vehicleType) {
+		this.vehicleType = vehicleType;
 	}
 	
 }

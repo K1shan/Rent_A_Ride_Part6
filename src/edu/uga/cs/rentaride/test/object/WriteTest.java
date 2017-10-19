@@ -72,6 +72,7 @@ public class WriteTest
         	 
         	 Date mydate = new Date();
         	 mydate.getDate();
+        	 System.out.println("date" + mydate);
         	 
              customer1 = objectLayer.createCustomer( "alex1", "shit", "bird1", "password", "emailemail.com1", "133 Maple St., Big Town, AZ. 87888", mydate, mydate, "GA", "22222", "1111", mydate );
              persistence.storeCustomer( customer1 );
