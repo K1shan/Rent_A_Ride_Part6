@@ -39,11 +39,18 @@ public class AdministratorManager {
 		this.objectLayer = objectLayer;
 	}//constructor
 	
-	public void store(Administrator admin)
-		throws RARException
-	{
-		String				insertAdminQuery = "insert into administrator (user_id) values (?)";
-		String 				updateAdminQuery = "UPDATE ADMIN SET user_id = ? WHERE admin_id = ?";
+	@SuppressWarnings("resource")
+	public void store(Administrator administrator) throws RARException{
+		
+		boolean persist = false;
+		
+		String insertAdminQuery = 
+				"INSERT INTO USER "
+				+ "(fname, lname, uname, pword, email, address, create_date) "
+				+ "VALUES "
+				+ "( ?, ?, ?, ?, ?, ?, ?)";
+		
+		String updateAdminQuery = "UPDATE ADMIN SET user_id = ? WHERE admin_id = ?";
 		PreparedStatement	pstmt = null;
 		int 				inscnt;
 		long 				adminId;
