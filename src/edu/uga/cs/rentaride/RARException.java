@@ -26,5 +26,3 @@ public class RARException
       super( cause );
     }
 }
-
-//Hello Dawgs
