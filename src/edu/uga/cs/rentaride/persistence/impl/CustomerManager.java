@@ -128,8 +128,8 @@ public class CustomerManager{
                 throw new RARException( "CustomerManager.save: can't save a customer: last name undefined" );
          
             if( customer.getCreatedDate() != null ){
-            	
-            	java.sql.Date sqlDate = new java.sql.Date(customer.getCreatedDate().getTime());
+            	java.util.Date myDate = customer.getCreatedDate();
+            	java.sql.Date sqlDate = new java.sql.Date(myDate.getTime());
             	stmt.setDate(7, sqlDate);
             }
 
@@ -215,8 +215,8 @@ public class CustomerManager{
             }
 
             
-            if( customer.getMemberUntil() != null ){
-            	java.sql.Date sqlDate = new java.sql.Date(customer.getMemberUntil().getTime());
+            if( customer.getMemberUntil() != null ){java.util.Date myDate = customer.getMemberUntil();
+            	java.sql.Date sqlDate = new java.sql.Date(myDate.getTime());
         		stmt.setDate(2, sqlDate);
             }
             else
@@ -239,7 +239,8 @@ public class CustomerManager{
                 throw new RARException( "CustomerManager.save: can't save a customer: last name undefined" );
          
             if( customer.getCreditCardExpiration() != null ){
-            	java.sql.Date sqlDate = new java.sql.Date(customer.getCreditCardExpiration().getTime());
+            	java.util.Date myDate = customer.getCreditCardExpiration();
+            	java.sql.Date sqlDate = new java.sql.Date(myDate.getTime());
         		stmt.setDate(6, sqlDate);
             } else
                 throw new RARException( "CustomerManager.save: can't save a customer: last name undefined" );
@@ -290,7 +291,7 @@ public class CustomerManager{
 		throws RARException{
 		
 		String selectCustomerQuery = 
-				"SELECT * FROM CUSTOMER INNER JOIN USER ON USER.user_id = CUSTOMER.user_id";
+				"SELECT * FROM USER INNER JOIN CUSTOMER ON USER.user_id = CUSTOMER.user_id";
 		
 		List<Customer> customers = new ArrayList<Customer>();
 		Statement stmt = null;
@@ -300,54 +301,60 @@ public class CustomerManager{
 		try {
 			
 			stmt = con.createStatement();
-            inscnt = stmt.executeUpdate(selectCustomerQuery);
-            ResultSet r = stmt.getResultSet();
-            
-            long id;
-            String fname;
-            String lname;
-            String uname;
-            String pword;
-            String email;
-            String address;
-            Date createDate;
-            long customerId;
-            Date memberUntil;
-            String licState;
-            String licNum;
-            String ccNum;
-            Date ccExp;
-            long status;
-            
-            while(r.next()){
-            	id	= r.getLong(1);
-            	 fname = r.getString(2);
-                 lname = r.getString(3);
-                 uname = r.getString(4);
-                 pword = r.getString(5);
-                 email = r.getString(6);
-                 address = r.getString(7);
-                 createDate= r.getDate(8);
-                 customerId = r.getLong(9);
-                 memberUntil = r.getDate(10);
-                 licState = r.getString(11);
-                 licNum = r.getString(12);
-                 ccNum = r.getString(13);
-                 ccExp = r.getDate(14);
-                 status = r.getLong(15);
-                 
-                 
-                 Customer customer = objectLayer.createCustomer(fname, lname, uname, pword, email,
-             			address, createDate, memberUntil, licState, licNum,
-            			ccNum, ccExp);
-                 customer.setId(id);
-                 customers.add(customer);
-            }
-            
+			
+			if( stmt.execute(selectCustomerQuery)){
+				
+				ResultSet r = stmt.getResultSet();
+				
+				long id;
+	            String fname;
+	            String lname;
+	            String uname;
+	            String pword;
+	            String email;
+	            String address;
+	            
+	            Date createDate;
+	        	//java.sql.Date mySQLDate = new java.sql.Date(myDate.getTime());
+	            java.sql.Date mySQLDate;// = new java.sql.Date(myDate.getTime());
+	            
+	            long customerId;
+	            Date memberUntil;
+	            String licState;
+	            String licNum;
+	            String ccNum;
+	            Date ccExp;
+	            long status;
+	            
+	            while( r.next() ) {
+	            	id	= r.getLong(1);
+	           	 	fname = r.getString(2);
+	                lname = r.getString(3);
+	                uname = r.getString(4);
+	                pword = r.getString(5);
+	                email = r.getString(6);
+	                address = r.getString(7);
+	                createDate = r.getDate(8);
+	                
+	                customerId = r.getLong(9);
+	                // SKIP USER_ID FK
+	                memberUntil = r.getDate(11);
+	                licState = r.getString(12);
+	                licNum = r.getString(13);
+	                ccNum = r.getString(14);
+	                ccExp = r.getDate(15);
+	                status = r.getLong(16);
+	                
+	                
+	                Customer customer = objectLayer.createCustomer(fname, lname, uname, pword, email,
+	            			address, createDate, memberUntil, licState, licNum,
+	           			ccNum, ccExp);
+	                customer.setId(id);
+	                customers.add(customer);
+	            }
+			}
             return customers;
             
-            
-			
 		} catch(SQLException e){
 			e.printStackTrace();
 			throw new RARException( "CustomerManager.get: failed to get any customers: " + e );

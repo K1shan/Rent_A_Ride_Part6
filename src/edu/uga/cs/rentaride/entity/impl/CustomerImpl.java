@@ -258,5 +258,14 @@ public class CustomerImpl
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public String toString() {
+		return "CustomerImpl [createDate=" + createDate + ", memberUntil=" + memberUntil + ", cardExpiration="
+				+ cardExpiration + ", firstName=" + firstName + ", lastName=" + lastName + ", userName=" + userName
+				+ ", email=" + email + ", password=" + password + ", address=" + address + ", state=" + state
+				+ ", licenseNumber=" + licenseNumber + ", cardNumber=" + cardNumber + ", userStatus=" + userStatus
+				+ "]";
+	}
 	
 }
