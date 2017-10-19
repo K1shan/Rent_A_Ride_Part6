@@ -2,20 +2,9 @@ package edu.uga.cs.rentaride.entity.impl;
 
 
 
-import edu.uga.cs.rentaride.entity.Administrator;
 import edu.uga.cs.rentaride.entity.Comment;
 import edu.uga.cs.rentaride.entity.Customer;
-import edu.uga.cs.rentaride.entity.HourlyPrice;
 import edu.uga.cs.rentaride.entity.Rental;
-import edu.uga.cs.rentaride.entity.RentalLocation;
-import edu.uga.cs.rentaride.entity.RentARideParams;
-import edu.uga.cs.rentaride.entity.Reservation;
-import edu.uga.cs.rentaride.entity.User;
-import edu.uga.cs.rentaride.entity.UserStatus;
-import edu.uga.cs.rentaride.entity.Vehicle;
-import edu.uga.cs.rentaride.entity.VehicleCondition;
-import edu.uga.cs.rentaride.entity.VehicleStatus;
-import edu.uga.cs.rentaride.entity.VehicleType;
 import edu.uga.cs.rentaride.persistence.impl.Persistent;
 
 import java.util.Date;
@@ -28,39 +17,65 @@ public class CommentImpl
 	implements Comment 
 {
 
+	String text;
+	Date date;
+	Rental rental;
+	
+	public CommentImpl(){
+		
+		super( -1 );
+		this.date = null;
+		this.rental = null;
+		this.text = null;
+
+	}
+	
+	public CommentImpl(String text, Date date, Rental rental){
+		
+		super( -1 );
+		
+		this.date = date;
+		this.rental = rental;
+		this.text = text;
+		
+	}
+	
+	
 	@Override
 	public String getText() {
-		// TODO Auto-generated method stub
-		return null;
+
+		return text;
 	}
 
 	@Override
 	public void setText(String text) {
-		// TODO Auto-generated method stub
+		this.text = text;
 		
 	}
 
 	@Override
 	public Date getDate() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return date;
 	}
 
 	@Override
 	public void setDate(Date date) {
-		// TODO Auto-generated method stub
+		
+		this.date = date;
 		
 	}
 
 	@Override
 	public Rental getRental() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return rental;
 	}
 
 	@Override
 	public void setRental(Rental rental) throws RARException {
-		// TODO Auto-generated method stub
+		
+		this.rental = rental;
 		
 	}
 

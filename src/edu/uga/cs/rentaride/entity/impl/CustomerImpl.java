@@ -31,14 +31,14 @@ public class CustomerImpl
 	private Date memberUntil;
 	private Date cardExpiration;
 	private String firstName;
-	String lastName;
-	String userName;
-	String email;
-	String password;
-	String address;
-	String state;
-	String licenseNumber;
-	String cardNumber;
+	private String lastName;
+	private String userName;
+	private String email;
+	private String password;
+	private String address;
+	private String state;
+	private String licenseNumber;
+	private String cardNumber;
 	private UserStatus userStatus;
 	
 	
@@ -82,34 +82,52 @@ public class CustomerImpl
 		
 	}
 	
+	@Override
+	public List<Reservation> getReservations() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Comment> getComments() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Rental> getRentals() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	@Override
 	public String getFirstName() {
-		// TODO Auto-generated method stub
-		return this.firstName;
+		
+		return firstName;
 	}
 
 	@Override
 	public void setFirstName(String firstName) {
-		this.firstName = firstName;
 		
+		this.firstName = firstName;
 	}
-
+	
 	@Override
 	public String getLastName() {
-		// TODO Auto-generated method stub
+
 		return this.lastName;
 	}
 
 	@Override
 	public void setLastName(String lastName) {
+		
 		this.lastName = lastName;
 		
 	}
 
 	@Override
 	public String getUserName() {
-		// TODO Auto-generated method stub
+
 		return this.userName;
 	}
 
@@ -121,7 +139,7 @@ public class CustomerImpl
 
 	@Override
 	public String getEmail() {
-		// TODO Auto-generated method stub
+
 		return this.email;
 	}
 
@@ -133,7 +151,7 @@ public class CustomerImpl
 
 	@Override
 	public String getPassword() {
-		// TODO Auto-generated method stub
+
 		return this.password;
 	}
 
@@ -151,12 +169,13 @@ public class CustomerImpl
 
 	@Override
 	public void setCreateDate(Date createDate) {
+		
 		this.createDate = createDate;
 	}
 
 	@Override
 	public String getAddress() {
-		// TODO Auto-generated method stub
+
 		return this.address;
 	}
 
@@ -169,19 +188,20 @@ public class CustomerImpl
 
 	@Override
 	public UserStatus getUserStatus() {
-		// TODO Auto-generated method stub
+
 		return this.userStatus;
 	}
 
 	@Override
 	public void setUserStatus(UserStatus userStatus) {
+		
 		this.userStatus = userStatus;
 		
 	}
 
 	@Override
 	public Date getMemberUntil() {
-		// TODO Auto-generated method stub
+
 		return this.memberUntil;
 	}
 
@@ -205,7 +225,7 @@ public class CustomerImpl
 
 	@Override
 	public String getLicenseNumber() {
-		// TODO Auto-generated method stub
+
 		return this.licenseNumber;
 	}
 
@@ -218,13 +238,13 @@ public class CustomerImpl
 
 	@Override
 	public String getCreditCardNumber() {
-		// TODO Auto-generated method stub
+
 		return this.cardNumber;
 	}
 
 	@Override
 	public void setCreditCardNumber(String cardNumber) {
-		// TODO Auto-generated method stub
+
 		
 		this.cardNumber = cardNumber;
 		
@@ -232,6 +252,7 @@ public class CustomerImpl
 
 	@Override
 	public Date getCreditCardExpiration() {
+		
 		return this.cardExpiration;
 	}
 
@@ -240,23 +261,4 @@ public class CustomerImpl
 		this.cardExpiration = cardExpiration;
 		
 	}
-
-	@Override
-	public List<Reservation> getReservations() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Comment> getComments() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Rental> getRentals() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
 }

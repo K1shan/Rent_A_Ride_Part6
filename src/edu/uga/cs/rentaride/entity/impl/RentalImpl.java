@@ -28,29 +28,39 @@ public class RentalImpl
 	implements Rental 
 {
 
-	@Override
-	public Date getPickupTime() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setPickupTime(Date pickupTime) {
-		// TODO Auto-generated method stub
+	Date pickupTime;
+	Date returnTime;
+	int charges;
+	Reservation reservation;
+	Vehicle vehicle;
+	Comment comment;
+	
+	public RentalImpl(){
 		
-	}
-
-	@Override
-	public Date getReturnTime() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setReturnTime(Date returnTime) throws RARException {
-		// TODO Auto-generated method stub
+		super( -1 );
 		
+		this.pickupTime = null;
+		this.returnTime = null;
+		this.charges = 0;
+		this.reservation = null;
+		this.vehicle = null;
+		this.comment = null;
+
 	}
+	
+	public RentalImpl(Date pickupTime, Date returnTime, int charges,Reservation reservation, Vehicle vehicle, Comment comment){
+		
+		super( -1 );
+		
+		this.pickupTime = pickupTime;
+		this.returnTime = returnTime;
+		this.charges = charges;
+		this.reservation = reservation;
+		this.vehicle = vehicle;
+		this.comment = comment;
+	}
+	
+	
 
 	@Override
 	public boolean getLate() {
@@ -59,57 +69,57 @@ public class RentalImpl
 	}
 
 	@Override
-	public int getCharges() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void setCharges(int charges) throws RARException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public Reservation getReservation() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setReservation(Reservation reservation) throws RARException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public Vehicle getVehicle() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setVehicle(Vehicle vehicle) throws RARException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public Customer getCustomer() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
-	public Comment getComment() {
-		// TODO Auto-generated method stub
-		return null;
+	public Date getPickupTime() {
+		return pickupTime;
 	}
 
-	@Override
-	public void setComment(Comment comment) {
-		// TODO Auto-generated method stub
-		
+	public void setPickupTime(Date pickupTime) {
+		this.pickupTime = pickupTime;
 	}
-	
+
+	public Date getReturnTime() {
+		return returnTime;
+	}
+
+	public void setReturnTime(Date returnTime) {
+		this.returnTime = returnTime;
+	}
+
+	public int getCharges() {
+		return charges;
+	}
+
+	public void setCharges(int charges) {
+		this.charges = charges;
+	}
+
+	public Reservation getReservation() {
+		return reservation;
+	}
+
+	public void setReservation(Reservation reservation) {
+		this.reservation = reservation;
+	}
+
+	public Vehicle getVehicle() {
+		return vehicle;
+	}
+
+	public void setVehicle(Vehicle vehicle) {
+		this.vehicle = vehicle;
+	}
+
+	public Comment getComment() {
+		return comment;
+	}
+
+	public void setComment(Comment comment) {
+		this.comment = comment;
+	}
+
 }
