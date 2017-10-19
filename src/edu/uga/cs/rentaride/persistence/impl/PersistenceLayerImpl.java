@@ -59,11 +59,6 @@ public class PersistenceLayerImpl
 	}
 
 	@Override
-	public void deleteAdministrator(Administrator administrator) throws RARException {
-		administratorManager.delete(administrator);
-	}
-
-	@Override
 	public List<Customer> restoreCustomer(Customer modelCustomer) throws RARException {
 		return customerManager.restore(modelCustomer);
 	}
@@ -368,5 +363,11 @@ public class PersistenceLayerImpl
 	@Override
 	public void deleteVehicleRental(Vehicle vehicle, Rental rental) throws RARException {
 		vehicleManager.deleteRental(vehicle, rental);
+	}
+
+	@Override
+	public void deleteAdministrator(Administrator administrator) throws RARException {
+		// TODO Auto-generated method stub
+		
 	}
 }

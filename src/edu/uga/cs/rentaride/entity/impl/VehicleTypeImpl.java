@@ -27,17 +27,32 @@ public class VehicleTypeImpl
 	extends Persistent
 	implements VehicleType 
 {
+	
+	private String name;
 
+	public VehicleTypeImpl() {
+		
+		super( -1 );
+		
+		this.name = null;
+	}
+	
+	public VehicleTypeImpl(String name) {
+		
+		super( -1 );
+		
+		this.name = name;
+	}
+	
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.name;
 	}
 
 	@Override
 	public void setName(String name) throws RARException {
 		// TODO Auto-generated method stub
-		
+		this.name = name;
 	}
 
 	@Override
