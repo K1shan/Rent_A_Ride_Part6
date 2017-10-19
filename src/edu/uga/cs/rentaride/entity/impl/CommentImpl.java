@@ -82,7 +82,7 @@ public class CommentImpl
 	@Override
 	public Customer getCustomer() {
 		// TODO Auto-generated method stub
-		return null;
+		return this.getCustomer();
 	}
 	
 }
