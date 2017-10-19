@@ -63,13 +63,15 @@ public class ReadTest
                  System.out.println( customer );
 
                  // TODO
-                 /*
-                 List<Reservation> reservations = customer.getReservations();
-                 for( Reservation reservation : reservations )
-                    // TODO
-                    System.out.println( "      " + reservation.getCustomer() );
-                    */
+                 // Reservation
+             } // read customer
+             
+             List<Administrator> administrators = objectLayer.findAdministrator(null);
+             
+             for (Administrator administrator : administrators) {
+            	 System.out.println(administrator);
              }
+             
              
 
              /*
