@@ -27,7 +27,6 @@ public class RentalImpl
 	extends Persistent
 	implements Rental 
 {
-
 	Date pickupTime;
 	Date returnTime;
 	int charges;
@@ -36,22 +35,17 @@ public class RentalImpl
 	Comment comment;
 	
 	public RentalImpl(){
-		
 		super( -1 );
-		
 		this.pickupTime = null;
 		this.returnTime = null;
 		this.charges = 0;
 		this.reservation = null;
 		this.vehicle = null;
 		this.comment = null;
-
 	}
 	
 	public RentalImpl(Date pickupTime, Date returnTime, int charges,Reservation reservation, Vehicle vehicle, Comment comment){
-		
 		super( -1 );
-		
 		this.pickupTime = pickupTime;
 		this.returnTime = returnTime;
 		this.charges = charges;
@@ -59,8 +53,6 @@ public class RentalImpl
 		this.vehicle = vehicle;
 		this.comment = comment;
 	}
-	
-	
 
 	@Override
 	public boolean getLate() {
@@ -121,5 +113,4 @@ public class RentalImpl
 	public void setComment(Comment comment) {
 		this.comment = comment;
 	}
-
 }

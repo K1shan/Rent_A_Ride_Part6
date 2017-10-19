@@ -13,7 +13,6 @@ public class AdministratorImpl
 	extends Persistent
 	implements Administrator 
 {
-
 	int userId;
 	String firstName; 
 	String lastName; 
@@ -25,7 +24,6 @@ public class AdministratorImpl
 	UserStatus userStatus;
 	
 	public AdministratorImpl(){
-	
 		super( -1 );
 		this.userId = 0;
 		this.firstName = null;
@@ -40,9 +38,7 @@ public class AdministratorImpl
 	
 	public AdministratorImpl(int userId, String firstName, String lastName, String userName, String password, String email,
 			String address, Date createdDate, UserStatus userStatus){
-		
 		super( -1 );
-		
 		this.userId = userId;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -52,18 +48,14 @@ public class AdministratorImpl
 		this.createdDate = createdDate;
 		this.address =  address;
 		this.userStatus = userStatus;
-		
 	}
 
-	@Override
 	public int getUserId() {
-		// TODO Auto-generated method stub
-		return 0;
+		return userId;
 	}
 
-	@Override
 	public void setUserId(int userId) {
-		// TODO Auto-generated method stub	
+		this.userId = userId;
 	}
 
 	public String getFirstName() {
@@ -114,6 +106,14 @@ public class AdministratorImpl
 		this.address = address;
 	}
 
+	public Date getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
+
 	public UserStatus getUserStatus() {
 		return userStatus;
 	}
@@ -122,17 +122,7 @@ public class AdministratorImpl
 		this.userStatus = userStatus;
 	}
 
-	@Override
-	public Date getCreatedDate() {
-		// TODO Auto-generated method stub
-		return createdDate;
-	}
-
-	@Override
 	public void setCreateDate(Date createDate) {
 		this.createdDate = createDate;
-		
 	}
-
-
 }

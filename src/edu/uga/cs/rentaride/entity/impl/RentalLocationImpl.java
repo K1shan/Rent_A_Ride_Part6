@@ -10,25 +10,19 @@ public class RentalLocationImpl
 	extends Persistent
 	implements RentalLocation 
 {
-
 	String name;
 	String address;
 	int capacity;
 	
 	public RentalLocationImpl(){
-		
 		super( -1 );
-		
 		this.name = null;
 		this.address = null;
 		this.capacity = 0;
-
 	}
 	
 	public RentalLocationImpl(String name, String address, int capacity){
-		
 		super( -1 );
-		
 		this.name = name;
 		this.address = address;
 		this.capacity = capacity;

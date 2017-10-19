@@ -38,19 +38,37 @@ public class RentalLocationManager {
 		this.objectLayer = objectLayer;
 	}//constructor
 	
+	
+	public void store( RentalLocation rentalLocation ) throws RARException{
+    	// TODO
+		
+		String insertRentalLocationQuery = 
+				"";
+		
+		String updateRentalLocationQuery =
+				"";
+		
+    }
+	
+	
 	public List<RentalLocation> restore( RentalLocation modelRentalLocation ) throws RARException{
 		// TODO
-		return null;	
+		
+		String selectRentalLocationQuery =
+				"";
+		
+		
+		
+		
+		return null;
 	}
-    
-	
-    public void store( RentalLocation rentalLocation ) throws RARException{
-    	// TODO
-    }
     
     
     public void delete( RentalLocation rentalLocation ) throws RARException{
     	// TODO
+    	
+    	String deleteRentalLocationQuery =
+				"";
     }
     
     
