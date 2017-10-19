@@ -66,6 +66,7 @@ public class ReadTest
                  // Reservation
              } // read customer
              
+             //test comment
              List<Administrator> administrators = objectLayer.findAdministrator(null);
              
              for (Administrator administrator : administrators) {
