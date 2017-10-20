@@ -125,28 +125,6 @@ public class CustomerManager{
 			System.out.println("query: "+pstmt.asSql());
             inscnt = pstmt.executeUpdate();
 
-//            if( !customer.isPersistent() ) {
-//                // in case this this object is stored for the first time,
-//                // we need to establish its persistent identifier (primary key)
-//                if( inscnt == 1 ) {
-//                    String sql = "select last_insert_id()";
-//                    if( pstmt.execute( sql ) ) { // statement returned a result
-//                        // retrieve the result
-//                        ResultSet r = pstmt.getResultSet();
-//                        // we will use only the first row!
-//                        while( r.next() ) {
-//                            // retrieve the last insert auto_increment value
-//                            customerID = r.getLong( 1 );
-//                            if( customerID > 0 )
-//                                customer.setId( customerID ); // set this person's db id (proxy object)
-//                        }
-//                    }
-//                }
-//            }
-//            else {
-//                if( inscnt < 1 )
-//                    throw new RARException( "CustomerManager.save: failed to save a user" ); 
-//            }
 		}catch(SQLException e){
 			e.printStackTrace();
 			throw new RARException( "CustomerManager.save: failed to save a user: " + e );

@@ -2,7 +2,10 @@ package edu.uga.cs.rentaride.persistence.impl;
 
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
+
+import com.mysql.jdbc.PreparedStatement;
 
 import edu.uga.cs.rentaride.RARException;
 import edu.uga.cs.rentaride.entity.HourlyPrice;
@@ -20,6 +23,7 @@ public class VehicleTypeManager{
 	public VehicleTypeManager(Connection con, ObjectLayer objectLayer){
 		this.con = con;
 		this.objectLayer = objectLayer;
+		
 	}//constructor
 	
 	
@@ -34,7 +38,48 @@ public class VehicleTypeManager{
 	}
 
     public void store( VehicleType vehicleType ) throws RARException{
-    	// TODO
+    	
+    	boolean persist = false;
+    	
+    	String vehicleTypeInsertQuery = 
+				"INSERT INTO VEHICLE_TYPE "
+				+ "(name) "
+				+ "VALUES "
+				+ "(?)";
+    	
+    	String updateVehicleTypeQuery = 
+				"UPDATE VEHICLE_TYPE SET "
+				+ "name = ?"
+				+ "WHERE type_id=?"; 
+    	
+    	PreparedStatement pstmt;
+		int inscnt;
+		
+		try{
+			
+			if( !vehicleType.isPersistent() ){
+				persist = false;
+                pstmt = (PreparedStatement) con.prepareStatement( vehicleTypeInsertQuery );
+			}else{
+				persist = true;
+                pstmt = (PreparedStatement) con.prepareStatement( updateVehicleTypeQuery );
+			}
+			
+			if( vehicleType.getName() != null )
+                pstmt.setString( 1, vehicleType.getName());
+            else{
+                throw new RARException( "CustomerManager.save: can't save a user: FirstName undefined" );
+            }
+			
+			System.out.println("query: "+pstmt.asSql());
+            inscnt = pstmt.executeUpdate();
+			
+		} catch(SQLException e){
+			e.printStackTrace();
+			throw new RARException( "VehicleType.save: failed to save a type: " + e );
+		}
+		
+    	
     }
     
     public void delete( VehicleType vehicleType ) throws RARException{
