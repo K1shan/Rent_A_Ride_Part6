@@ -176,8 +176,9 @@ public class ObjectLayerImpl
 
 	@Override
 	public Rental createRental(Date pickupTime, Reservation reservation, Vehicle vehicle) throws RARException {
-		// TODO Auto-generated method stub
-		return null;
+		RentalImpl rental = new RentalImpl(pickupTime, reservation, vehicle);
+		Persistent.setPersistenceLayer( persistence );
+		return rental;
 	}
 
 	@Override
@@ -188,20 +189,17 @@ public class ObjectLayerImpl
 
 	@Override
 	public List<Rental> findRental(Rental modelRental) throws RARException {
-		// TODO Auto-generated method stub
-		return null;
+		return persistence.restoreRental(modelRental);
 	}
 
 	@Override
 	public void storeRental(Rental rental) throws RARException {
-		// TODO Auto-generated method stub
-		
+		persistence.storeRental(rental);
 	}
 
 	@Override
 	public void deleteRental(Rental rental) throws RARException {
-		// TODO Auto-generated method stub
-		
+		persistence.deleteRental(rental);
 	}
 
 	@Override
@@ -218,20 +216,17 @@ public class ObjectLayerImpl
 
 	@Override
 	public List<VehicleType> findVehicleType(VehicleType modelVehicleType) throws RARException {
-		// TODO Auto-generated method stub
-		return null;
+		return persistence.restoreVehicleType(modelVehicleType);
 	}
 
 	@Override
 	public void storeVehicleType(VehicleType vehicleType) throws RARException {
-		// TODO Auto-generated method stub
-		
+		persistence.storeVehicleType(vehicleType);
 	}
 
 	@Override
 	public void deleteVehicleType(VehicleType vehicleType) throws RARException {
-		// TODO Auto-generated method stub
-		
+		persistence.deleteVehicleType(vehicleType);
 	}
 
 	@Override
@@ -239,7 +234,9 @@ public class ObjectLayerImpl
 			Date lastServiced, VehicleType vehicleType, RentalLocation rentalLocation,
 			VehicleCondition vehicleCondition, VehicleStatus vehicleStatus) throws RARException {
 		// TODO Auto-generated method stub
-		return null;
+		VehicleImpl vehicle = new VehicleImpl(make, model, year, registrationTag, mileage, lastServiced, vehicleType, rentalLocation, vehicleCondition, vehicleStatus);
+		Persistent.setPersistenceLayer( persistence );
+		return vehicle;
 	}
 
 	@Override
@@ -250,26 +247,24 @@ public class ObjectLayerImpl
 
 	@Override
 	public List<Vehicle> findVehicle(Vehicle modelVehicle) throws RARException {
-		// TODO Auto-generated method stub
-		return null;
+		return persistence.restoreVehicle(modelVehicle);
 	}
 
 	@Override
 	public void storeVehicle(Vehicle vehicle) throws RARException {
-		// TODO Auto-generated method stub
-		
+		persistence.storeVehicle(vehicle);
 	}
 
 	@Override
 	public void deleteVehicle(Vehicle vehicle) throws RARException {
-		// TODO Auto-generated method stub
-		
+		persistence.deleteVehicle(vehicle);
 	}
 
 	@Override
 	public Comment createComment(String text, Date date, Rental rental) throws RARException {
-		// TODO Auto-generated method stub
-		return null;
+		CommentImpl comment = new CommentImpl(text, date, rental);
+		Persistent.setPersistenceLayer( persistence );
+		return comment;
 	}
 
 	@Override
@@ -280,20 +275,17 @@ public class ObjectLayerImpl
 
 	@Override
 	public List<Comment> findComment(Comment modelComment) throws RARException {
-		// TODO Auto-generated method stub
-		return null;
+		return persistence.restoreComment(modelComment);
 	}
 
 	@Override
 	public void storeComment(Comment comment) throws RARException {
-		// TODO Auto-generated method stub
-		
+		persistence.storeComment(comment);
 	}
 
 	@Override
-	public void deleteComment(Comment coment) throws RARException {
-		// TODO Auto-generated method stub
-		
+	public void deleteComment(Comment comment) throws RARException {
+		persistence.deleteComment(comment);
 	}
 
 	@Override
@@ -310,20 +302,17 @@ public class ObjectLayerImpl
 
 	@Override
 	public List<HourlyPrice> findHourlyPrice(HourlyPrice modelHourlyPrice) throws RARException {
-		// TODO Auto-generated method stub
-		return null;
+		return persistence.restoreHourlyPrice(modelHourlyPrice);
 	}
 
 	@Override
 	public void storeHourlyPrice(HourlyPrice hourlyPrice) throws RARException {
-		// TODO Auto-generated method stub
-		
+		persistence.storeHourlyPrice(hourlyPrice);
 	}
 
 	@Override
 	public void deleteHourlyPrice(HourlyPrice hourlyPrice) throws RARException {
-		// TODO Auto-generated method stub
-		
+		persistence.deleteHourlyPrice(hourlyPrice);
 	}
 
 	@Override
@@ -333,22 +322,17 @@ public class ObjectLayerImpl
 	}
 
 	@Override
-	public RentARideParams findRentARideParams() {
-		// TODO Auto-generated method stub
-		return null;
+	public RentARideParams findRentARideParams() throws RARException {
+		return persistence.restoreRentARideConfig();
 	}
 
 	@Override
 	public void storeRentARideParams(RentARideParams rentARideParams) throws RARException {
-		// TODO Auto-generated method stub
-		
+		persistence.restoreRentARideConfig();
 	}
 
 	@Override
 	public void setPersistence(PersistenceLayer persistence) {
 		this.persistence = persistence;
 	}
-	
-
-
 }

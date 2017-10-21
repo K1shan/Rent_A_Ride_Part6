@@ -17,9 +17,9 @@ public class CommentImpl
 	implements Comment 
 {
 
-	String text;
-	Date date;
-	Rental rental;
+	private String text;
+	private Date date;
+	private Rental rental;
 	
 	public CommentImpl(){
 		

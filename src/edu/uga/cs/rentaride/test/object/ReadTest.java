@@ -73,31 +73,32 @@ public class ReadTest
             	 System.out.println(rentalLocation);
              }
 
-             
-             
-
-             /*
-             System.out.println( "Location objects:" );
-             List<RentalLocation> rentalLocations = objectLayer.findRentalLocation( null );
-             for( RentalLocation rentalLocation : rentalLocations ) {
-                 System.out.println( rentalLocation );
-                 System.out.print( "   Reservation RentalLocation of: " );
-                 // TODO
-                 //users = rentalLocation.getRentals();
-
-                 for( Customer customer : customers ) {
-                     System.out.print( customers + " " );                     
-                 }
-
-                 System.out.println();System.out.flush();
-
-                // TODO
-                // MORE HERE
+             List<VehicleType> vehicleTypes = objectLayer.findVehicleType( null );
+             System.out.println( "VehicleType objects:" );
+             for (VehicleType vehicleType : vehicleTypes) {
+            	 System.out.println(vehicleTypes);
              }
-             */
-
-            // TODO
-            // MORE HERE
+             
+             List<Vehicle> vehicles = objectLayer.findVehicle( null );
+             System.out.println( "Vehicle objects:" );
+             for (Vehicle vehicle : vehicles) {
+            	 //System.out.println(vehicle);
+             }
+             
+             // TODO
+             // reservations
+             
+             
+             
+             // TODO
+             // rentals
+             
+             
+             
+             // TODO
+             // comments
+             
+             
 
          }
          catch( RARException ce)
