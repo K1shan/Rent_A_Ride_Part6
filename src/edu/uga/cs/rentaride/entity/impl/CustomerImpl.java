@@ -80,9 +80,7 @@ public class CustomerImpl
 		this.cardNumber = cardNumber;
 		this.userStatus = UserStatus.ACTIVE;
 	}
-	
-
-	
+  
 	@Override
 	public String getFirstName() {
 		return this.firstName;

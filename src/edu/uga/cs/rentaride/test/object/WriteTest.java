@@ -80,7 +80,7 @@ public class WriteTest
 
              customer2 = objectLayer.createCustomer( "alex2", "shit", "bird2", "password", "emailemail.com", "133 Maple St., Big Town, AZ. 87888", mydate, mydate, "GA", "22222", "1111", mydate );
              persistence.storeCustomer( customer2 );
-
+           
              admin1 = objectLayer.createAdministrator("Wayne", "Kung", "wayne", "password", "email@email.com", "000 Hello St., Small Town, GA. 30129", mydate);
              persistence.storeAdministrator(admin1);
             
@@ -90,6 +90,11 @@ public class WriteTest
              System.out.println(rentalLocation1);
              
              persistence.storeRentalLocation(rentalLocation1);
+//             admin1 = objectLayer.createAdministrator("Wayne", "Kung", "wayne", "password", "email@email.com", "000 Hello St., Small Town, GA. 30129", mydate);
+//             persistence.storeAdministrator(admin1);
+            // TODO
+            // create rental locations
+
 
 
             // TODO

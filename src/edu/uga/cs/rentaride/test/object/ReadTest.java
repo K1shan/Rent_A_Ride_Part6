@@ -73,6 +73,18 @@ public class ReadTest
             	 System.out.println(rentalLocation);
              }
 
+                 // TODO
+                 // Reservation
+             } // read customer
+             
+             //test comment
+             List<Administrator> administrators = objectLayer.findAdministrator(null);
+             
+             for (Administrator administrator : administrators) {
+            	 System.out.println(administrator);
+             }
+             
+
              /*
              System.out.println( "Location objects:" );
              List<RentalLocation> rentalLocations = objectLayer.findRentalLocation( null );

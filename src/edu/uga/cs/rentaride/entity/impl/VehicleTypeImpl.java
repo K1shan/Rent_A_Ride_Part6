@@ -2,7 +2,6 @@ package edu.uga.cs.rentaride.entity.impl;
 
 
 
-import edu.uga.cs.rentaride.entity.Administrator;
 import edu.uga.cs.rentaride.entity.Comment;
 import edu.uga.cs.rentaride.entity.Customer;
 import edu.uga.cs.rentaride.entity.HourlyPrice;
@@ -27,34 +26,32 @@ public class VehicleTypeImpl
 	extends Persistent
 	implements VehicleType 
 {
-
+	
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public void setName(String name) throws RARException {
-		// TODO Auto-generated method stub
-		
+	
 	}
 
 	@Override
 	public List<HourlyPrice> getHourlyPrices() {
-		// TODO Auto-generated method stub
+
 		return null;
 	}
 
 	@Override
 	public List<Vehicle> getVehicles() {
-		// TODO Auto-generated method stub
+
 		return null;
 	}
 
 	@Override
 	public List<Reservation> getReservations() {
-		// TODO Auto-generated method stub
+
 		return null;
 	}
 	
