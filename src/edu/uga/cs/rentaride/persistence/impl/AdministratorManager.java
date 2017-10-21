@@ -52,7 +52,6 @@ public class AdministratorManager {
 		
 		String administratorInsertQuery = 
 				"INSERT INTO ADMIN "
-				"INSERT INTO ADMINISTRATOR "
 				+ "(user_id) "
 				+ "VALUES ( ?)";
 		
@@ -62,9 +61,7 @@ public class AdministratorManager {
 				+ "WHERE user_id=?";
 		
 		String updateAdministratorQuery = 
-
 				"UPDATE ADMIN SET "
-				"UPDATE ADMINISTRATOR SET "
 						+ "user_id=? "
 						+ "WHERE administrator_id=?";
 		
@@ -83,7 +80,6 @@ public class AdministratorManager {
 			if(!administrator.isPersistent()){
 				persist = false;
 				pstmt = (PreparedStatement) con.prepareStatement(userInsertQuery);
-				pstmt = (PreparedStatement) con.prepareStatement(administratorInsertQuery);
 			}else{
 				persist = true;
 				pstmt = (PreparedStatement) con.prepareStatement(updateUserQuery);
@@ -148,7 +144,6 @@ public class AdministratorManager {
 
 		/*
 		 * ADMIN
-		 * CUSTOMER
 		 */
 		try {
 			if( !persist ){
@@ -206,9 +201,6 @@ public class AdministratorManager {
 				+ "USER.user_id, USER.fname, USER.lname, USER.uname, USER.pword, USER.email, USER.address, USER.create_date, "
 				+ "ADMIN.admin_id "
 				+ "FROM USER INNER JOIN ADMIN ON USER.user_id = ADMIN.user_id";
-				+ "ADMINISTRATOR.administrator_id "
-				+ "FROM USER INNER JOIN ADMINISTRATOR ON USER.user_id = ADMINISTRATOR.user_id";
-
 		
 		System.out.println("query: "+selectAdministratorQuery);
 		List<Administrator> administrators = new ArrayList<Administrator>();
@@ -253,38 +245,6 @@ public class AdministratorManager {
 	                administrators.add(administrator);
 	            }
 			}
-			long id;
-            String fname;
-            String lname;
-            String uname;
-            String pword;
-            String email;
-            String address;
-            Date createDate;
-            long administratorId;
-            
-            
-			stmt = con.createStatement();
-			ResultSet r = stmt.executeQuery(selectAdministratorQuery);
-			
-            while( r.next() ) {
-            	id	= r.getLong(1);
-           	 	fname = r.getString(2);
-                lname = r.getString(3);
-                uname = r.getString(4);
-                pword = r.getString(5);
-                email = r.getString(6);
-                address = r.getString(7);
-                createDate= r.getDate(8);
-                administratorId = r.getLong(9);
-                
-                
-                Administrator administrator = objectLayer.createAdministrator(fname, lname, uname, pword, email,
-            			address, createDate);
-                administrator.setId(id);
-                administrators.add(administrator);
-            }
-
             return administrators;
             
 		} catch(SQLException e){
