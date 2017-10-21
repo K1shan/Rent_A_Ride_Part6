@@ -52,7 +52,6 @@ public class AdministratorManager {
 		
 		String administratorInsertQuery = 
 				"INSERT INTO ADMIN "
-				"INSERT INTO ADMINISTRATOR "
 				+ "(user_id) "
 				+ "VALUES ( ?)";
 		
@@ -64,7 +63,6 @@ public class AdministratorManager {
 		String updateAdministratorQuery = 
 
 				"UPDATE ADMIN SET "
-				"UPDATE ADMINISTRATOR SET "
 						+ "user_id=? "
 						+ "WHERE administrator_id=?";
 		
@@ -206,8 +204,6 @@ public class AdministratorManager {
 				+ "USER.user_id, USER.fname, USER.lname, USER.uname, USER.pword, USER.email, USER.address, USER.create_date, "
 				+ "ADMIN.admin_id "
 				+ "FROM USER INNER JOIN ADMIN ON USER.user_id = ADMIN.user_id";
-				+ "ADMINISTRATOR.administrator_id "
-				+ "FROM USER INNER JOIN ADMINISTRATOR ON USER.user_id = ADMINISTRATOR.user_id";
 
 		
 		System.out.println("query: "+selectAdministratorQuery);
