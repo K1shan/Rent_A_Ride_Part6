@@ -55,22 +55,23 @@ public class ReadTest
                   
          try {
              
+        	 List<Customer> customers = objectLayer.findCustomer( null );
              System.out.println( "Customer objects:" );
-             // TODO
-             List<Customer> customers = objectLayer.findCustomer( null );
-
              for( Customer customer : customers) {
                  System.out.println( customer );
-
-                 // TODO
-                 /*
-                 List<Reservation> reservations = customer.getReservations();
-                 for( Reservation reservation : reservations )
-                    // TODO
-                    System.out.println( "      " + reservation.getCustomer() );
-                    */
              }
              
+             List<Administrator> administrators = objectLayer.findAdministrator(null);
+             System.out.println( "Administrator objects:" );
+             for (Administrator administrator : administrators) {
+            	 System.out.println(administrator);
+             }
+             
+             List<RentalLocation> rentalLocations = objectLayer.findRentalLocation( null );
+             System.out.println( "RentalLocation objects:" );
+             for (RentalLocation rentalLocation : rentalLocations) {
+            	 System.out.println(rentalLocation);
+             }
 
              /*
              System.out.println( "Location objects:" );

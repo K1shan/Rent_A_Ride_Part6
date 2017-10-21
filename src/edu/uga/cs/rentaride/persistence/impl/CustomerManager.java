@@ -125,28 +125,6 @@ public class CustomerManager{
 			System.out.println("query: "+pstmt.asSql());
             inscnt = pstmt.executeUpdate();
 
-//            if( !customer.isPersistent() ) {
-//                // in case this this object is stored for the first time,
-//                // we need to establish its persistent identifier (primary key)
-//                if( inscnt == 1 ) {
-//                    String sql = "select last_insert_id()";
-//                    if( pstmt.execute( sql ) ) { // statement returned a result
-//                        // retrieve the result
-//                        ResultSet r = pstmt.getResultSet();
-//                        // we will use only the first row!
-//                        while( r.next() ) {
-//                            // retrieve the last insert auto_increment value
-//                            customerID = r.getLong( 1 );
-//                            if( customerID > 0 )
-//                                customer.setId( customerID ); // set this person's db id (proxy object)
-//                        }
-//                    }
-//                }
-//            }
-//            else {
-//                if( inscnt < 1 )
-//                    throw new RARException( "CustomerManager.save: failed to save a user" ); 
-//            }
 		}catch(SQLException e){
 			e.printStackTrace();
 			throw new RARException( "CustomerManager.save: failed to save a user: " + e );
@@ -318,51 +296,6 @@ public class CustomerManager{
 	                customers.add(customer);
 	            }
 			}
-			long id;
-            String fname;
-            String lname;
-            String uname;
-            String pword;
-            String email;
-            String address;
-            Date createDate;
-            long customerId;
-            Date memberUntil;
-            String licState;
-            String licNum;
-            String ccNum;
-            Date ccExp;
-            long status;
-            
-            
-			stmt = con.createStatement();
-			ResultSet r = stmt.executeQuery(selectCustomerQuery);
-			
-            while( r.next() ) {
-            	id	= r.getLong(1);
-           	 	fname = r.getString(2);
-                lname = r.getString(3);
-                uname = r.getString(4);
-                pword = r.getString(5);
-                email = r.getString(6);
-                address = r.getString(7);
-                createDate= r.getDate(8);
-                customerId = r.getLong(9);
-                memberUntil = r.getDate(10);
-                licState = r.getString(11);
-                licNum = r.getString(12);
-                ccNum = r.getString(13);
-                ccExp = r.getDate(14);
-                status = r.getLong(15);
-                
-                
-                Customer customer = objectLayer.createCustomer(fname, lname, uname, pword, email,
-            			address, createDate, memberUntil, licState, licNum,
-           			ccNum, ccExp);
-                customer.setId(id);
-                customers.add(customer);
-            }
-      
             return customers;
             
 		} catch(SQLException e){

@@ -26,7 +26,6 @@ import edu.uga.cs.rentaride.persistence.PersistenceLayer;
 public class PersistenceLayerImpl 
     implements PersistenceLayer
 {
-
 	 private AdministratorManager administratorManager = null;
 	 private CommentManager commentManager = null;
 	 private CustomerManager customerManager = null;
@@ -42,7 +41,9 @@ public class PersistenceLayerImpl
 	 private VehicleTypeManager vehicleTypeManager = null;
 	
 	 public PersistenceLayerImpl( Connection conn, ObjectLayer objectLayer ){
+		 administratorManager = new AdministratorManager( conn, objectLayer );
 		 customerManager = new CustomerManager( conn, objectLayer );
+		 rentalLocationManager = new RentalLocationManager( conn, objectLayer );
 //		 clubManager = new ClubManager( conn, objectLayer );
 //		 membershipManager = new MembershipManager( conn, objectLayer );
 		 System.out.println( "PersistenceLayerImpl.PersistenceLayerImpl(conn,objectLayer): initialized" );
@@ -56,11 +57,6 @@ public class PersistenceLayerImpl
 	@Override
 	public void storeAdministrator(Administrator administrator) throws RARException {
 		administratorManager.store(administrator);
-	}
-
-	@Override
-	public void deleteAdministrator(Administrator administrator) throws RARException {
-		administratorManager.delete(administrator);
 	}
 
 	@Override
@@ -368,5 +364,11 @@ public class PersistenceLayerImpl
 	@Override
 	public void deleteVehicleRental(Vehicle vehicle, Rental rental) throws RARException {
 		vehicleManager.deleteRental(vehicle, rental);
+	}
+
+	@Override
+	public void deleteAdministrator(Administrator administrator) throws RARException {
+		// TODO Auto-generated method stub
+		
 	}
 }

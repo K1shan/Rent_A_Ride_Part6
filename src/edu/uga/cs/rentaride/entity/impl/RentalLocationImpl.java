@@ -10,9 +10,9 @@ public class RentalLocationImpl
 	extends Persistent
 	implements RentalLocation 
 {
-	String name;
-	String address;
-	int capacity;
+	private String name;
+	private String address;
+	private int capacity;
 	
 	public RentalLocationImpl(){
 		super( -1 );
@@ -50,6 +50,11 @@ public class RentalLocationImpl
 
 	public void setCapacity(int capacity) {
 		this.capacity = capacity;
+	}
+
+	@Override
+	public String toString() {
+		return "RentalLocationImpl [name=" + name + ", address=" + address + ", capacity=" + capacity + "]";
 	}
 	
 }
