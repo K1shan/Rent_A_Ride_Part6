@@ -72,8 +72,6 @@ public class ReadTest
              for (RentalLocation rentalLocation : rentalLocations) {
             	 System.out.println(rentalLocation);
              }
-
-             
              
 
              /*
