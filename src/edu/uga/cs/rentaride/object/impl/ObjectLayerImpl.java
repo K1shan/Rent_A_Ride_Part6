@@ -146,10 +146,11 @@ public class ObjectLayerImpl
 	}
 
 	@Override
-	public Reservation createReservation(Date pickupTime, int rentalLength, VehicleType vehicleType,
-			RentalLocation rentalLocation, Customer customer) throws RARException {
-		// TODO Auto-generated method stub
-		return null;
+	public Reservation createReservation(Date pickupTime, int rentalLength, VehicleType vehicleType, 
+            RentalLocation rentalLocation, Customer customer){
+		ReservationImpl reservation = new ReservationImpl(pickupTime, rentalLength, vehicleType, rentalLocation, customer);
+		Persistent.setPersistenceLayer( persistence );
+		return reservation;
 	}
 
 	@Override
@@ -160,20 +161,17 @@ public class ObjectLayerImpl
 
 	@Override
 	public List<Reservation> findReservation(Reservation modelReservation) throws RARException {
-		// TODO Auto-generated method stub
-		return null;
+		return persistence.restoreReservation(modelReservation);
 	}
 
 	@Override
 	public void storeReservation(Reservation reservation) throws RARException {
-		// TODO Auto-generated method stub
-		
+		persistence.storeReservation(reservation);
 	}
 
 	@Override
 	public void deleteReservation(Reservation reservation) throws RARException {
-		// TODO Auto-generated method stub
-		
+		persistence.deleteReservation(reservation);
 	}
 
 	@Override
@@ -348,7 +346,6 @@ public class ObjectLayerImpl
 
 	@Override
 	public void setPersistence(PersistenceLayer persistence) {
-		// TODO Auto-generated method stub
 		this.persistence = persistence;
 	}
 	

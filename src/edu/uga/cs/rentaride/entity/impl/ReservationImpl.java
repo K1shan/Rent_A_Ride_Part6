@@ -27,77 +27,82 @@ public class ReservationImpl
 	extends Persistent
 	implements Reservation 
 {
-
-	@Override
-	public Date getPickupTime() {
-		// TODO Auto-generated method stub
-		return null;
+	private Date pickupTime;
+	private int rentalLength;
+	private VehicleType vehicleType;
+	private RentalLocation rentalLocation;
+	private Customer customer;
+	private Rental rental;
+	
+	public ReservationImpl(){
+		super( -1 );
+		this.pickupTime = null;
+		this.rentalLength = 0;
+		this.vehicleType = null;
+		this.rentalLocation = null;
+		this.customer = null;
+		this.rental = null;
+	}
+	
+	public ReservationImpl(Date pickupTime, int rentalLength, VehicleType vehicleType, RentalLocation rentalLocation,
+			Customer customer) {
+		super(-1);
+		this.pickupTime = pickupTime;
+		this.rentalLength = rentalLength;
+		this.vehicleType = vehicleType;
+		this.rentalLocation = rentalLocation;
+		this.customer = customer;
 	}
 
-	@Override
-	public void setPickupTime(Date pickupTime) throws RARException {
-		// TODO Auto-generated method stub
-		
+	public Date getPickupTime() {
+		return pickupTime;
+	}
+
+	public void setPickupTime(Date pickupTime) {
+		this.pickupTime = pickupTime;
+	}
+
+	public VehicleType getVehicleType() {
+		return vehicleType;
+	}
+
+	public void setVehicleType(VehicleType vehicleType) {
+		this.vehicleType = vehicleType;
+	}
+
+	public RentalLocation getRentalLocation() {
+		return rentalLocation;
+	}
+
+	public void setRentalLocation(RentalLocation rentalLocation) {
+		this.rentalLocation = rentalLocation;
+	}
+
+	public Customer getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
 	}
 
 	@Override
 	public int getLength() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.rentalLength;
 	}
 
 	@Override
 	public void setLength(int length) throws RARException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public Customer getCustomer() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setCustomer(Customer customer) throws RARException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public VehicleType getVehicleType() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setVehicleType(VehicleType vehicleType) throws RARException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public RentalLocation getRentalLocation() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setRentalLocation(RentalLocation rentalLocation) throws RARException {
-		// TODO Auto-generated method stub
-		
+		this.rentalLength = length;
 	}
 
 	@Override
 	public Rental getRental() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.rental;
 	}
 
 	@Override
 	public void setRental(Rental rental) {
-		// TODO Auto-generated method stub
-		
+		this.rental = rental;
 	}
-	
 }
