@@ -87,8 +87,6 @@ public class WriteTest
             // TODO
             // create rental locations
              rentalLocation1 = objectLayer.createRentalLocation("atlanta", "999 cool street", 500);
-             System.out.println(rentalLocation1);
-             
              persistence.storeRentalLocation(rentalLocation1);
 //             admin1 = objectLayer.createAdministrator("Wayne", "Kung", "wayne", "password", "email@email.com", "000 Hello St., Small Town, GA. 30129", mydate);
 //             persistence.storeAdministrator(admin1);
