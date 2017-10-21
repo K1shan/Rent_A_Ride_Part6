@@ -26,7 +26,6 @@ import edu.uga.cs.rentaride.persistence.PersistenceLayer;
 public class PersistenceLayerImpl 
     implements PersistenceLayer
 {
-
 	 private AdministratorManager administratorManager = null;
 	 private CommentManager commentManager = null;
 	 private CustomerManager customerManager = null;
@@ -42,9 +41,19 @@ public class PersistenceLayerImpl
 	 private VehicleTypeManager vehicleTypeManager = null;
 	
 	 public PersistenceLayerImpl( Connection conn, ObjectLayer objectLayer ){
+		 administratorManager = new AdministratorManager( conn, objectLayer );
+		 commentManager = new CommentManager( conn, objectLayer );
 		 customerManager = new CustomerManager( conn, objectLayer );
-//		 clubManager = new ClubManager( conn, objectLayer );
-//		 membershipManager = new MembershipManager( conn, objectLayer );
+		 hourlyPriceManager = new HourlyPriceManager( conn, objectLayer ); 
+		 rentalManager = new RentalManager( conn, objectLayer );
+		 rentalLocationManager = new RentalLocationManager( conn, objectLayer );
+		 rentARideParamsManager = new RentARideParamsManager( conn, objectLayer );
+		 reservationManager = new ReservationManager( conn, objectLayer );
+		 userStatusManager =  new UserStatusManager( conn, objectLayer );
+		 vehicleManager = new VehicleManager( conn, objectLayer );
+		 vehicleConditionManager = new VehicleConditionManager( conn, objectLayer );
+		 vehicleStatusManager = new VehicleStatusManager( conn, objectLayer );
+		 vehicleTypeManager = new VehicleTypeManager( conn, objectLayer );
 		 System.out.println( "PersistenceLayerImpl.PersistenceLayerImpl(conn,objectLayer): initialized" );
 	 }
 	 

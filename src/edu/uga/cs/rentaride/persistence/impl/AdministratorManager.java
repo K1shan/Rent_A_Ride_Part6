@@ -51,6 +51,7 @@ public class AdministratorManager {
 				+ "( ?, ?, ?, ?, ?, ?, ?)";
 		
 		String administratorInsertQuery = 
+				"INSERT INTO ADMIN "
 				"INSERT INTO ADMINISTRATOR "
 				+ "(user_id) "
 				+ "VALUES ( ?)";
@@ -61,6 +62,8 @@ public class AdministratorManager {
 				+ "WHERE user_id=?";
 		
 		String updateAdministratorQuery = 
+
+				"UPDATE ADMIN SET "
 				"UPDATE ADMINISTRATOR SET "
 						+ "user_id=? "
 						+ "WHERE administrator_id=?";
@@ -79,6 +82,7 @@ public class AdministratorManager {
 			//check if exists
 			if(!administrator.isPersistent()){
 				persist = false;
+				pstmt = (PreparedStatement) con.prepareStatement(userInsertQuery);
 				pstmt = (PreparedStatement) con.prepareStatement(administratorInsertQuery);
 			}else{
 				persist = true;
@@ -143,6 +147,7 @@ public class AdministratorManager {
 		}
 
 		/*
+		 * ADMIN
 		 * CUSTOMER
 		 */
 		try {
@@ -199,8 +204,11 @@ public class AdministratorManager {
 		String selectAdministratorQuery = 
 				"SELECT "
 				+ "USER.user_id, USER.fname, USER.lname, USER.uname, USER.pword, USER.email, USER.address, USER.create_date, "
+				+ "ADMIN.admin_id "
+				+ "FROM USER INNER JOIN ADMIN ON USER.user_id = ADMIN.user_id";
 				+ "ADMINISTRATOR.administrator_id "
 				+ "FROM USER INNER JOIN ADMINISTRATOR ON USER.user_id = ADMINISTRATOR.user_id";
+
 		
 		System.out.println("query: "+selectAdministratorQuery);
 		List<Administrator> administrators = new ArrayList<Administrator>();
@@ -276,7 +284,7 @@ public class AdministratorManager {
                 administrator.setId(id);
                 administrators.add(administrator);
             }
-      
+
             return administrators;
             
 		} catch(SQLException e){

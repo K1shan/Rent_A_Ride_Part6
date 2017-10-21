@@ -30,5 +30,29 @@ import edu.uga.cs.rentaride.object.ObjectLayer;
 
 
 public class VehicleStatusManager {
-
+	private ObjectLayer objectLayer = null;
+	private Connection con = null;
+	
+	public VehicleStatusManager(Connection con, ObjectLayer objectLayer){
+		this.con = con;
+		this.objectLayer = objectLayer;
+	}//constructor
+	
+	
+	public void store( VehicleStatus vehicleStatus ) throws RARException{
+    	// TODO
+    }
+	
+	
+	public List<VehicleStatus> restore( VehicleStatus modelVehicleStatus ) throws RARException{
+		// TODO
+		return null;
+	}
+    
+    
+    public void delete( VehicleStatus vehicleStatus ) throws RARException{
+    	// TODO
+    }
+    
+    
 }

@@ -43,10 +43,76 @@ public class RentalLocationManager {
     	// TODO
 		
 		String insertRentalLocationQuery = 
-				"";
+				"INSERT INTO LOCATION "
+				+ "(name, address, capacity) "
+				+ "VALUES "
+				+ "(?, ?, ?)";
 		
 		String updateRentalLocationQuery =
-				"";
+				"UPDATE INTO LOCATION "
+				+ "(name, address, capacity) "
+				+ "VALUES "
+				+ "(?, ?, ?)";
+		
+		PreparedStatement pstmt;
+		int inscnt;
+		long locationId;
+		
+		try {
+			
+			// check persist
+			if( !rentalLocation.isPersistent() ){
+				pstmt = (PreparedStatement) con.prepareStatement( insertRentalLocationQuery );
+			}else{
+				pstmt = (PreparedStatement) con.prepareStatement( updateRentalLocationQuery );
+			}
+			
+			// update pstmt
+			if( rentalLocation.getName() != null ){
+				pstmt.setString( 1, rentalLocation.getName());
+			}else{
+				throw new RARException( "RentalLocationManager.save: can't save a location: Name undefined" );
+			}
+			
+			if( rentalLocation.getAddress() != null ){
+				pstmt.setString( 2, rentalLocation.getAddress());
+			}else{
+				throw new RARException( "RentalLocationManager.save: can't save a location: Address undefined" );
+			}
+			
+			if( rentalLocation.getCapacity() != 0 ){
+				pstmt.setLong( 3, rentalLocation.getCapacity());
+			}else{
+				throw new RARException( "RentalLocationManager.save: can't save a location: Capacity undefined" );
+			}
+			
+			System.out.println("query: " + pstmt.asSql());
+            inscnt = pstmt.executeUpdate();
+
+            // auto_inc pk to object pk
+            if ( !rentalLocation.isPersistent() ){
+            	if( inscnt == 1 ){
+            		String sql = "select last_insert_id()";
+            		if( pstmt.execute( sql ) ){
+            			ResultSet rs = pstmt.getResultSet();
+            			while( rs.next() ){
+            				locationId = rs.getLong( 1 );
+            				if( locationId > 0 ){
+            					rentalLocation.setId( locationId );
+            				}
+            			}
+            		}
+            	}
+            }else{
+            	if( inscnt < 1 ){
+            		throw new RARException( "RentalLocationManager.save: failed to save a location" );
+            	}
+            }
+			
+		} catch(SQLException e){
+			e.printStackTrace();
+			throw new RARException( "RentalLocationManager.store: failed to store a location: " + e );
+		}
 		
     }
 	
@@ -55,12 +121,39 @@ public class RentalLocationManager {
 		// TODO
 		
 		String selectRentalLocationQuery =
-				"";
+				"SELECT * FROM LOCATION";
 		
+		List<RentalLocation> rentalLocations = new ArrayList<RentalLocation>();
+		Statement stmt = null;
 		
-		
-		
-		return null;
+		try {
+			stmt = con.createStatement();
+			
+			if( stmt.execute(selectRentalLocationQuery) ){
+				ResultSet rs = stmt.getResultSet();
+				int id;
+				String name;
+				String address;
+				int capacity;
+				
+				while( rs.next() ){
+					id = rs.getInt(1);
+					name = rs.getString(2);
+					address = rs.getString(3);
+					capacity = rs.getInt(4);
+					
+					RentalLocation rentalLocation = objectLayer.createRentalLocation(name, address, capacity);
+					rentalLocation.setId(id);
+					rentalLocations.add(rentalLocation);
+				}
+					
+			}
+			return rentalLocations;
+			
+		} catch (SQLException e){
+			e.printStackTrace();
+			throw new RARException( "RentalLocationManager.get: failed to get any locations: " + e );
+		}
 	}
     
     
@@ -68,7 +161,7 @@ public class RentalLocationManager {
     	// TODO
     	
     	String deleteRentalLocationQuery =
-				"";
+				"DELETE FROM LOCATION WHERE location_id=?";
     }
     
     

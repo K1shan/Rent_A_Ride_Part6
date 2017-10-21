@@ -13,19 +13,17 @@ public class AdministratorImpl
 	extends Persistent
 	implements Administrator 
 {
-	int userId;
-	String firstName; 
-	String lastName; 
-	String userName; 
-	String password; 
-	String email;
-	String address; 
-	Date createdDate;
-	UserStatus userStatus;
+	private String firstName; 
+	private String lastName; 
+	private String userName; 
+	private String password; 
+	private String email;
+	private String address; 
+	private Date createdDate;
+	private UserStatus userStatus;
 	
 	public AdministratorImpl(){
 		super( -1 );
-		this.userId = 0;
 		this.firstName = null;
 		this.lastName = null;
 		this.userName = null;
@@ -36,10 +34,9 @@ public class AdministratorImpl
 		this.userStatus = null;
 	}
 	
-	public AdministratorImpl(int userId, String firstName, String lastName, String userName, String password, String email,
-			String address, Date createdDate, UserStatus userStatus){
+	public AdministratorImpl(String firstName, String lastName, String userName, String password, String email,
+			String address, Date createdDate){
 		super( -1 );
-		this.userId = userId;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.userName = userName;
@@ -47,15 +44,7 @@ public class AdministratorImpl
 		this.password =  password;
 		this.createdDate = createdDate;
 		this.address =  address;
-		this.userStatus = userStatus;
-	}
-
-	public int getUserId() {
-		return userId;
-	}
-
-	public void setUserId(int userId) {
-		this.userId = userId;
+		this.userStatus = UserStatus.ACTIVE;
 	}
 
 	public String getFirstName() {
@@ -124,5 +113,12 @@ public class AdministratorImpl
 
 	public void setCreateDate(Date createDate) {
 		this.createdDate = createDate;
+	}
+
+	@Override
+	public String toString() {
+		return "AdministratorImpl [adminId=" + this.getId() + ", firstName=" + firstName + ", lastName=" + lastName + ", userName=" + userName
+				+ ", password=" + password + ", email=" + email + ", address=" + address + ", createdDate="
+				+ createdDate + ", userStatus=" + userStatus + "]";
 	}
 }

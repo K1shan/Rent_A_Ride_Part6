@@ -30,5 +30,29 @@ import edu.uga.cs.rentaride.object.ObjectLayer;
 
 
 public class UserStatusManager {
-
+	private ObjectLayer objectLayer = null;
+	private Connection con = null;
+	
+	public UserStatusManager(Connection con, ObjectLayer objectLayer){
+		this.con = con;
+		this.objectLayer = objectLayer;
+	}//constructor
+	
+	
+	public void store( UserStatus userStatus ) throws RARException{
+    	// TODO
+    }
+	
+	
+	public List<UserStatus> restore( UserStatus modelUserStatus ) throws RARException{
+		// TODO
+		return null;
+	}
+    
+    
+    public void delete( UserStatus userStatus ) throws RARException{
+    	// TODO
+    }
+    
+    
 }
