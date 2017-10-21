@@ -81,31 +81,11 @@ public class CustomerImpl
 		this.userStatus = UserStatus.ACTIVE;
 	}
 	
-	@Override
-	public List<Reservation> getReservations() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
-	@Override
-	public List<Comment> getComments() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Rental> getRentals() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	
 	@Override
 	public String getFirstName() {
-
 		return this.firstName;
-		
-		return firstName;
-
 	}
 
 	@Override
