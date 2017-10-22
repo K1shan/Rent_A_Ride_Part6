@@ -58,16 +58,28 @@ public class VehicleTypeImpl
 		this.name = name;
 	}
 
+	public void setHourlyPrices(List<HourlyPrice> hourlyPrices) {
+		this.hourlyPrices = hourlyPrices;
+	}
+	
 	@Override
 	public List<HourlyPrice> getHourlyPrices() {
 		return this.hourlyPrices;
 	}
 
+	public void setVehicles(List<Vehicle> vehicles) {
+		this.vehicles = vehicles;
+	}
+	
 	@Override
 	public List<Vehicle> getVehicles() {
 		return this.vehicles;
 	}
 
+	public void setReservations(List<Reservation> reservations) {
+		this.reservations = reservations;
+	}
+	
 	@Override
 	public List<Reservation> getReservations() {
 		return this.reservations;
