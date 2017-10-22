@@ -204,14 +204,17 @@ public class ObjectLayerImpl
 
 	@Override
 	public VehicleType createVehicleType(String name) throws RARException {
-		// TODO Auto-generated method stub
-		return null;
+		VehicleTypeImpl vehicleType = new VehicleTypeImpl(name);
+		Persistent.setPersistenceLayer( persistence );
+		return vehicleType;
 	}
 
 	@Override
 	public VehicleType createVehicleType() {
-		// TODO Auto-generated method stub
-		return null;
+		VehicleTypeImpl vehicleType = new VehicleTypeImpl( null );
+        vehicleType.setId( -1 );
+        Persistent.setPersistenceLayer( persistence);
+        return vehicleType;
 	}
 
 	@Override
@@ -290,8 +293,9 @@ public class ObjectLayerImpl
 
 	@Override
 	public HourlyPrice createHourlyPrice(int maxHrs, int price, VehicleType vehicleType) throws RARException {
-		// TODO Auto-generated method stub
-		return null;
+		HourlyPriceImpl hourlyPrice = new HourlyPriceImpl(maxHrs, price, vehicleType);
+		Persistent.setPersistenceLayer( persistence );
+		return hourlyPrice;
 	}
 
 	@Override

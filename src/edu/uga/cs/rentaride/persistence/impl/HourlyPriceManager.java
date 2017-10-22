@@ -45,14 +45,112 @@ public class HourlyPriceManager {
 	 * Hourly Price
 	 * 
 	 */
-	public List<HourlyPrice> restore( HourlyPrice modelHourlyPrice ) throws RARException{
-		// TODO
-		return null;
-	}
-    
-    public void store( HourlyPrice hourlyPrice ) throws RARException{
-    	// TODO
+	public void store( HourlyPrice hourlyPrice ) throws RARException{
+    	
+		String insertHourlyPriceQuery = 
+				"INSERT INTO HOURLY_PRICE "
+				+ "(type_id, max_hrs, price) "
+				+ "VALUES "
+				+ "(?, ?, ?)";
+    	
+    	String updateHourlyPriceQuery = 
+				"UPDATE HOURLY_PRICE SET "
+				+ "max_hrs=?, price=? "
+				+ "WHERE type_id=?"; 
+    	
+    	PreparedStatement pstmt;
+		int inscnt;
+		
+		try{
+			
+			if( !hourlyPrice.isPersistent() ){
+                pstmt = (PreparedStatement) con.prepareStatement( insertHourlyPriceQuery );
+			}else{
+                pstmt = (PreparedStatement) con.prepareStatement( updateHourlyPriceQuery );
+			}
+			
+			if( hourlyPrice.getVehicleType() != null )
+                pstmt.setLong( 1, hourlyPrice.getVehicleType().getId());
+            else{
+                throw new RARException( "HourlyPriceManager.save: can't save a price: type undefined" );
+            }
+			
+			if( hourlyPrice.getMaxHours() != 0 )
+                pstmt.setLong( 2, hourlyPrice.getMaxHours());
+            else{
+                throw new RARException( "HourlyPriceManager.save: can't save a price: hours undefined" );
+            }
+			
+			if( hourlyPrice.getPrice() != 0 )
+                pstmt.setLong( 3, hourlyPrice.getPrice());
+            else{
+                throw new RARException( "HourlyPriceManager.save: can't save a price: price undefined" );
+            }
+			
+			System.out.println("query: "+pstmt.asSql());
+            inscnt = pstmt.executeUpdate();
+			
+		} catch(SQLException e){
+			e.printStackTrace();
+			throw new RARException( "VehicleType.save: failed to save a type: " + e );
+		}
     }
+	
+	public List<HourlyPrice> restore( HourlyPrice modelHourlyPrice ) throws RARException{
+		String       selectHourlyPriceQuery = 
+				"SELECT HOURLY_PRICE.hourly_id, HOURLY_PRICE.type_id, HOURLY_PRICE.max_hrs, HOURLY_PRICE.price, VEHICLE_TYPE.name FROM HOURLY_PRICE, VEHICLE_TYPE WHERE HOURLY_PRICE.type_id=VEHICLE_TYPE.type_id";
+        Statement    stmt = null;
+        StringBuffer query = new StringBuffer( 100 );
+        StringBuffer condition = new StringBuffer( 100 );
+        List<HourlyPrice> hourlyPrices = new ArrayList<HourlyPrice>();
+
+        condition.setLength( 0 );
+        
+        query.append( selectHourlyPriceQuery );
+
+        try {
+
+            stmt = (Statement) con.createStatement();
+
+            // retrieve the persistent Hourly Price objects
+            //
+            if( stmt.execute( query.toString() ) ) { // statement returned a result
+                ResultSet rs = stmt.getResultSet();
+                int  	hourly_id;
+                int		type_id;
+                int		max_hrs;
+                int		price;
+                String 	name;
+                VehicleType vehicleType = null;
+                
+                while( rs.next() ) {
+                	System.out.println("hi");
+                    hourly_id = rs.getInt( 1 );
+                    type_id = rs.getInt(2);
+                    max_hrs = rs.getInt(3);
+                    price = rs.getInt(4);
+                    name = rs.getString(5);
+                	System.out.println("hi");
+
+                    vehicleType = objectLayer.createVehicleType();
+                    vehicleType.setId(type_id);
+                    vehicleType.setName(name);
+                	System.out.println("hi");
+
+                    HourlyPrice hourlyPrice = objectLayer.createHourlyPrice(max_hrs, price, vehicleType);
+                    hourlyPrice.setId( hourly_id );
+                    hourlyPrices.add( hourlyPrice );
+                }
+                return hourlyPrices;
+            }
+        }
+        catch( Exception e ) {      // just in case...
+            throw new RARException( "HourlyPriceManager.restore: Could not restore persistent HourlyPrice object; Root cause: " + e );
+        }
+        
+        // if we get to this point, it's an error
+        throw new RARException( "HourlyPriceManager.restore: Could not restore persistent HourlyPrice objects" );
+	}
     
     public void delete( HourlyPrice hourlyPrice ) throws RARException{
     	// TODO

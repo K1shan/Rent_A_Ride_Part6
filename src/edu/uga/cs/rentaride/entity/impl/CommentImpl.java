@@ -22,66 +22,52 @@ public class CommentImpl
 	private Rental rental;
 	
 	public CommentImpl(){
-		
 		super( -1 );
 		this.date = null;
 		this.rental = null;
 		this.text = null;
-
 	}
 	
 	public CommentImpl(String text, Date date, Rental rental){
-		
 		super( -1 );
-		
 		this.date = date;
 		this.rental = rental;
 		this.text = text;
-		
 	}
-	
 	
 	@Override
 	public String getText() {
-
 		return text;
 	}
 
 	@Override
 	public void setText(String text) {
 		this.text = text;
-		
 	}
 
 	@Override
 	public Date getDate() {
-		
 		return date;
 	}
 
 	@Override
 	public void setDate(Date date) {
-		
 		this.date = date;
-		
 	}
 
 	@Override
 	public Rental getRental() {
-		
 		return rental;
 	}
 
 	@Override
 	public void setRental(Rental rental) throws RARException {
-		
 		this.rental = rental;
 		
 	}
 
 	@Override
 	public Customer getCustomer() {
-		// TODO Auto-generated method stub
 		return this.getCustomer();
 	}
 	
