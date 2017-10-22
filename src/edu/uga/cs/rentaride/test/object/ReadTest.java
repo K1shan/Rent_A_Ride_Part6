@@ -76,13 +76,13 @@ public class ReadTest
              List<VehicleType> vehicleTypes = objectLayer.findVehicleType( null );
              System.out.println( "VehicleType objects:" );
              for (VehicleType vehicleType : vehicleTypes) {
-            	 System.out.println(vehicleTypes);
+            	 System.out.println(vehicleType);
              }
              
              List<Vehicle> vehicles = objectLayer.findVehicle( null );
              System.out.println( "Vehicle objects:" );
              for (Vehicle vehicle : vehicles) {
-            	 //System.out.println(vehicle);
+            	 System.out.println(vehicle);
              }
              
              // TODO
