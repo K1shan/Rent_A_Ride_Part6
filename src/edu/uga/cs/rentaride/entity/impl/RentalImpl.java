@@ -27,12 +27,13 @@ public class RentalImpl
 	extends Persistent
 	implements Rental 
 {
-	Date pickupTime;
-	Date returnTime;
-	int charges;
-	Reservation reservation;
-	Vehicle vehicle;
-	Comment comment;
+	private Date pickupTime;
+	private Date returnTime;
+	private int charges;
+	private Reservation reservation;
+	private Vehicle vehicle;
+	private Comment comment;
+	private Customer customer;
 	
 	public RentalImpl(){
 		super( -1 );
@@ -44,26 +45,29 @@ public class RentalImpl
 		this.comment = null;
 	}
 	
-	public RentalImpl(Date pickupTime, Date returnTime, int charges,Reservation reservation, Vehicle vehicle, Comment comment){
+	public RentalImpl(Date pickupTime, Reservation reservation, Vehicle vehicle){
 		super( -1 );
 		this.pickupTime = pickupTime;
-		this.returnTime = returnTime;
-		this.charges = charges;
+		this.returnTime = null;
+		this.charges = vehicle.getVehicleType().getHourlyPrices().get(0).getPrice();
 		this.reservation = reservation;
 		this.vehicle = vehicle;
 		this.comment = comment;
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public boolean getLate() {
-		// TODO Auto-generated method stub
-		return false;
+		if(this.returnTime.getHours() - this.pickupTime.getHours() > this.reservation.getLength()){
+			return true;
+		}else{
+			return false;
+		}
 	}
 
 	@Override
 	public Customer getCustomer() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.customer;
 	}
 
 	public Date getPickupTime() {

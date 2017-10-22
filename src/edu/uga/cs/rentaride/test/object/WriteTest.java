@@ -38,6 +38,7 @@ public class WriteTest
          Customer       customer1;
          Customer       customer2;
          RentalLocation	rentalLocation1;
+         Vehicle vehicle1;
 
 
          /*
@@ -67,14 +68,10 @@ public class WriteTest
 
          try {
             
-            // TODO 
-            // create a few customers
-        	 
-        	 
         	 Date mydate = new Date();
         	 mydate.getDate();
-        	 System.out.println("date" + mydate);
         	 
+        	 // create users
              customer1 = objectLayer.createCustomer( "alex1", "shit", "bird1", "password", "emailemail.com1", "133 Maple St., Big Town, AZ. 87888", mydate, mydate, "GA", "22222", "1111", mydate );
              persistence.storeCustomer( customer1 );
 
@@ -84,26 +81,20 @@ public class WriteTest
              admin1 = objectLayer.createAdministrator("Wayne", "Kung", "wayne", "password", "email@email.com", "000 Hello St., Small Town, GA. 30129", mydate);
              persistence.storeAdministrator(admin1);
             
-            // TODO
             // create rental locations
              rentalLocation1 = objectLayer.createRentalLocation("atlanta", "999 cool street", 500);
              persistence.storeRentalLocation(rentalLocation1);
-//             admin1 = objectLayer.createAdministrator("Wayne", "Kung", "wayne", "password", "email@email.com", "000 Hello St., Small Town, GA. 30129", mydate);
-//             persistence.storeAdministrator(admin1);
-            // TODO
-            // create rental locations
-
 
 
             // TODO
             // create vehicle types
-
-             
-
-
-            // TODO
+             vehicleType = objectLayer.createVehicleType("truck");
+             persistence.storeVehicleType(vehicleType);
+           
             // create vehicles
-             
+             vehicle1 = objectLayer.createVehicle("honda", "civic", 2012, "123456789", 20000, mydate, vehicleType, rentalLocation1, VehicleCondition.GOOD, VehicleStatus.INLOCATION);
+             persistence.storeVehicle(vehicle1);
+            		
 
 
              System.out.println( "Entity objects created and saved in the persistence module" );
