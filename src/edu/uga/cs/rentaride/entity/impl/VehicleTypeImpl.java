@@ -17,6 +17,7 @@ import edu.uga.cs.rentaride.entity.VehicleStatus;
 import edu.uga.cs.rentaride.entity.VehicleType;
 import edu.uga.cs.rentaride.persistence.impl.Persistent;
 
+import java.util.Date;
 import java.util.List;
 
 import edu.uga.cs.rentaride.RARException;
@@ -26,33 +27,56 @@ public class VehicleTypeImpl
 	extends Persistent
 	implements VehicleType 
 {
+	private String name;
+	private List<HourlyPrice> hourlyPrices;
+	private List<Vehicle> vehicles;
+	private List<Reservation> reservations;
+	
+	public VehicleTypeImpl(){
+		super( -1 );
+		this.name = null;
+		this.hourlyPrices = null;
+		this.vehicles = null;
+		this.reservations = null;
+	}
+	
+	public VehicleTypeImpl(String name){
+		super( -1 );
+		this.name = name;
+		this.hourlyPrices = null;
+		this.vehicles = null;
+		this.reservations = null;
+	}
 	
 	@Override
 	public String getName() {
-		return null;
+		return this.name;
 	}
 
 	@Override
 	public void setName(String name) throws RARException {
-	
+		this.name = name;
 	}
 
 	@Override
 	public List<HourlyPrice> getHourlyPrices() {
-
-		return null;
+		return this.hourlyPrices;
 	}
 
 	@Override
 	public List<Vehicle> getVehicles() {
-
-		return null;
+		return this.vehicles;
 	}
 
 	@Override
 	public List<Reservation> getReservations() {
+		return this.reservations;
+	}
 
-		return null;
+	@Override
+	public String toString() {
+		return "VehicleTypeImpl [type_id=" +this.getId()+", name=" + name + ", hourlyPrices=" + hourlyPrices + ", vehicles=" + vehicles
+				+ ", reservations=" + reservations + "]";
 	}
 	
 }

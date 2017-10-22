@@ -93,6 +93,12 @@ public class ReadTest
             	 System.out.println(vehicleType);
              }
              
+             List<HourlyPrice> hourlyPrices = objectLayer.findHourlyPrice( null );
+             System.out.println( "HourlyPrice objects:" );
+             for (HourlyPrice hourlyPrice : hourlyPrices) {
+            	 System.out.println(hourlyPrice);
+             }
+             
              List<Vehicle> vehicles = objectLayer.findVehicle( null );
              System.out.println( "Vehicle objects:" );
              for (Vehicle vehicle : vehicles) {

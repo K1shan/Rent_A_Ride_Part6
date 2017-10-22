@@ -10,9 +10,9 @@ public class HourlyPriceImpl
 	extends Persistent
 	implements HourlyPrice 
 {
-	int maxHours;
-	int price;
-	VehicleType vehicleType;
+	private int maxHours;
+	private int price;
+	private VehicleType vehicleType;
 	
 	public HourlyPriceImpl(){
 		super( -1 );
@@ -50,5 +50,10 @@ public class HourlyPriceImpl
 
 	public void setVehicleType(VehicleType vehicleType) {
 		this.vehicleType = vehicleType;
+	}
+
+	@Override
+	public String toString() {
+		return "HourlyPriceImpl [type="+this.getVehicleType().getName()+ ", maxHours=" + maxHours + ", price=" + price + ", vehicleType=" + vehicleType + "]";
 	}
 }

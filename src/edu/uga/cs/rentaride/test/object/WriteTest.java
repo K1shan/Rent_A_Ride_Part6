@@ -34,7 +34,8 @@ public class WriteTest
          PersistenceLayer persistence = null;
          
          Administrator  admin1;
-         VehicleType    vehicleType;
+         VehicleType    truckVehicleType;
+         HourlyPrice	truckHourlyPrice1;
          Customer       customer1;
          Customer       customer2;
          RentalLocation	rentalLocation1;
@@ -85,17 +86,28 @@ public class WriteTest
              rentalLocation1 = objectLayer.createRentalLocation("atlanta", "999 cool street", 500);
              persistence.storeRentalLocation(rentalLocation1);
 
-
-            // TODO
             // create vehicle types
-             vehicleType = objectLayer.createVehicleType("truck");
-             persistence.storeVehicleType(vehicleType);
-           
+             truckVehicleType = objectLayer.createVehicleType("truck");
+             persistence.storeVehicleType(truckVehicleType);
+             
+             // create hourly prices
+             truckHourlyPrice1 = objectLayer.createHourlyPrice(20, 50, truckVehicleType);
+             persistence.storeHourlyPrice(truckHourlyPrice1);
+
             // create vehicles
-             vehicle1 = objectLayer.createVehicle("honda", "civic", 2012, "123456789", 20000, mydate, vehicleType, rentalLocation1, VehicleCondition.GOOD, VehicleStatus.INLOCATION);
+             vehicle1 = objectLayer.createVehicle("honda", "civic", 2012, "123456789", 20000, mydate, truckVehicleType, rentalLocation1, VehicleCondition.GOOD, VehicleStatus.INLOCATION);
              persistence.storeVehicle(vehicle1);
             		
-
+             // create reservations
+             
+             
+             
+             // create rentals
+             
+             
+             
+             // create comments
+             
 
              System.out.println( "Entity objects created and saved in the persistence module" );
              

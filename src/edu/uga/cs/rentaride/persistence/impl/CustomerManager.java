@@ -240,15 +240,118 @@ public class CustomerManager{
 				+ "CUSTOMER.customer_id, CUSTOMER.member_until, CUSTOMER.lic_state, CUSTOMER.lic_num, CUSTOMER.cc_num, CUSTOMER.cc_exp, CUSTOMER.status "
 				+ "FROM USER INNER JOIN CUSTOMER ON USER.user_id = CUSTOMER.user_id";
 		
-		System.out.println("query: "+selectCustomerQuery);
+		
+		
+		StringBuffer query = new StringBuffer(100);
+		StringBuffer condition = new StringBuffer(100);
 		List<Customer> customers = new ArrayList<Customer>();
 		Statement stmt = null;
+		condition.setLength(0);
+		query.append(selectCustomerQuery);
+		
+		System.out.println("query: "+selectCustomerQuery);
+		
+		// if we want just 1 row
+		if (modelCustomer != null){
+			if(modelCustomer.getId() >= 0){
+				query.append( " where CUSTOMER.customer_id=" + modelCustomer.getId() );
+			}else if(modelCustomer.getUserName() != null){
+				query.append( " where USER.uname = '" + modelCustomer.getUserName() + "'");
+			}else{
+				if(modelCustomer.getPassword() != null){
+					condition.append( " USER.pword = '" + modelCustomer.getPassword() + "'");
+				}
+				
+				if(modelCustomer.getEmail() != null ) {
+                    if( condition.length() > 0 ){
+                        condition.append( " and" );
+                    }
+                    condition.append( " USER.email = '" + modelCustomer.getEmail() + "'" );
+                }
+				
+				if(modelCustomer.getFirstName() != null) {
+                    if( condition.length() > 0 ){
+                        condition.append( " and" );
+                    }
+                    condition.append( " USER.fname = '" + modelCustomer.getFirstName() + "'" );
+                }
+				
+				if(modelCustomer.getLastName() != null) {
+                    if( condition.length() > 0 ){
+                        condition.append( " and" );
+                    }
+                    condition.append( " USER.lname = '" + modelCustomer.getLastName() + "'" );
+                }
+				
+				if(modelCustomer.getAddress() != null) {
+                    if( condition.length() > 0 ){
+                        condition.append( " and" );
+                    }
+                    condition.append( " USER.address = '" + modelCustomer.getAddress() + "'" );
+                }        
+				
+				if(modelCustomer.getCreatedDate() != null) {
+                    if( condition.length() > 0 ){
+                        condition.append( " and" );
+                    }
+                    condition.append( " USER.create_date = '" + modelCustomer.getCreatedDate() + "'" );
+                }
+				
+				if(modelCustomer.getMemberUntil() != null ) {
+                    if( condition.length() > 0 ){
+                        condition.append( " and" );
+                    }
+                    condition.append( " CUSTOMER.member_until = '" + modelCustomer.getMemberUntil() + "'" );
+                }
+				
+				if(modelCustomer.getLicenseState() != null ) {
+                    if( condition.length() > 0 ){
+                        condition.append( " and" );
+                    }
+                    condition.append( " CUSTOMER.lic_state = '" + modelCustomer.getLicenseState() + "'" );
+                }
+				
+				if(modelCustomer.getLicenseNumber() != null ) {
+                    if( condition.length() > 0 ){
+                        condition.append( " and" );
+                    }
+                    condition.append( " CUSTOMER.lic_num = '" + modelCustomer.getLicenseNumber() + "'" );
+                }
+				
+				if(modelCustomer.getCreditCardNumber() != null ) {
+                    if( condition.length() > 0 ){
+                        condition.append( " and" );
+                    }
+                    condition.append( " CUSTOMER.cc_num = '" + modelCustomer.getCreditCardNumber() + "'" );
+                }
+				
+				if(modelCustomer.getCreditCardExpiration() != null ) {
+                    if( condition.length() > 0 ){
+                        condition.append( " and" );
+                    }
+                    condition.append( " CUSTOMER.cc_exp = '" + modelCustomer.getCreditCardExpiration() + "'" );
+                }
+				
+				if(modelCustomer.getUserStatus() != null ) {
+                    if( condition.length() > 0 ){
+                        condition.append( " and" );
+                    }
+                    condition.append( " CUSTOMER.status = '" + modelCustomer.getUserStatus() + "'" );
+                }
+				
+				if( condition.length() > 0 ) {
+                    query.append(  " where " );
+                    query.append( condition );
+                }
+			}
+		}
+		
 		
 		try {
 			
 			stmt = con.createStatement();
 			
-			if( stmt.execute(selectCustomerQuery)){
+			if( stmt.execute( query.toString() )){
 				
 				ResultSet r = stmt.getResultSet();
 				
