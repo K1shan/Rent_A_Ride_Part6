@@ -67,8 +67,10 @@ public class ObjectLayerImpl
 
 	@Override
 	public Administrator createAdministrator() {
-		// TODO Auto-generated method stub
-		return null;
+		AdministratorImpl administrator = new AdministratorImpl( null, null, null, null, null, null, null );
+        administrator.setId( -1 );
+        Persistent.setPersistenceLayer( persistence);
+        return administrator;
 	}
 
 	@Override
@@ -103,8 +105,10 @@ public class ObjectLayerImpl
 
 	@Override
 	public Customer createCustomer() {
-		// TODO Auto-generated method stub
-		return null;
+		CustomerImpl customer = new CustomerImpl( null, null, null, null, null, null, null, null, null, null, null, null );
+        customer.setId( -1 );
+        Persistent.setPersistenceLayer( persistence);
+        return customer;
 	}
 
 	@Override
@@ -126,8 +130,10 @@ public class ObjectLayerImpl
 
 	@Override
 	public RentalLocation createRentalLocation() {
-		// TODO Auto-generated method stub
-		return null;
+		RentalLocationImpl rentalLocation = new RentalLocationImpl( null, null, 0 );
+        rentalLocation.setId( -1 );
+        Persistent.setPersistenceLayer( persistence);
+        return rentalLocation;
 	}
 
 	@Override
@@ -155,8 +161,10 @@ public class ObjectLayerImpl
 
 	@Override
 	public Reservation createReservation() {
-		// TODO Auto-generated method stub
-		return null;
+		ReservationImpl reservation = new ReservationImpl( null, 0, null, null, null );
+        reservation.setId( -1 );
+        Persistent.setPersistenceLayer( persistence);
+        return reservation;
 	}
 
 	@Override
@@ -183,8 +191,10 @@ public class ObjectLayerImpl
 
 	@Override
 	public Rental createRental() {
-		// TODO Auto-generated method stub
-		return null;
+		RentalImpl rental = new RentalImpl( null, null, null );
+        rental.setId( -1 );
+        Persistent.setPersistenceLayer( persistence);
+        return rental;
 	}
 
 	@Override
@@ -236,7 +246,6 @@ public class ObjectLayerImpl
 	public Vehicle createVehicle(String make, String model, int year, String registrationTag, int mileage,
 			Date lastServiced, VehicleType vehicleType, RentalLocation rentalLocation,
 			VehicleCondition vehicleCondition, VehicleStatus vehicleStatus) throws RARException {
-		// TODO Auto-generated method stub
 		VehicleImpl vehicle = new VehicleImpl(make, model, year, registrationTag, mileage, lastServiced, vehicleType, rentalLocation, vehicleCondition, vehicleStatus);
 		Persistent.setPersistenceLayer( persistence );
 		return vehicle;
@@ -244,8 +253,10 @@ public class ObjectLayerImpl
 
 	@Override
 	public Vehicle createVehicle() {
-		// TODO Auto-generated method stub
-		return null;
+		VehicleImpl vehicle = new VehicleImpl( null, null, 0, null, 0, null, null, null, null, null );
+        vehicle.setId( -1 );
+        Persistent.setPersistenceLayer( persistence);
+        return vehicle;
 	}
 
 	@Override
@@ -272,8 +283,10 @@ public class ObjectLayerImpl
 
 	@Override
 	public Comment createComment() {
-		// TODO Auto-generated method stub
-		return null;
+		CommentImpl comment = new CommentImpl( null, null, null );
+        comment.setId( -1 );
+        Persistent.setPersistenceLayer( persistence);
+        return comment;
 	}
 
 	@Override
@@ -300,8 +313,10 @@ public class ObjectLayerImpl
 
 	@Override
 	public HourlyPrice createHourlyPrice() {
-		// TODO Auto-generated method stub
-		return null;
+		HourlyPriceImpl hourlyPrice = new HourlyPriceImpl( 0, 0, null );
+        hourlyPrice.setId( -1 );
+        Persistent.setPersistenceLayer( persistence);
+        return hourlyPrice;
 	}
 
 	@Override
