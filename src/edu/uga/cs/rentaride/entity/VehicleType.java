@@ -30,13 +30,25 @@ public interface VehicleType
      */
     public List<HourlyPrice> getHourlyPrices();
     
+    // Not needed;  hourly prices for this vehicle type are added one-by-one by creating 
+    // HourlyPrice objects.
+    // void setHourlyPrices( List<HourlyPrice> hourlyPrices );
+    
     /** Return a list of all vehicles of this VehicleType.
      * @return a list of all vehicles of this VehicleType
      */
     public List<Vehicle> getVehicles();
+      
+    // Not needed;  vehicles of this vehicle type are added one-by-one by creating 
+    // Vehicle objects.
+    // void setVehicle( List<Vehcile> vehicles );
     
     /** Return a list of all reservations for this VehicleType.
      * @return a list of all reservations for this VehicleType
      */
     public List<Reservation> getReservations();
+
+    // Not needed;  reservations for this vehicle type are added one-by-one by creating 
+    // Reservation objects.
+    // void setReservations( List<Reservation> reservations );
 }
