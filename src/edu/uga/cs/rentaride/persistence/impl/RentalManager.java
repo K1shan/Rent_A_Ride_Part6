@@ -55,7 +55,7 @@ public class RentalManager {
     	// TODO
     }
     
-    public void delete( Rental rental ) throws RARException{
+    public void delete(Rental rental) throws RARException{
     	// TODO
     }
     
