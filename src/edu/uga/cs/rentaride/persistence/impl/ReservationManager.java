@@ -60,7 +60,28 @@ public class ReservationManager {
 	}
 	
 	public void delete( Reservation reservation ) throws RARException{
-    	// TODO
+		
+		String deleteReserv = "DELETE FROM RESERVATION WHERE reservation_id = ?";              
+		PreparedStatement stmt = null;
+		int inscnt = 0;
+		             
+        if( !reservation.isPersistent() ) // is the Club object persistent?  If not, nothing to actually delete
+            return;
+        
+        try {
+            stmt = (PreparedStatement) con.prepareStatement(deleteReserv);         
+            stmt.setLong( 1, reservation.getId() );
+            inscnt = stmt.executeUpdate();          
+            if( inscnt == 1 ) {
+                return;
+            }
+            else
+                throw new RARException( "ReservationManager.delete: failed to delete a reservation" );
+        }
+        catch( SQLException e ) {
+            e.printStackTrace();
+            throw new RARException( "ReservationManager.delete: failed to delete a reservation: " + e );       
+            }
     }
 	
 	

@@ -160,8 +160,27 @@ public class RentalLocationManager {
     public void delete( RentalLocation rentalLocation ) throws RARException{
     	// TODO
     	
-    	String deleteRentalLocationQuery =
-				"DELETE FROM LOCATION WHERE location_id=?";
+    	String deleteRentalLoco = "DELETE FROM LOCATION WHERE location_id = ?";              
+		PreparedStatement stmt = null;
+		int inscnt = 0;
+		             
+        if( !rentalLocation.isPersistent() ) // is the Club object persistent?  If not, nothing to actually delete
+            return;
+        
+        try {
+            stmt = (PreparedStatement) con.prepareStatement(deleteRentalLoco);         
+            stmt.setLong( 1, rentalLocation.getId() );
+            inscnt = stmt.executeUpdate();          
+            if( inscnt == 1 ) {
+                return;
+            }
+            else
+                throw new RARException( "RentalLocationManager.delete: failed to delete a RentalLocation" );
+        }
+        catch( SQLException e ) {
+            e.printStackTrace();
+            throw new RARException( "RentalLocationManager.delete: failed to delete a RentalLocation: " + e );       
+            }
     }
     
     

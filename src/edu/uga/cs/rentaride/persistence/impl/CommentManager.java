@@ -49,6 +49,27 @@ public class CommentManager {
     }
     
     public void delete( Comment comment ) throws RARException{
-    	// TODO
+    	
+		String delteComment = "DELETE FROM COMMENT WHERE comment_id = ?";              
+		PreparedStatement stmt = null;
+		int inscnt = 0;
+		             
+        if( !comment.isPersistent() ) 
+            return;
+        
+        try {
+            stmt = (PreparedStatement) con.prepareStatement( delteComment );         
+            stmt.setLong( 1, comment.getId() );
+            inscnt = stmt.executeUpdate();          
+            if( inscnt == 1 ) {
+                return;
+            }
+            else
+                throw new RARException( "CommentManager.delete: failed to delete a Comment" );
+        }
+        catch( SQLException e ) {
+            e.printStackTrace();
+            throw new RARException( "CommentManager.delete: failed to delete a Comment: " + e );       
+            }
     }
 }

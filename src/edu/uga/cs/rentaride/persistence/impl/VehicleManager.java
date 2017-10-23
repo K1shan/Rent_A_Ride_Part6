@@ -163,7 +163,29 @@ public class VehicleManager {
 	
     
     public void delete( Vehicle vehicle ) throws RARException{
-    	// TODO
+    	
+		String deleteVehicle = "DELETE FROM VEHICLE WHERE vehicle_id = ?";              
+		PreparedStatement stmt = null;
+		int inscnt = 0;
+		             
+        if( !vehicle.isPersistent() ) // is the Club object persistent?  If not, nothing to actually delete
+            return;
+        
+        try {
+        	
+            stmt = (PreparedStatement) con.prepareStatement(deleteVehicle);         
+            stmt.setLong( 1, vehicle.getId() );
+            inscnt = stmt.executeUpdate();          
+            if( inscnt == 1 ) {
+                return;
+            }
+            else
+                throw new RARException( "VehicleManager.delete: failed to delete a vehicle" );
+        }
+        catch( SQLException e ) {
+            e.printStackTrace();
+            throw new RARException( "VehicleManager.delete: failed to delete a vehicle: " + e );       
+            }
     }
     
     
