@@ -406,4 +406,29 @@ public class CustomerManager{
 			throw new RARException( "CustomerManager.get: failed to get any customers: " + e );
 		}
 	}
+
+	public void delete(Customer customer) throws RARException{
+		String deleteCustomerSql = "delete from customer where id = ?";
+		PreparedStatement stmt;
+		int inscnt;
+		
+		if (!customer.isPersistent()) // checks if Customer object is persistent. If not, nothing to delete
+			return;
+		
+		try {
+			stmt = (PreparedStatement) con.prepareStatement(deleteCustomerSql);
+			stmt.setLong(1, customer.getId());
+			inscnt = stmt.executeUpdate();
+			if(inscnt == 1) {
+				return;
+			}
+			else
+				throw new RARException("CustomerManager.delete: failed to delete a customer");
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+			throw new RARException("CustomerManager.delete: failed to delete a customer" + e);
+		}
+	}
+	
 }
