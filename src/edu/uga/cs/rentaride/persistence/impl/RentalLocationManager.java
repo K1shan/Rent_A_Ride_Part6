@@ -40,7 +40,6 @@ public class RentalLocationManager {
 	
 	
 	public void store( RentalLocation rentalLocation ) throws RARException{
-    	// TODO
 		
 		String insertRentalLocationQuery = 
 				"INSERT INTO LOCATION "
@@ -59,15 +58,13 @@ public class RentalLocationManager {
 		long locationId;
 		
 		try {
-			
-			// check persist
+
 			if( !rentalLocation.isPersistent() ){
 				pstmt = (PreparedStatement) con.prepareStatement( insertRentalLocationQuery );
 			}else{
 				pstmt = (PreparedStatement) con.prepareStatement( updateRentalLocationQuery );
 			}
-			
-			// update pstmt
+
 			if( rentalLocation.getName() != null ){
 				pstmt.setString( 1, rentalLocation.getName());
 			}else{
@@ -88,8 +85,7 @@ public class RentalLocationManager {
 			
 			System.out.println("query: " + pstmt.asSql());
             inscnt = pstmt.executeUpdate();
-
-            // auto_inc pk to object pk
+            
             if ( !rentalLocation.isPersistent() ){
             	if( inscnt == 1 ){
             		String sql = "select last_insert_id()";
