@@ -23,105 +23,139 @@ import java.util.Date;
 import edu.uga.cs.rentaride.RARException;
 
 
-public class UserImpl 
-	extends Persistent
-	implements User 
-{
+public class UserImpl extends Persistent implements User {
 
+	
+		private long id;
+		private String firstName;
+		private String lastName;
+		private String userName;
+		private String email;
+		private String password;
+		private Date createdDate;
+		private String address;
+		private UserStatus userStatus;
+	
+	public UserImpl() {
+		
+		super(-1);
+		this.firstName = null;
+		this.lastName = null;
+		this.userName = null;
+		this.email = null;
+		this.password = null;
+		this.createdDate = null;
+		this.address = null;
+		this.userStatus = null;
+	}
+	
+	public UserImpl(String firstName, String lastName, String userName, String email, String password, Date createdDate, String address, UserStatus userStatus) {
+		super(-1);
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.userName = userName;
+		this.email = email;
+		this.password = password;
+		this.createdDate = createdDate;
+		this.address = address;
+		this.userStatus = userStatus;
+	}
+	
 	@Override
 	public String getFirstName() {
-		// TODO Auto-generated method stub
-		return null;
+
+		return firstName;
 	}
 
 	@Override
 	public void setFirstName(String firstName) {
-		// TODO Auto-generated method stub
+		
+		this.firstName = firstName;
 		
 	}
 
 	@Override
 	public String getLastName() {
-		// TODO Auto-generated method stub
-		return null;
+
+		return lastName;
 	}
 
 	@Override
 	public void setLastName(String lastName) {
-		// TODO Auto-generated method stub
 		
+		this.lastName = lastName;
 	}
 
 	@Override
 	public String getUserName() {
-		// TODO Auto-generated method stub
-		return null;
+
+		return userName;
 	}
 
 	@Override
 	public void setUserName(String userName) throws RARException {
-		// TODO Auto-generated method stub
 		
+		this.userName = userName;
 	}
 
 	@Override
 	public String getEmail() {
-		// TODO Auto-generated method stub
-		return null;
+
+		return email;
 	}
 
 	@Override
 	public void setEmail(String email) {
-		// TODO Auto-generated method stub
-		
+
+		this.email = email;
 	}
 
 	@Override
 	public String getPassword() {
-		// TODO Auto-generated method stub
-		return null;
+
+		return password;
 	}
 
 	@Override
 	public void setPassword(String password) {
-		// TODO Auto-generated method stub
-		
+
+		this.password = password;
 	}
 
 	@Override
 	public Date getCreatedDate() {
-		// TODO Auto-generated method stub
-		return null;
+
+		return createdDate;
 	}
 
 	@Override
 	public void setCreateDate(Date createDate) {
-		// TODO Auto-generated method stub
 		
+		this.createdDate = createdDate;
 	}
 
 	@Override
 	public String getAddress() {
-		// TODO Auto-generated method stub
-		return null;
+
+		return address;
 	}
 
 	@Override
 	public void setAddress(String address) {
-		// TODO Auto-generated method stub
-		
+
+		this.address = address;
 	}
 
 	@Override
 	public UserStatus getUserStatus() {
-		// TODO Auto-generated method stub
-		return null;
+
+		return userStatus;
 	}
 
 	@Override
 	public void setUserStatus(UserStatus userStatus) {
-		// TODO Auto-generated method stub
-		
+
+		this.userStatus = userStatus;
 	}
 	
 }
