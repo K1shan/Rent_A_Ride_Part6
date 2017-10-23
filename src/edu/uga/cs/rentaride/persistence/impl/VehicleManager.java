@@ -56,12 +56,30 @@ public class VehicleManager {
     	
     	String updateVehicleQuery = 
 				"UPDATE VEHICLE SET "
-				+ "name = ?"
-				+ "WHERE type_id=?"; 
+				+ "type_id = ?, location_id = ?, make = ?, model = ?, year = ?, "
+				+ "mileage = ?, tag = ?, service_date = ?, status = ?, cond = ?"
+				+ "WHERE type_id = ?"; 
     	
     	PreparedStatement pstmt;
     	long vehicleId;
 		int inscnt;
+		
+		if(vehicle.getRentalLocation() == null){
+			
+			throw new RARException ("VehicleManager.save: Attempting ot save a Vehicle with no RentalLocation defined");
+		}
+		if(vehicle.getVehicleType() == null){
+			
+			throw new RARException ("VehicleManager.save: Attempting ot save a Vehicle with no VehicleType defined");
+		}
+		if(!vehicle.getRentalLocation().isPersistent()){	
+			
+			throw new RARException ("VehicleManager.save: Attempting ot save a vehcile Where RentalLocation is not persistent");
+		}
+		if(!vehicle.getVehicleType().isPersistent()){	
+		
+			throw new RARException ("VehicleManager.save: Attempting ot save a Vehicle Where VehicleType is not persistent");
+		}
 		
 		try {
 			if( !vehicle.isPersistent() ){
@@ -132,23 +150,26 @@ public class VehicleManager {
 	        inscnt = pstmt.executeUpdate();
 	        
 	        if( !vehicle.isPersistent() ) {
-                // in case this this object is stored for the first time,
-                // we need to establish its persistent identifier (primary key)
+
                 if( inscnt == 1 ) {
+                	
                     String sql = "select last_insert_id()";
-                    if( pstmt.execute( sql ) ) { // statement returned a result
-                        // retrieve the result
+                    if( pstmt.execute( sql ) ) { 
+
                         ResultSet r = pstmt.getResultSet();
-                        // we will use only the first row!
+
                         while( r.next() ) {
-                            // retrieve the last insert auto_increment value
+
                             vehicleId = r.getLong( 1 );
                             if( vehicleId > 0 )
-                            	vehicle.setId( vehicleId ); // set this person's db id (proxy object)
+                            	vehicle.setId( vehicleId ); 
                         }
                     }
                 }
-            }
+            }else {
+				if(inscnt < 1)
+					throw new RARException("ReservationManager.save: failed to save a reservation");
+			}
 	        
 		} catch(SQLException e) {
 			e.printStackTrace();
