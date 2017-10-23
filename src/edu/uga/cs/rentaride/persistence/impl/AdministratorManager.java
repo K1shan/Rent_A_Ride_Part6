@@ -194,6 +194,7 @@ public class AdministratorManager {
 	
 	
 	public List<Administrator> restore(Administrator modelAdministrator)
+
 			throws RARException{
 		
 		String selectAdministratorQuery = 
@@ -253,4 +254,27 @@ public class AdministratorManager {
 		}
 	}//restore
 	
+	public void delete(Administrator admin) throws RARException {
+		String deleteAdministratorSql = "delete from administrator where id = ?";
+		PreparedStatement stmt;
+		int inscnt;
+		
+		if (!admin.isPersistent()) // checks if Administrator object is persistent. If not, nothing to delete
+			return;
+		
+		try {
+			stmt = (PreparedStatement) con.prepareStatement(deleteAdministratorSql);
+			stmt.setLong(1, admin.getId());
+			inscnt = stmt.executeUpdate();
+			if(inscnt == 1) {
+				return;
+			}
+			else
+				throw new RARException("AdministratorManager.delete: failed to delete an administrator");
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+			throw new RARException("AdministratorManager.delete: failed to delete an administrator" + e);
+		}
+	}
 }
