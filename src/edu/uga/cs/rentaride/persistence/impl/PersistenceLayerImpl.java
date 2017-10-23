@@ -34,7 +34,10 @@ public class PersistenceLayerImpl
 	 private RentalLocationManager rentalLocationManager = null;
 	 private RentARideParamsManager rentARideParamsManager= null;
 	 private ReservationManager reservationManager = null;
+	 private UserStatusManager userStatusManager = null;
 	 private VehicleManager vehicleManager = null;
+	 private VehicleConditionManager vehicleConditionManager = null;
+	 private VehicleStatusManager vehicleStatusManager = null;
 	 private VehicleTypeManager vehicleTypeManager = null;
 	
 	 public PersistenceLayerImpl( Connection conn, ObjectLayer objectLayer ){
@@ -46,7 +49,10 @@ public class PersistenceLayerImpl
 		 rentalLocationManager = new RentalLocationManager( conn, objectLayer );
 		 rentARideParamsManager = new RentARideParamsManager( conn, objectLayer );
 		 reservationManager = new ReservationManager( conn, objectLayer );
+		 userStatusManager =  new UserStatusManager( conn, objectLayer );
 		 vehicleManager = new VehicleManager( conn, objectLayer );
+		 vehicleConditionManager = new VehicleConditionManager( conn, objectLayer );
+		 vehicleStatusManager = new VehicleStatusManager( conn, objectLayer );
 		 vehicleTypeManager = new VehicleTypeManager( conn, objectLayer );
 		 System.out.println( "PersistenceLayerImpl.PersistenceLayerImpl(conn,objectLayer): initialized" );
 	 }
