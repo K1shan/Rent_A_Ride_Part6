@@ -29,7 +29,6 @@ import edu.uga.cs.rentaride.entity.impl.RentARideParamsImpl;
 import edu.uga.cs.rentaride.entity.impl.ReservationImpl;
 import edu.uga.cs.rentaride.entity.impl.UserImpl;
 import edu.uga.cs.rentaride.entity.impl.VehicleImpl;
-import edu.uga.cs.rentaride.entity.impl.VehicleStatusImpl;
 import edu.uga.cs.rentaride.entity.impl.VehicleTypeImpl;
 import edu.uga.cs.rentaride.RARException;
 import edu.uga.cs.rentaride.object.ObjectLayer;
