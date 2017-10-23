@@ -179,7 +179,11 @@ public class VehicleManager {
 	
 	public List<Vehicle> restore( Vehicle modelVehicle ) throws RARException{
 		
-		String selectVehicleSql = "SELECT type_id, location_id, make, model, year, mileage, tag, service_date, status, cond FROM VEHICLE";
+		String selectVehicleSql = "SELECT "
+				+ "vehicle_id, VEHICLE.type_id, location_id, make, model, year, mileage, tag, service_date, status, cond, name "
+				+ "FROM VEHICLE INNER JOIN VEHICLE_TYPE on VEHICLE_TYPE.type_id=VEHICLE.type_id";
+		
+		
 		Statement stmt = null;
 		StringBuffer query = new StringBuffer(100);
 		StringBuffer condition = new StringBuffer(100);
@@ -238,17 +242,29 @@ public class VehicleManager {
 				}
 				
 				
-				/* VehicleStatus not yet implemented, may have to change methods used below
+				// VehicleStatus not yet implemented, may have to change methods used below
 				if(modelVehicle.getStatus() != null) {
-					condition.append( " status = '" + modelVehicle.getStatus().getName() + "'");
+					int status; 
+					if(modelVehicle.getStatus().equals(UserStatus.ACTIVE)){
+						status = 0;
+					}else if(modelVehicle.getStatus().equals(UserStatus.CANCELLED)){
+						status = 1;
+					}else{
+						status = 2;
+					}
+					condition.append( " status = '" + status + "'");
 				}
-				*/
 				
-				/*  VehicleCondition not yet implemented, may have to change methods used below
+				
+				// VehicleCondition not yet implemented, may have to change methods used below
 				if(modelVehicle.getCondition() != null) {
-					condition.append( " cond = '" + modelVehicle.getCondition().getName() + "'");
+					int cond = 0;
+					if(modelVehicle.getCondition().equals(VehicleCondition.NEEDSMAINTENANCE)){
+						cond = 1;
+					}
+					condition.append( " cond = '" + cond + "'");
 				}
-				*/
+				
 				
 				if( condition.length() > 0 ) {
                     query.append(  " where " );
@@ -260,9 +276,58 @@ public class VehicleManager {
 		try {
 			stmt = con.createStatement();
 			if(stmt.execute(query.toString())) {
-				ResultSet r = stmt.getResultSet();
+				ResultSet rs = stmt.getResultSet();
+				int vehicle_id;
+				int type_id;
+				int location_id;
+				String make;
+				String model;
+				int year;
+				int mileage;
+				String tag;
+				Date service_date;
+				int status;
+				int cond;
+				String name;
+				VehicleType vehicleType = null;
+				RentalLocation rentalLocation = null;
+				VehicleStatus vehicleStatus;
+				VehicleCondition vehicleCondition;
 				
-				
+				while( rs.next() ){
+					vehicle_id = rs.getInt(1);
+					type_id = rs.getInt(2);
+					location_id = rs.getInt(3);
+					make = rs.getString(4);
+					model = rs.getString(5);
+					year = rs.getInt(6);
+					mileage = rs.getInt(7);
+					tag = rs.getString(8);
+					service_date = rs.getDate(9);
+					
+					status = rs.getInt(10);
+					if(status == 0){
+						vehicleStatus = VehicleStatus.INLOCATION;
+					}else{
+						vehicleStatus = VehicleStatus.INRENTAL;
+					}
+					
+					cond = rs.getInt(11);
+					if(cond == 0){
+						vehicleCondition = VehicleCondition.GOOD; 
+					}else{
+						vehicleCondition = VehicleCondition.NEEDSMAINTENANCE;
+					}
+					name = rs.getString(12);
+					
+					vehicleType = objectLayer.createVehicleType();
+					vehicleType.setId(type_id);
+					vehicleType.setName(name);
+					
+					Vehicle vehicle = objectLayer.createVehicle(make, model, year, tag, mileage, service_date, vehicleType, rentalLocation, vehicleCondition, vehicleStatus);
+					vehicle.setId(vehicle_id);
+					vehicles.add(vehicle);
+				}
 			}
 			return vehicles;
 		}
@@ -270,8 +335,6 @@ public class VehicleManager {
 			e.printStackTrace();
 			throw new RARException("VehicleManager.get: failed to get any vehicles: " + e);
 		}
-		
-		
 	}
 	
     
@@ -298,7 +361,7 @@ public class VehicleManager {
         catch( SQLException e ) {
             e.printStackTrace();
             throw new RARException( "VehicleManager.delete: failed to delete a vehicle: " + e );       
-            }
+        }
     }
     
     
