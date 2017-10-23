@@ -34,7 +34,9 @@ public class WriteTest
          PersistenceLayer persistence = null;
          
          Administrator  admin1;
+         Administrator  admin2;
          VehicleType    truckVehicleType;
+         VehicleType	convertibleVehicleType;
          HourlyPrice	truckHourlyPrice1;
          Customer       customer1;
          Customer       customer2;
@@ -72,15 +74,19 @@ public class WriteTest
         	 Date mydate = new Date();
         	 mydate.getDate();
         	 
-        	 // create users
+        	 // create 2 users
              customer1 = objectLayer.createCustomer( "alex1", "shit", "bird1", "password", "emailemail.com1", "133 Maple St., Big Town, AZ. 87888", mydate, mydate, "GA", "22222", "1111", mydate );
              persistence.storeCustomer( customer1 );
 
              customer2 = objectLayer.createCustomer( "alex2", "shit", "bird2", "password", "emailemail.com", "133 Maple St., Big Town, AZ. 87888", mydate, mydate, "GA", "22222", "1111", mydate );
              persistence.storeCustomer( customer2 );
            
+             // create 2 admins
              admin1 = objectLayer.createAdministrator("Wayne", "Kung", "wayne", "password", "email@email.com", "000 Hello St., Small Town, GA. 30129", mydate);
              persistence.storeAdministrator(admin1);
+             
+             admin2 = objectLayer.createAdministrator("AdminFirstName", "AdminLastName", "admin2user", "password", "email@email.com", "111 Goodbye St., Big Town, GA. 30129", mydate);
+             persistence.storeAdministrator(admin2);
             
             // create rental locations
              rentalLocation1 = objectLayer.createRentalLocation("atlanta", "999 cool street", 500);
@@ -89,6 +95,9 @@ public class WriteTest
             // create vehicle types
              truckVehicleType = objectLayer.createVehicleType("truck");
              persistence.storeVehicleType(truckVehicleType);
+             
+             convertibleVehicleType = objectLayer.createVehicleType("convertible");
+             persistence.storeVehicleType(convertibleVehicleType);
              
              // create hourly prices
              truckHourlyPrice1 = objectLayer.createHourlyPrice(20, 50, truckVehicleType);
