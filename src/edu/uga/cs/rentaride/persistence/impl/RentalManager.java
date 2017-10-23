@@ -104,6 +104,6 @@ public class RentalManager {
 	}
 
 	public void deleteReservation(Rental rental, Reservation reservation) throws RARException {
-		// TODO Auto-generated method stub
+		
 	}
 }

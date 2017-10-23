@@ -51,7 +51,8 @@ public class VehicleStatusManager {
     
     
     public void delete( VehicleStatus vehicleStatus ) throws RARException{
-    	// TODO
+
+		
     }
     
     

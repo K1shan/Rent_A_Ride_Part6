@@ -153,6 +153,28 @@ public class HourlyPriceManager {
 	}
     
     public void delete( HourlyPrice hourlyPrice ) throws RARException{
-    	// TODO
+    	
+		String deleteHourly = "DELETE FROM HOURLY_PRICE WHERE hourly_id = ?";              
+		PreparedStatement stmt = null;
+		int inscnt = 0;
+		             
+        if( !hourlyPrice.isPersistent() ) 
+            return;
+        
+        try {
+            stmt = (PreparedStatement) con.prepareStatement(deleteHourly);         
+            stmt.setLong( 1, hourlyPrice.getId() );
+            inscnt = stmt.executeUpdate();          
+            if( inscnt == 1 ) {
+                return;
+            }
+            else
+                throw new RARException( "hourlyPrice.delete: failed to delete a Hourly Price" );
+        }
+        catch( SQLException e ) {
+        	
+            e.printStackTrace();
+            throw new RARException( "hourlyPrice.delete: failed to delete a Hourly Price: " + e );       
+            }
     }
 }

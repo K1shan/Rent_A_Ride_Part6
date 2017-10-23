@@ -51,8 +51,7 @@ public class UserStatusManager {
     
     
     public void delete( UserStatus userStatus ) throws RARException{
-    	// TODO
+    	
+    	
     }
-    
-    
 }

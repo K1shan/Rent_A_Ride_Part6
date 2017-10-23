@@ -155,7 +155,28 @@ public class VehicleTypeManager{
 	
 	
     public void delete( VehicleType vehicleType ) throws RARException{
-    	// TODO
+    	
+		String deleteVehicleT = "DELETE FROM VEHICLE_TYPE WHERE type_id = ?";              
+		PreparedStatement stmt = null;
+		int inscnt = 0;
+		             
+        if( !vehicleType.isPersistent() ) // is the Club object persistent?  If not, nothing to actually delete
+            return;
+        
+        try {
+            stmt = (PreparedStatement) con.prepareStatement( deleteVehicleT );         
+            stmt.setLong( 1, vehicleType.getId() );
+            inscnt = stmt.executeUpdate();          
+            if( inscnt == 1 ) {
+                return;
+            }
+            else
+                throw new RARException( "VehicleTypeManager.delete: failed to delete a vehicleType" );
+        }
+        catch( SQLException e ) {
+            e.printStackTrace();
+            throw new RARException( "VehicleTypeManager.delete: failed to delete a vehicleType: " + e );       
+            }
     }
     
     
