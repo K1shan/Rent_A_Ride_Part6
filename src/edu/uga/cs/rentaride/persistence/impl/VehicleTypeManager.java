@@ -66,27 +66,28 @@ public class VehicleTypeManager{
                 throw new RARException( "CustomerManager.save: can't save a user: FirstName undefined" );
             }
 			
-			System.out.println("query: "+pstmt.asSql());
             inscnt = pstmt.executeUpdate();
 			
             if( !vehicleType.isPersistent() ) {
-                // in case this this object is stored for the first time,
-                // we need to establish its persistent identifier (primary key)
+            	
                 if( inscnt == 1 ) {
+                	
                     String sql = "select last_insert_id()";
-                    if( pstmt.execute( sql ) ) { // statement returned a result
-                        // retrieve the result
+                    if( pstmt.execute( sql ) ) {
+
                         ResultSet r = pstmt.getResultSet();
-                        // we will use only the first row!
                         while( r.next() ) {
-                            // retrieve the last insert auto_increment value
+
                             vehicleTypeId = r.getLong( 1 );
                             if( vehicleTypeId > 0 )
-                            	vehicleType.setId( vehicleTypeId ); // set this person's db id (proxy object)
+                            	vehicleType.setId( vehicleTypeId );
                         }
                     }
                 }
-            }
+            }{
+				if(inscnt < 1)
+					throw new RARException("VehicleTypeManager.save: failed to save a VehicleType");
+			}
             
 		} catch(SQLException e){
 			e.printStackTrace();
@@ -160,7 +161,7 @@ public class VehicleTypeManager{
 		PreparedStatement stmt = null;
 		int inscnt = 0;
 		             
-        if( !vehicleType.isPersistent() ) // is the Club object persistent?  If not, nothing to actually delete
+        if( !vehicleType.isPersistent() )
             return;
         
         try {
