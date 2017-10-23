@@ -72,21 +72,7 @@ public class ReadTest
              for (RentalLocation rentalLocation : rentalLocations) {
             	 System.out.println(rentalLocation);
              }
-             
-             System.out.println( "Location objects:" );
-             List<RentalLocation> rentalLocations1 = objectLayer.findRentalLocation( null );
-             for( RentalLocation rentalLocation : rentalLocations1 ) {
-                 System.out.println( rentalLocation );
-                 System.out.print( "   Reservation RentalLocation of: " );
-                 // TODO
-                 //users = rentalLocation.getRentals();
-
-                 for( Customer customer : customers ) {
-                     System.out.print( customers + " " );                     
-                 }
-
-                 System.out.println();System.out.flush();
-             }
+            
              List<VehicleType> vehicleTypes = objectLayer.findVehicleType( null );
              System.out.println( "VehicleType objects:" );
              for (VehicleType vehicleType : vehicleTypes) {

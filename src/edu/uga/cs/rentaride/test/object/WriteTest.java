@@ -82,7 +82,7 @@ public class WriteTest
              persistence.storeCustomer( customer2 );
            
              // create 2 admins
-             admin1 = objectLayer.createAdministrator("Wayne", "Kung", "wayne", "password", "email@email.com", "000 Hello St., Small Town, GA. 30129", mydate);
+             admin1 = objectLayer.createAdministrator("Wayne", "Kung", "wayne", "password", "wayne@email.com", "000 Hello St., Small Town, GA. 30129", mydate);
              persistence.storeAdministrator(admin1);
              
              admin2 = objectLayer.createAdministrator("AdminFirstName", "AdminLastName", "admin2user", "password", "email@email.com", "111 Goodbye St., Big Town, GA. 30129", mydate);
