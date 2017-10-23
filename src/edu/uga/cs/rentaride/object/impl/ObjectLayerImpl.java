@@ -28,7 +28,6 @@ import edu.uga.cs.rentaride.entity.impl.RentalLocationImpl;
 import edu.uga.cs.rentaride.entity.impl.RentARideParamsImpl;
 import edu.uga.cs.rentaride.entity.impl.ReservationImpl;
 import edu.uga.cs.rentaride.entity.impl.UserImpl;
-import edu.uga.cs.rentaride.entity.impl.UserStatusImpl;
 import edu.uga.cs.rentaride.entity.impl.VehicleImpl;
 import edu.uga.cs.rentaride.entity.impl.VehicleConditionImpl;
 import edu.uga.cs.rentaride.entity.impl.VehicleStatusImpl;
