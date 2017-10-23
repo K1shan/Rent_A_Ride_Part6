@@ -124,18 +124,15 @@ public class HourlyPriceManager {
                 VehicleType vehicleType = null;
                 
                 while( rs.next() ) {
-                	System.out.println("hi");
                     hourly_id = rs.getInt( 1 );
                     type_id = rs.getInt(2);
                     max_hrs = rs.getInt(3);
                     price = rs.getInt(4);
                     name = rs.getString(5);
-                	System.out.println("hi");
 
                     vehicleType = objectLayer.createVehicleType();
                     vehicleType.setId(type_id);
                     vehicleType.setName(name);
-                	System.out.println("hi");
 
                     HourlyPrice hourlyPrice = objectLayer.createHourlyPrice(max_hrs, price, vehicleType);
                     hourlyPrice.setId( hourly_id );
