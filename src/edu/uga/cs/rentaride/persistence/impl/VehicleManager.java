@@ -168,7 +168,7 @@ public class VehicleManager {
 		PreparedStatement stmt = null;
 		int inscnt = 0;
 		             
-        if( !vehicle.isPersistent() ) // is the Club object persistent?  If not, nothing to actually delete
+        if( !vehicle.isPersistent() ) // is the vehicle object persistent?  If not, nothing to actually delete
             return;
         
         try {
