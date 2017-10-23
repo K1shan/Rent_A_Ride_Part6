@@ -53,7 +53,7 @@ public interface Vehicle
     public String getRegistrationTag();
     
     /** Set the registration tag of this vehicle.
-     * @param model the new registration tag of this vehicle
+     * @param registrationTag the new registration tag of this vehicle
      */
     public void setRegistrationTag( String registrationTag );
     
@@ -123,4 +123,8 @@ public interface Vehicle
      * @return a list of all rentals for this vehicle
      */
     public List<Rental> getRentals();
+    
+    // Not needed;  rentals for this vehicle are added one-by-one by creating 
+    // Rental objects.
+    // void setRentals( List<Rental> rentals );
 }
