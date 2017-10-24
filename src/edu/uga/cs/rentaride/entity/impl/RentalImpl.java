@@ -34,7 +34,6 @@ public class RentalImpl
 	private Reservation reservation;
 	private Vehicle vehicle;
 	private Comment comment;
-	private Customer customer;
 	
 	public RentalImpl(){
 		super( -1 );
@@ -53,7 +52,7 @@ public class RentalImpl
 		this.charges = 0;//vehicle.getVehicleType().getHourlyPrices().get(0).getPrice();
 		this.reservation = reservation;
 		this.vehicle = vehicle;
-		this.comment = comment;
+		this.comment = null;
 	}
 
 	@SuppressWarnings("deprecation")
@@ -79,7 +78,7 @@ public class RentalImpl
 
 	@Override
 	public Customer getCustomer() {
-		return this.customer;
+		return this.reservation.getCustomer();
 	}
 
 	public Date getPickupTime() {
@@ -123,7 +122,7 @@ public class RentalImpl
 	}
 
 	public Comment getComment() {
-		return comment;
+		return this.comment;
 	}
 
 	public void setComment(Comment comment) {
@@ -136,7 +135,7 @@ public class RentalImpl
 				+ "pickupTime=" + pickupTime + ", returnTime=" + returnTime + ", charges=" + charges
 				+ ", reservations=" + this.reservation
 				+ ", vehicleId=" + this.vehicle
-				+ ", customer=" + this.reservation.getCustomer() + 
+				+ ", customer=" + this.reservation.getCustomer() + ", comment=" + this.comment +
 				"]";
 	}
 }

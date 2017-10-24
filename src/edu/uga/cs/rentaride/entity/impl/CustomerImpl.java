@@ -228,7 +228,7 @@ public class CustomerImpl
 
 	@Override
 	public List<Reservation> getReservations() {
-		if(reservations == null)
+		/*if(reservations == null)
             if( isPersistent() ) {
                 Reservation reservation = new ReservationImpl();
                 reservation.setReservation( this );
@@ -236,29 +236,28 @@ public class CustomerImpl
                 //System.out.println(  "Club.getPersonsMembership: lazy traversal" );
             }
             else
-                throw new Exception( "This object is not persistent" );
+                throw new Exception( "This object is not persistent" );*/
 
         return reservations;
 	}
 
 	@Override
 	public List<Comment> getComments() {
-		if(comments == null)
+		/*if(comments == null)
             if( isPersistent() ) {
                 Comment comment = new CommentImpl();
                 comment.setComment( this );
                 comments = getPersistencaLayer().restoreComment( comment );
-                //System.out.println(  "Club.getPersonsMembership: lazy traversal" );
             }
             else
-                throw new Exception( "This object is not persistent" );
+                throw new Exception( "This object is not persistent" );*/
 
         return comments;
 	}
 
 	@Override
 	public List<Rental> getRentals() {
-		if(rentals == null)
+		/*if(rentals == null)
             if( isPersistent() ) {
                 Rental rental = new RentalImpl();
                 rental.setRental( this );
@@ -266,7 +265,7 @@ public class CustomerImpl
                 //System.out.println(  "Club.getPersonsMembership: lazy traversal" );
             }
             else
-                throw new Exception( "This object is not persistent" );
+                throw new Exception( "This object is not persistent" );*/
 
         return rentals;
 	}
