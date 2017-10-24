@@ -91,9 +91,11 @@ public class ReadTest
             	 System.out.println(vehicle);
              }
              
-             // TODO
-             // reservations
-             
+             List<Reservation> reservations = objectLayer.findReservation( null );
+             System.out.println( "Reservation objects:" );
+             for (Reservation reservation : reservations) {
+            	 System.out.println(reservation);
+             }
              
              
              // TODO

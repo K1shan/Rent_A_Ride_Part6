@@ -105,4 +105,11 @@ public class ReservationImpl
 	public void setRental(Rental rental) {
 		this.rental = rental;
 	}
+
+	@Override
+	public String toString() {
+		return "ReservationImpl [pickupTime=" + pickupTime + ", rentalLength=" + rentalLength + ", vehicleType="
+				+ vehicleType + ", rentalLocation=" + rentalLocation + ", customer=" + customer + ", rental=" + rental
+				+ "]";
+	}
 }
