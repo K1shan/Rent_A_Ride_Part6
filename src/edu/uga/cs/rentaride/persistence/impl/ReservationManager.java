@@ -49,13 +49,13 @@ public class ReservationManager {
 		// TODO
 		
 		String insertReservationQuery =
-				"INSERT INTO RESERVATION"
+				"INSERT INTO RESERVATION "
 				+ "(location_id, type_id, customer_id, pickup_date, length, cancelled ) "
 				+ "VALUES "
 				+ "(?, ?, ?, ?, ?, ?)";
 		
 		String updateReservationQuery =
-				"UPDATE INTO RESERVATION"
+				"UPDATE INTO RESERVATION "
 				+ "(location_id, type_id, customer_id, pickup_date, length, cancelled ) "
 				+ "VALUES "
 				+ "(?, ?, ?, ?, ?, ?)";
@@ -141,8 +141,14 @@ public class ReservationManager {
     	// TODO
 		
 		String selectReservationQuery =
-				"SELECT * FROM RESERVATION "
+				"SELECT RESERVATION.*, "
+				+ "CUSTOMER.customer_id, "
+				+ "USER.fname, USER.lname, "
+				+ "VEHICLE_TYPE.type_id, VEHICLE_TYPE.name, "
+				+ "LOCATION.location_id, LOCATION.name "
+				+ "FROM RESERVATION "
 				+ "INNER JOIN CUSTOMER ON CUSTOMER.customer_id=RESERVATION.customer_id "
+				+ "INNER JOIN USER ON USER.user_id=CUSTOMER.user_id "
 				+ "INNER JOIN LOCATION ON LOCATION.location_id=RESERVATION.location_id "
 				+ "INNER JOIN VEHICLE_TYPE ON VEHICLE_TYPE.type_id=RESERVATION.type_id";
 		
@@ -158,37 +164,74 @@ public class ReservationManager {
 				
 				//"(location_id, type_id, customer_id, pickup_date, length, cancelled ) "
 
+				
+				// RESERVATION
 				int reservation_id;
 				int location_id;
 				int type_id;
-				int customer_id;
+				int reservation_customer_id;
 				Date pickupTime;
 				int rentalLength;
+				int cancelled;
+				
+				// USER / CUSTOMER
+				int 	customer_customer_id;
+	            String 	user_fname;
+	            String 	user_lname;
+	            
+	            // VEHICLE_TYPE
+	            int		vehicleType_type_id;
+	            String	vehicleType_name;
+	            
+	            // LOCATION
+	            int		location_location_id;
+	            String	location_name;
+				
+				
 				VehicleType vehicleType = null;
 				RentalLocation rentalLocation = null;
 				Customer customer = null;
-				
+				Reservation reservation = null;
 				
 				while( rs.next() ){
+					
+					// RESERVATION
 					reservation_id = rs.getInt(1);
 					location_id = rs.getInt(2);
 					type_id = rs.getInt(3);
-					customer_id = rs.getInt(4);
+					reservation_customer_id = rs.getInt(4);
 					pickupTime = rs.getDate(5);
 					rentalLength = rs.getInt(6);
+					cancelled = rs.getInt(7);
 					
+					// USER
+					customer_customer_id	= rs.getInt(8);
+					user_fname = rs.getString(9);
+					user_lname = rs.getString(10);
 					
+					// VEHICLE_TYPE
+					vehicleType_type_id = rs.getInt(11);
+					vehicleType_name = rs.getString(12);
 					
-					vehicleType = objectLayer.createVehicleType();
-					vehicleType.setId(type_id);
+					// LOCATION
+					location_location_id = rs.getInt(13);
+					location_name = rs.getString(14);
 					
-					rentalLocation = objectLayer.createRentalLocation();
-					rentalLocation.setId(location_id);
 					
 					customer = objectLayer.createCustomer();
-					customer.setId(customer_id);
+					customer.setId(customer_customer_id);
+					customer.setFirstName(user_fname);
+					customer.setLastName(user_lname);
 					
-					Reservation reservation = objectLayer.createReservation(pickupTime, rentalLength, vehicleType, rentalLocation, customer);
+					vehicleType = objectLayer.createVehicleType();
+					vehicleType.setId(vehicleType_type_id);
+					vehicleType.setName(vehicleType_name);
+					
+					rentalLocation = objectLayer.createRentalLocation();
+					rentalLocation.setId(location_location_id);
+					rentalLocation.setName(location_name);
+					
+					reservation = objectLayer.createReservation(pickupTime, rentalLength, vehicleType, rentalLocation, customer);
 					reservation.setId(reservation_id);
 					reservations.add(reservation);
 				}
