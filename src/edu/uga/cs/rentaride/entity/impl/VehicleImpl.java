@@ -28,131 +28,152 @@ public class VehicleImpl
 	extends Persistent
 	implements Vehicle 
 {
-
-	@Override
-	public String getMake() {
-		// TODO Auto-generated method stub
-		return null;
+	private String make;
+	private String model;
+	private int year;
+	private String registrationTag;
+	private int mileage;
+	private Date lastServiced;
+	private VehicleType vehicleType;
+	private RentalLocation rentalLocation;
+	private VehicleCondition condition;
+	private VehicleStatus status;
+	private List<Rental> rentals;
+	
+	public VehicleImpl(){
+		super( -1 );
+		this.make = null;
+		this.model = null;
+		this.year = 0;
+		this.registrationTag = null;
+		this.mileage = 0;
+		this.lastServiced = null;
+		this.vehicleType = null;
+		this.rentalLocation = null;
+		this.condition = null;
+		this.status = null;
+	}	
+	
+	public VehicleImpl(String make, String model, int year, String registrationTag, int mileage, Date lastServiced,
+			VehicleType vehicleType, RentalLocation rentalLocation, VehicleCondition condition,
+			VehicleStatus status) {
+		super( -1 );
+		this.make = make;
+		this.model = model;
+		this.year = year;
+		this.registrationTag = registrationTag;
+		this.mileage = mileage;
+		this.lastServiced = lastServiced;
+		this.vehicleType = vehicleType;
+		this.rentalLocation = rentalLocation;
+		this.condition = condition;
+		this.status = status;
 	}
 
-	@Override
+	public String getMake() {
+		return make;
+	}
+
 	public void setMake(String make) {
-		// TODO Auto-generated method stub
-		
+		this.make = make;
+	}
+
+	public int getYear() {
+		return year;
+	}
+
+	public void setYear(int year) {
+		this.year = year;
+	}
+
+	public String getRegistrationTag() {
+		return registrationTag;
+	}
+
+	public void setRegistrationTag(String registrationTag) {
+		this.registrationTag = registrationTag;
+	}
+
+	public int getMileage() {
+		return mileage;
+	}
+
+	public void setMileage(int mileage) {
+		this.mileage = mileage;
+	}
+
+	public Date getLastServiced() {
+		return lastServiced;
+	}
+
+	public void setLastServiced(Date lastServiced) {
+		this.lastServiced = lastServiced;
+	}
+
+	public VehicleType getVehicleType() {
+		return vehicleType;
+	}
+
+	public void setVehicleType(VehicleType vehicleType) {
+		this.vehicleType = vehicleType;
+	}
+
+	public RentalLocation getRentalLocation() {
+		return rentalLocation;
+	}
+
+	public void setRentalLocation(RentalLocation rentalLocation) {
+		this.rentalLocation = rentalLocation;
 	}
 
 	@Override
 	public String getModel() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.model;
 	}
 
 	@Override
 	public void setModel(String model) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public int getYear() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void setYear(int year) throws RARException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public String getRegistrationTag() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setRegistrationTag(String registrationTag) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public int getMileage() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void setMileage(int mileage) throws RARException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public Date getLastServiced() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setLastServiced(Date lastServiced) {
-		// TODO Auto-generated method stub
-		
+		this.model = model;
 	}
 
 	@Override
 	public VehicleStatus getStatus() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.status;
 	}
 
 	@Override
 	public void setStatus(VehicleStatus status) {
-		// TODO Auto-generated method stub
-		
+		this.status = status;
 	}
 
 	@Override
 	public VehicleCondition getCondition() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.condition;
 	}
 
 	@Override
 	public void setCondition(VehicleCondition condition) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public VehicleType getVehicleType() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setVehicleType(VehicleType vehicleType) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public RentalLocation getRentalLocation() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setRentalLocation(RentalLocation rentalLocation) throws RARException {
-		// TODO Auto-generated method stub
-		
+		this.condition = condition;
 	}
 
 	@Override
 	public List<Rental> getRentals() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.rentals;
 	}
 	
+	public void addRental(Rental rental) {
+		this.rentals.add(rental);
+	}
+
+	@Override
+	public String toString() {
+		return "VehicleImpl "
+				+ "[make=" + this.make + ", model=" + this.model + ", year=" + this.year 
+				+ ", registrationTag=" + this.registrationTag + ", mileage=" + this.mileage 
+				+ ", lastServiced=" + this.lastServiced 
+				+ ", vehicleTypeName=" + this.vehicleType.getName() 
+				+ ", rentalLocationName=" + this.rentalLocation.getName() 
+				+ ", condition=" + this.condition + ", status=" + this.status +
+				"]";
+	}
 }

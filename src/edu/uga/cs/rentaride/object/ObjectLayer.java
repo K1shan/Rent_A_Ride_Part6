@@ -452,8 +452,9 @@ public interface ObjectLayer
      * Return the RentARideConfig object.  The RentARideConfig class is a singleton class,
      * so only one object will exist.
      * @return the RentARideConfig object
+     * @throws RARException 
      */
-    public RentARideParams findRentARideParams();
+    public RentARideParams findRentARideParams() throws RARException;
     
     /**
      * Store a given RentARideConfig object in persistent data store.

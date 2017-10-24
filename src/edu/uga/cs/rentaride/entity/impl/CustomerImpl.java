@@ -82,6 +82,7 @@ public class CustomerImpl
 		this.state =  state;
 		this.licenseNumber = licenseNumber;
 		this.cardNumber = cardNumber;
+<<<<<<< HEAD
 		this.userStatus = userStatus;
 		this.reservations = null;
 		this.comments = null;
@@ -137,21 +138,23 @@ public class CustomerImpl
         return rentals;
 	}
 	
+=======
+		this.userStatus = UserStatus.ACTIVE;
+	}
+  
+>>>>>>> master
 	@Override
 	public String getFirstName() {
-		
-		return firstName;
+		return this.firstName;
 	}
 
 	@Override
 	public void setFirstName(String firstName) {
-		
 		this.firstName = firstName;
 	}
 	
 	@Override
 	public String getLastName() {
-
 		return this.lastName;
 	}
 
@@ -159,44 +162,36 @@ public class CustomerImpl
 	public void setLastName(String lastName) {
 		
 		this.lastName = lastName;
-		
 	}
 
 	@Override
 	public String getUserName() {
-
 		return this.userName;
 	}
 
 	@Override
 	public void setUserName(String userName) throws RARException {
 		this.userName = userName;
-		
 	}
 
 	@Override
 	public String getEmail() {
-
 		return this.email;
 	}
 
 	@Override
 	public void setEmail(String email) {
 		this.email = email;
-		
 	}
 
 	@Override
 	public String getPassword() {
-
 		return this.password;
 	}
 
 	@Override
 	public void setPassword(String password) {
-		
 		this.password = password;
-		
 	}
 
 	@Override
@@ -212,20 +207,16 @@ public class CustomerImpl
 
 	@Override
 	public String getAddress() {
-
 		return this.address;
 	}
 
 	@Override
 	public void setAddress(String address) {
-		
 		this.address = address;
-		
 	}
 
 	@Override
 	public UserStatus getUserStatus() {
-
 		return this.userStatus;
 	}
 
@@ -233,30 +224,25 @@ public class CustomerImpl
 	public void setUserStatus(UserStatus userStatus) {
 		
 		this.userStatus = userStatus;
-		
 	}
 
 	@Override
 	public Date getMemberUntil() {
-
 		return this.memberUntil;
 	}
 
 	@Override
 	public void setMemberUntil(Date memberUntil) throws RARException {
 		this.memberUntil = memberUntil;
-		
 	}
 
 	@Override
 	public String getLicenseState() {
-		
 		return this.state;
 	}
 
 	@Override
 	public void setLicenseState(String state) {
-		
 		this.state = state;
 	}
 
@@ -268,23 +254,17 @@ public class CustomerImpl
 
 	@Override
 	public void setLicenseNumber(String licenseNumber) {
-		
 		this.licenseNumber = licenseNumber;
-		
 	}
 
 	@Override
 	public String getCreditCardNumber() {
-
 		return this.cardNumber;
 	}
 
 	@Override
 	public void setCreditCardNumber(String cardNumber) {
-
-		
 		this.cardNumber = cardNumber;
-		
 	}
 
 	@Override
@@ -297,5 +277,31 @@ public class CustomerImpl
 	public void setCreditCardExpiration(Date cardExpiration) {
 		this.cardExpiration = cardExpiration;
 		
+	}
+
+	@Override
+	public List<Reservation> getReservations() {
+		return null;
+	}
+
+	@Override
+	public List<Comment> getComments() {
+		return null;
+	}
+
+	@Override
+	public List<Rental> getRentals() {
+		return null;
+	}
+
+	@Override
+	public String toString() {
+		return "CustomerImpl ["
+				+ "customerId=" + this.getId() + ", firstName=" + firstName + ", lastName=" + lastName + ", userName=" + userName
+				+ ", password=" + password + ", email=" + email + ", address=" + address 
+				+ ", createDate=" + createDate + ", memberUntil=" + memberUntil + ", licenseState=" + state
+				+ ", licenseNum=" + licenseNumber + ", cardNumber=" + cardNumber + ", cardExpiration=" + cardExpiration
+				+ ", userStatus=" + userStatus
+				+ "]";
 	}
 }

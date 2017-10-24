@@ -55,45 +55,79 @@ public class ReadTest
                   
          try {
              
-             System.out.println( "Customer objects:" );
-             // TODO
-             List<Customer> customers = objectLayer.findCustomer( null );
-
+        	 // select all customers
+        	 System.out.println("");
+        	 List<Customer> customers = objectLayer.findCustomer( null );
+             System.out.println( "\nCustomer objects:" );
              for( Customer customer : customers) {
                  System.out.println( customer );
-
-                 // TODO
-                 /*
-                 List<Reservation> reservations = customer.getReservations();
-                 for( Reservation reservation : reservations )
-                    // TODO
-                    System.out.println( "      " + reservation.getCustomer() );
-                    */
              }
              
-
-             /*
-             System.out.println( "Location objects:" );
-             List<RentalLocation> rentalLocations = objectLayer.findRentalLocation( null );
-             for( RentalLocation rentalLocation : rentalLocations ) {
-                 System.out.println( rentalLocation );
-                 System.out.print( "   Reservation RentalLocation of: " );
-                 // TODO
-                 //users = rentalLocation.getRentals();
-
-                 for( Customer customer : customers ) {
-                     System.out.print( customers + " " );                     
-                 }
-
-                 System.out.println();System.out.flush();
-
-                // TODO
-                // MORE HERE
+             // select all administrators
+             System.out.println("");
+             List<Administrator> administrators = objectLayer.findAdministrator(null);
+             System.out.println( "\nAdministrator objects:" );
+             for (Administrator administrator : administrators) {
+            	 System.out.println(administrator);
              }
-             */
-
-            // TODO
-            // MORE HERE
+             
+             //select all rentalLocations
+             System.out.println("");
+             List<RentalLocation> rentalLocations = objectLayer.findRentalLocation( null );
+             System.out.println( "\nRentalLocation objects:" );
+             for (RentalLocation rentalLocation : rentalLocations) {
+            	 System.out.println(rentalLocation);
+             }
+            
+             // select all vehicleTypes
+             System.out.println("");
+             List<VehicleType> vehicleTypes = objectLayer.findVehicleType( null );
+             System.out.println( "\nVehicleType objects:" );
+             for (VehicleType vehicleType : vehicleTypes) {
+            	 System.out.println(vehicleType);
+             }
+             
+             // select all hourlyPrices
+             System.out.println("");
+             List<HourlyPrice> hourlyPrices = objectLayer.findHourlyPrice( null );
+             System.out.println( "\nHourlyPrice objects:" );
+             for (HourlyPrice hourlyPrice : hourlyPrices) {
+            	 System.out.println(hourlyPrice);
+             }
+             
+             // select all vehicles
+             System.out.println("");
+             List<Vehicle> vehicles = objectLayer.findVehicle( null );
+             System.out.println( "\nVehicle objects:" );
+             for (Vehicle vehicle : vehicles) {
+            	 System.out.println(vehicle);
+             }
+             
+             // select all reservations
+             System.out.println("");
+             List<Reservation> reservations = objectLayer.findReservation( null );
+             System.out.println( "\nReservation objects:" );
+             for (Reservation reservation : reservations) {
+            	 System.out.println(reservation);
+             }
+             
+             // select all rentals
+             System.out.println("");
+             List<Rental> rentals = objectLayer.findRental( null );
+             System.out.println( "\nRental objects:" );
+             for (Rental rental : rentals) {
+            	 System.out.println(rental);
+             }
+             
+             // select all comments
+             System.out.println("");
+             List<Comment> comments = objectLayer.findComment( null );
+             System.out.println( "\nComment objects:" );
+             for (Comment comment : comments) {
+            	 System.out.println(comment);
+             }
+             
+             
 
          }
          catch( RARException ce)
@@ -109,6 +143,7 @@ public class ReadTest
              // close the connection!!!
              try {
                  con.close();
+                 System.out.println( "\n\nReadTest.java: Connection closed successfully.\n\n" );
              }
              catch( Exception e ) {
                  System.err.println( "Exception: " + e );

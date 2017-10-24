@@ -38,19 +38,144 @@ public class RentalLocationManager {
 		this.objectLayer = objectLayer;
 	}//constructor
 	
+	
+	public void store( RentalLocation rentalLocation ) throws RARException{
+		
+		String insertRentalLocationQuery = 
+				"INSERT INTO LOCATION "
+				+ "(name, address, capacity) "
+				+ "VALUES "
+				+ "(?, ?, ?)";
+		
+		String updateRentalLocationQuery =
+				"UPDATE INTO LOCATION "
+				+ "(name, address, capacity) "
+				+ "VALUES "
+				+ "(?, ?, ?)";
+		
+		PreparedStatement pstmt;
+		int inscnt;
+		long locationId;
+		
+		try {
+
+			if( !rentalLocation.isPersistent() ){
+				pstmt = (PreparedStatement) con.prepareStatement( insertRentalLocationQuery );
+			}else{
+				pstmt = (PreparedStatement) con.prepareStatement( updateRentalLocationQuery );
+			}
+
+			if( rentalLocation.getName() != null ){
+				pstmt.setString( 1, rentalLocation.getName());
+			}else{
+				throw new RARException( "RentalLocationManager.save: can't save a location: Name undefined" );
+			}
+			
+			if( rentalLocation.getAddress() != null ){
+				pstmt.setString( 2, rentalLocation.getAddress());
+			}else{
+				throw new RARException( "RentalLocationManager.save: can't save a location: Address undefined" );
+			}
+			
+			if( rentalLocation.getCapacity() != 0 ){
+				pstmt.setLong( 3, rentalLocation.getCapacity());
+			}else{
+				throw new RARException( "RentalLocationManager.save: can't save a location: Capacity undefined" );
+			}
+			
+			System.out.println("query: " + pstmt.asSql());
+            inscnt = pstmt.executeUpdate();
+            
+            if ( !rentalLocation.isPersistent() ){
+            	if( inscnt == 1 ){
+            		String sql = "select last_insert_id()";
+            		if( pstmt.execute( sql ) ){
+            			ResultSet rs = pstmt.getResultSet();
+            			while( rs.next() ){
+            				locationId = rs.getLong( 1 );
+            				if( locationId > 0 ){
+            					rentalLocation.setId( locationId );
+            				}
+            			}
+            		}
+            	}
+            }else{
+            	if( inscnt < 1 ){
+            		throw new RARException( "RentalLocationManager.save: failed to save a location" );
+            	}
+            }
+			
+		} catch(SQLException e){
+			e.printStackTrace();
+			throw new RARException( "RentalLocationManager.store: failed to store a location: " + e );
+		}
+    }
+	
+	
 	public List<RentalLocation> restore( RentalLocation modelRentalLocation ) throws RARException{
 		// TODO
-		return null;	
+		
+		String selectRentalLocationQuery =
+				"SELECT * FROM LOCATION";
+		
+		List<RentalLocation> rentalLocations = new ArrayList<RentalLocation>();
+		Statement stmt = null;
+		
+		try {
+			stmt = con.createStatement();
+			
+			if( stmt.execute(selectRentalLocationQuery) ){
+				ResultSet rs = stmt.getResultSet();
+				int id;
+				String name;
+				String address;
+				int capacity;
+				
+				while( rs.next() ){
+					id = rs.getInt(1);
+					name = rs.getString(2);
+					address = rs.getString(3);
+					capacity = rs.getInt(4);
+					
+					RentalLocation rentalLocation = objectLayer.createRentalLocation(name, address, capacity);
+					rentalLocation.setId(id);
+					rentalLocations.add(rentalLocation);
+				}
+					
+			}
+			return rentalLocations;
+			
+		} catch (SQLException e){
+			e.printStackTrace();
+			throw new RARException( "RentalLocationManager.get: failed to get any locations: " + e );
+		}
 	}
-    
-	
-    public void store( RentalLocation rentalLocation ) throws RARException{
-    	// TODO
-    }
     
     
     public void delete( RentalLocation rentalLocation ) throws RARException{
     	// TODO
+    	
+    	String deleteRentalLoco = "DELETE FROM LOCATION WHERE location_id = ?";              
+		PreparedStatement stmt = null;
+		int inscnt = 0;
+		             
+        if( !rentalLocation.isPersistent() ) // is the Club object persistent?  If not, nothing to actually delete
+            return;
+        
+        try {
+            stmt = (PreparedStatement) con.prepareStatement(deleteRentalLoco);         
+            stmt.setLong( 1, rentalLocation.getId() );
+            inscnt = stmt.executeUpdate();          
+            if( inscnt == 1 ) {
+                return;
+            }
+            else
+                throw new RARException( "RentalLocationManager.delete: failed to delete a RentalLocation" );
+        }
+        catch( SQLException e ) {
+            e.printStackTrace();
+            throw new RARException( "RentalLocationManager.delete: failed to delete a RentalLocation: " + e );       
+            }
     }
     
     

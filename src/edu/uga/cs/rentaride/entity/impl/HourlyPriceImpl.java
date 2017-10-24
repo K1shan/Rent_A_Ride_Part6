@@ -10,29 +10,22 @@ public class HourlyPriceImpl
 	extends Persistent
 	implements HourlyPrice 
 {
-	
-	int maxHours;
-	int price;
-	VehicleType vehicleType;
+	private int maxHours;
+	private int price;
+	private VehicleType vehicleType;
 	
 	public HourlyPriceImpl(){
-		
 		super( -1 );
-		
 		this.maxHours = 0;
 		this.price = 0;
 		this.vehicleType = null;
-
 	}
 	
 	public HourlyPriceImpl(int maxHours, int price, VehicleType vehicleType){
-		
 		super( -1 );
-		
 		this.maxHours = maxHours;
 		this.price = price;
 		this.vehicleType = vehicleType;
-		
 	}
 
 	public int getMaxHours() {
@@ -58,5 +51,13 @@ public class HourlyPriceImpl
 	public void setVehicleType(VehicleType vehicleType) {
 		this.vehicleType = vehicleType;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "HourlyPriceImpl "
+				+ "[type="+this.getVehicleType().getName()
+				+ ", maxHours=" + maxHours 
+				+ ", price=" + price +
+				"]";
+	}
 }

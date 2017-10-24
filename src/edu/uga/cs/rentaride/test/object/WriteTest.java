@@ -34,9 +34,17 @@ public class WriteTest
          PersistenceLayer persistence = null;
          
          Administrator  admin1;
-         Vehicle        vehicle1;
+         Administrator  admin2;
+         VehicleType    truckVehicleType;
+         VehicleType	convertibleVehicleType;
+         HourlyPrice	truckHourlyPrice1;
          Customer       customer1;
          Customer       customer2;
+         RentalLocation	rentalLocation1;
+         Vehicle 		vehicle1;
+         Reservation 	reservation1;
+         Rental			rental1;
+         Comment		comment1;
 
 
          /*
@@ -66,94 +74,54 @@ public class WriteTest
 
          try {
             
-            // TODO 
-            // create a few customers
-        	 
-        	 
         	 Date mydate = new Date();
         	 mydate.getDate();
-        	 System.out.println("date" + mydate);
         	 
+        	 // create 2 users
              customer1 = objectLayer.createCustomer( "alex1", "shit", "bird1", "password", "emailemail.com1", "133 Maple St., Big Town, AZ. 87888", mydate, mydate, "GA", "22222", "1111", mydate );
              persistence.storeCustomer( customer1 );
 
              customer2 = objectLayer.createCustomer( "alex2", "shit", "bird2", "password", "emailemail.com", "133 Maple St., Big Town, AZ. 87888", mydate, mydate, "GA", "22222", "1111", mydate );
              persistence.storeCustomer( customer2 );
-
-            // TODO
-            // create rental locations
-       
-
-
-
-
-            // TODO
-            // create vehicle types
-
-
-
-
-            // TODO
-            // create vehicles
+           
+             // create 2 admins
+             admin1 = objectLayer.createAdministrator("Wayne", "Kung", "wayne", "password", "wayne@email.com", "000 Hello St., Small Town, GA. 30129", mydate);
+             persistence.storeAdministrator(admin1);
              
+             admin2 = objectLayer.createAdministrator("AdminFirstName", "AdminLastName", "admin2user", "password", "email@email.com", "111 Goodbye St., Big Town, GA. 30129", mydate);
+             persistence.storeAdministrator(admin2);
+            
+             // create rental locations
+             rentalLocation1 = objectLayer.createRentalLocation("atlanta", "999 cool street", 500);
+             persistence.storeRentalLocation(rentalLocation1);
 
+             // create vehicle types
+             truckVehicleType = objectLayer.createVehicleType("truck");
+             persistence.storeVehicleType(truckVehicleType);
+             
+             convertibleVehicleType = objectLayer.createVehicleType("convertible");
+             persistence.storeVehicleType(convertibleVehicleType);
+             
+             // create hourly prices
+             truckHourlyPrice1 = objectLayer.createHourlyPrice(20, 50, truckVehicleType);
+             persistence.storeHourlyPrice(truckHourlyPrice1);
 
-
-            // TODO
-            // create 
-
-
-             /*
-             joe = objectLayer.createPerson( "joe", "joepass", "joe@mail.com", "Joe", "Doe", "133 Maple St., Big Town, AZ. 87888", "333-4456" );
-             mary = objectLayer.createPerson( "mary", "marypass", "mary@mail.com", "Mary", "Swift", "14 Oak Dr., Small Town, TX. 77888", "444-9876" );
-             bob = objectLayer.createPerson( "bob", "bobpass", "bob@mail.com", "Robert", "Wilson", "33 Cedar Cr., Middle Town, NV. 81888", "567-7788" );
-             julie = objectLayer.createPerson( "julie", "juliepass", "julie@mail.com", "Julie", "Hart", "99 Magnolia St., Splash Town, NY. 21888", "364-7592" );
-             heather = objectLayer.createPerson( "heather", "heatherpass", "julie@mail.com", "Heather", "Brooks", "1 Pine Ave., Boom Town, GA. 30688", "339-9923" );
+             // create vehicles
+             vehicle1 = objectLayer.createVehicle("honda", "civic", 2012, "123456789", 20000, mydate, truckVehicleType, rentalLocation1, VehicleCondition.GOOD, VehicleStatus.INLOCATION);
+             persistence.storeVehicle(vehicle1);
+            		
+             // create reservations
+             reservation1 = objectLayer.createReservation(mydate, 200, truckVehicleType, rentalLocation1, customer1);
+             persistence.storeReservation(reservation1);
              
-             persistence.storePerson( joe );
-             persistence.storePerson( mary );
-             persistence.storePerson( bob );
-             persistence.storePerson( julie );
-             persistence.storePerson( heather );
-
-
-              bridge = objectLayer.createClub( "Bridge", "33 Leaf St., Blossom, OR. 88888", new Date(), joe );
-             persistence.storeClub( bridge );
+             // create rentals
+             rental1 = objectLayer.createRental(mydate, reservation1, vehicle1);
+             persistence.storeRental(rental1);
              
-             chess = objectLayer.createClub( "Chess", "734 Pine Straw Dr., Bloom, KY. 48878", new Date(), mary );
-             persistence.storeClub( chess );
+             // create comments
+             comment1 = objectLayer.createComment("great experience", mydate, rental1);
+             persistence.storeComment(comment1);
              
-             tennis = objectLayer.createClub( "Tennis", "333 Wide St., Flower, RI. 17345", new Date(), mary );
-             persistence.storeClub( tennis );
-             
-             running = objectLayer.createClub( "Running", "445 Pace St., Quicker, Wy. 77546", new Date(), bob );
-             persistence.storeClub( running );
-
-
-             membership = objectLayer.createMembership( joe, bridge, new Date() );
-             persistence.storeMembership( membership );
-             
-             membership = objectLayer.createMembership( bob, bridge, new Date() );
-             persistence.storeMembership( membership );
-             
-             membership = objectLayer.createMembership( heather, bridge, new Date() );
-             persistence.storeMembership( membership );
-             
-             membership = objectLayer.createMembership( mary, chess, new Date() );
-             persistence.storeMembership( membership );
-             
-             membership = objectLayer.createMembership( mary, tennis, new Date() );
-             persistence.storeMembership( membership );
-             
-             membership = objectLayer.createMembership( julie, tennis, new Date() );
-             persistence.storeMembership( membership );
-             
-             membership = objectLayer.createMembership( bob, tennis, new Date() );
-             persistence.storeMembership( membership );
-             
-             membership = objectLayer.createMembership( joe, chess, new Date() );
-             persistence.storeMembership( membership );
-             */
 
              System.out.println( "Entity objects created and saved in the persistence module" );
              
@@ -165,6 +133,7 @@ public class WriteTest
              // close the connection
              try {
                  con.close();
+                 System.out.println( "\n\nWriteTest.java: Connection closed successfully.\n\n" );
              }
              catch( Exception e ) {
                  System.err.println( "Exception: " + e );

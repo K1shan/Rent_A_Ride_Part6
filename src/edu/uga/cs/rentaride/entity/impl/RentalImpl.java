@@ -18,6 +18,7 @@ import edu.uga.cs.rentaride.entity.VehicleStatus;
 import edu.uga.cs.rentaride.entity.VehicleType;
 import edu.uga.cs.rentaride.persistence.impl.Persistent;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 import edu.uga.cs.rentaride.RARException;
@@ -27,26 +28,31 @@ public class RentalImpl
 	extends Persistent
 	implements Rental 
 {
+<<<<<<< HEAD
 
+=======
+>>>>>>> master
 	private Date pickupTime;
 	private Date returnTime;
 	private int charges;
 	private Reservation reservation;
 	private Vehicle vehicle;
 	private Comment comment;
+<<<<<<< HEAD
 	private boolean late;
+=======
+>>>>>>> master
 	private Customer customer;
 	
 	public RentalImpl(){
-		
 		super( -1 );
-		
 		this.pickupTime = null;
 		this.returnTime = null;
 		this.charges = 0;
 		this.reservation = null;
 		this.vehicle = null;
 		this.comment = null;
+<<<<<<< HEAD
 		this.late = false;
 		this.customer = null;
 
@@ -54,28 +60,54 @@ public class RentalImpl
 	
 	public RentalImpl(Date pickupTime, Date returnTime, int charges,Reservation reservation, Vehicle vehicle, Comment comment, boolean late, Customer customer){
 		
+=======
+	}
+	
+	public RentalImpl(Date pickupTime, Reservation reservation, Vehicle vehicle){
+>>>>>>> master
 		super( -1 );
-		
 		this.pickupTime = pickupTime;
-		this.returnTime = returnTime;
-		this.charges = charges;
+		this.returnTime = null;
+		this.charges = 0;//vehicle.getVehicleType().getHourlyPrices().get(0).getPrice();
 		this.reservation = reservation;
 		this.vehicle = vehicle;
 		this.comment = comment;
 		this.late = late;
 		this.customer = customer;
 	}
-	
-	
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public boolean getLate() {
+<<<<<<< HEAD
 		return this.late;
+=======
+		
+		if(this.returnTime == null){
+			Date date = new Date();
+			Timestamp timedate = new Timestamp(date.getTime());
+			if(timedate.getHours()-this.pickupTime.getTime() < this.reservation.getLength()){
+				return false;
+			}else{
+				return true;
+			}
+		}
+		
+		if(this.returnTime.getTime() - this.pickupTime.getTime() > this.reservation.getLength()){
+			return true;
+		}else{
+			return false;
+		}
+>>>>>>> master
 	}
 
 	@Override
 	public Customer getCustomer() {
+<<<<<<< HEAD
 		return customer;
+=======
+		return this.customer;
+>>>>>>> master
 	}
 
 	public Date getPickupTime() {
@@ -126,4 +158,13 @@ public class RentalImpl
 		this.comment = comment;
 	}
 
+	@Override
+	public String toString() {
+		return "RentalImpl ["
+				+ "pickupTime=" + pickupTime + ", returnTime=" + returnTime + ", charges=" + charges
+				+ ", reservations=" + this.reservation
+				+ ", vehicleId=" + this.vehicle
+				+ ", customer=" + this.reservation.getCustomer() + 
+				"]";
+	}
 }

@@ -2,7 +2,11 @@ package edu.uga.cs.rentaride.entity.impl;
 
 
 
+import java.util.List;
+
 import edu.uga.cs.rentaride.entity.RentalLocation;
+import edu.uga.cs.rentaride.entity.Reservation;
+import edu.uga.cs.rentaride.entity.Vehicle;
 import edu.uga.cs.rentaride.persistence.impl.Persistent;
 
 
@@ -10,25 +14,21 @@ public class RentalLocationImpl
 	extends Persistent
 	implements RentalLocation 
 {
-
-	String name;
-	String address;
-	int capacity;
+	private String name;
+	private String address;
+	private int capacity;
+	private List<Reservation> reservations;
+	private List<Vehicle> vehicles;
 	
 	public RentalLocationImpl(){
-		
 		super( -1 );
-		
 		this.name = null;
 		this.address = null;
 		this.capacity = 0;
-
 	}
 	
 	public RentalLocationImpl(String name, String address, int capacity){
-		
 		super( -1 );
-		
 		this.name = name;
 		this.address = address;
 		this.capacity = capacity;
@@ -57,5 +57,23 @@ public class RentalLocationImpl
 	public void setCapacity(int capacity) {
 		this.capacity = capacity;
 	}
+
+	@Override
+	public String toString() {
+		return "RentalLocationImpl [name=" + name + ", address=" + address + ", capacity=" + capacity + "]";
+	}
+
+	@Override
+	public List<Reservation> getReservations() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Vehicle> getVehicles() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 }
