@@ -5,13 +5,19 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.mysql.jdbc.PreparedStatement;
 import com.mysql.jdbc.Statement;
 
 import edu.uga.cs.rentaride.RARException;
+import edu.uga.cs.rentaride.entity.Customer;
 import edu.uga.cs.rentaride.entity.HourlyPrice;
+import edu.uga.cs.rentaride.entity.Reservation;
+import edu.uga.cs.rentaride.entity.Vehicle;
+import edu.uga.cs.rentaride.entity.VehicleCondition;
+import edu.uga.cs.rentaride.entity.VehicleStatus;
 import edu.uga.cs.rentaride.entity.VehicleType;
 import edu.uga.cs.rentaride.object.ObjectLayer;
 import edu.uga.cs.rentaride.persistence.Persistable;
@@ -99,13 +105,16 @@ public class VehicleTypeManager{
 	public List<VehicleType> restore( VehicleType modelVehicleType ) throws RARException{
 		
 		String       selectVehicleTypeQuery = 
-				"SELECT type_id, name FROM VEHICLE_TYPE";
+				"SELECT VEHICLE_TYPE.type_id, VEHICLE_TYPE.name, VEHICLE.*, RESERVATION.* name FROM VEHICLE_TYPE "
+				+ "INNER JOIN VEHICLE ON VEHICLE.type_id=VEHICLE_TYPE.type_id "
+				+ "INNER JOIN RESERVATION ON RESERVATION.type_id=VEHICLE_TYPE.type_id";
         Statement    stmt = null;
         StringBuffer query = new StringBuffer( 100 );
         StringBuffer condition = new StringBuffer( 100 );
         List<VehicleType> vehicleTypes = new ArrayList<VehicleType>();
 
         condition.setLength( 0 );
+        System.out.println("query: "+selectVehicleTypeQuery);
         
         // form the query based on the given Person object instance
         query.append( selectVehicleTypeQuery );
@@ -131,17 +140,91 @@ public class VehicleTypeManager{
             //
             if( stmt.execute( query.toString() ) ) { // statement returned a result
                 ResultSet rs = stmt.getResultSet();
-                long   id;
+                
+                // VEHICLE_TYPE
+                int   type_id;
                 String name;
+                
+                // VEHICLE
+                int vehicle_id;
+				int vehicle_type_id;
+				int location_id;
+				String make;
+				String model;
+				int year;
+				int mileage;
+				String tag;
+				Date service_date;
+				int status = 0;
+				int cond = 0;
+                
+                // RESERVATION
+				int reservation_id;
+				int reservation_location_id;
+				int reservation_type_id;
+				int customer_id;
+				Date pickupTime;
+				int rentalLength;
+				
+				
+                Vehicle vehicle = null;
+                Reservation reservation = null;
+                Customer customer = null;
+                VehicleStatus vehicleStatus = VehicleStatus.INLOCATION;
+				VehicleCondition vehicleCondition = VehicleCondition.GOOD;
                 
                 while( rs.next() ) {
 
-                    id = rs.getLong( 1 );
+                	// VEHICLE_TYPE
+                    type_id = rs.getInt( 1 );
                     name = rs.getString( 2 );
+                    
+                    // VEHICLE
+                    vehicle_id = rs.getInt(3);
+					vehicle_type_id = rs.getInt(4);
+					location_id = rs.getInt(5);
+					make = rs.getString(6);
+					model = rs.getString(7);
+					year = rs.getInt(8);
+					mileage = rs.getInt(9);
+					tag = rs.getString(10);
+					service_date = rs.getDate(11);
+					status = rs.getInt(12);
+					if(status == 1){
+						vehicleStatus = VehicleStatus.INRENTAL;
+					}
+					cond = rs.getInt(13);
+					if(cond == 1){
+						vehicleCondition = VehicleCondition.NEEDSMAINTENANCE; 
+					}
+					
+					// RESERVATION
+					reservation_id = rs.getInt(14);
+					reservation_location_id = rs.getInt(15);
+					reservation_type_id = rs.getInt(16);
+					customer_id = rs.getInt(17);
+					pickupTime = rs.getDate(18);
+					rentalLength = rs.getInt(19);
 
+					
+					// VEHICLE_TYPE
                     VehicleType vehicleType = objectLayer.createVehicleType(name);
-                    vehicleType.setId( id );
-                    vehicleTypes.add( vehicleType );
+                    vehicleType.setId( type_id );
+                    
+                    
+                    // VEHICLE
+					vehicle = objectLayer.createVehicle(make, model, year, tag, mileage, service_date, vehicleType, null, vehicleCondition, vehicleStatus);
+					vehicle.setId(vehicle_id);
+					
+					// RESERVATION
+					reservation = objectLayer.createReservation(pickupTime, rentalLength, vehicleType, null, customer);
+					reservation.setId(reservation_id);
+					
+					//reservation.setRentalLocation(rentalLocation);
+					//reservation.setCustomer(customer);
+					
+					
+					vehicleTypes.add( vehicleType );
                 }
                 return vehicleTypes;
             }

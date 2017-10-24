@@ -47,11 +47,158 @@ public class ReservationManager {
 	 */
 	public void store( Reservation reservation ) throws RARException{
 		// TODO
+		
+		String insertReservationQuery =
+				"INSERT INTO RESERVATION"
+				+ "(location_id, type_id, customer_id, pickup_date, length, cancelled ) "
+				+ "VALUES "
+				+ "(?, ?, ?, ?, ?, ?)";
+		
+		String updateReservationQuery =
+				"UPDATE INTO RESERVATION"
+				+ "(location_id, type_id, customer_id, pickup_date, length, cancelled ) "
+				+ "VALUES "
+				+ "(?, ?, ?, ?, ?, ?)";
+		
+		PreparedStatement pstmt;
+		int inscnt;
+		long reservationId;
+		
+		try {
+			
+			// check persist
+			if( !reservation.isPersistent() ){
+				pstmt = (PreparedStatement) con.prepareStatement( insertReservationQuery );
+			}else{
+				pstmt = (PreparedStatement) con.prepareStatement( updateReservationQuery );
+			}
+			
+			// update pstmt
+			if( reservation.getRentalLocation().getId() != 0 ){
+				pstmt.setLong( 1, reservation.getRentalLocation().getId() );
+			}else{
+				throw new RARException( "Reservation.save: can't save a reservation: location undefined" );
+			}
+			
+			if( reservation.getVehicleType().getId() != 0 ){
+				pstmt.setLong( 2, reservation.getVehicleType().getId() );
+			}else{
+				throw new RARException( "Reservation.save: can't save a reservation: vehicleType undefined" );
+			}
+			
+			if( reservation.getCustomer().getId() != 0 ){
+				pstmt.setLong( 3, reservation.getCustomer().getId() );
+			}else{
+				throw new RARException( "Reservation.save: can't save a reservation: customer undefined" );
+			}
+			
+			if( reservation.getPickupTime() != null ){
+				java.util.Date myDate = reservation.getPickupTime();
+	        	java.sql.Date sqlDate = new java.sql.Date(myDate.getTime());
+				pstmt.setDate( 4, sqlDate );
+			}else{
+				throw new RARException( "Reservation.save: can't save a reservation: pickup undefined" );
+			}
+			
+			if( reservation.getLength() != 0 ){
+				pstmt.setLong( 5, reservation.getLength() );
+			}else{
+				throw new RARException( "Reservation.save: can't save a reservation: length undefined" );
+			}
+			
+			pstmt.setLong( 6, 0 );
+			
+			System.out.println("query: " + pstmt.asSql());
+            inscnt = pstmt.executeUpdate();
+			
+            // auto_inc pk to object pk
+            if ( !reservation.isPersistent() ){
+            	if( inscnt == 1 ){
+            		String sql = "select last_insert_id()";
+            		if( pstmt.execute( sql ) ){
+            			ResultSet rs = pstmt.getResultSet();
+            			while( rs.next() ){
+            				reservationId = rs.getLong( 1 );
+            				if( reservationId > 0 ){
+            					reservation.setId( reservationId );
+            				}
+            			}
+            		}
+            	}
+            }else{
+            	if( inscnt < 1 ){
+            		throw new RARException( "RentalLocationManager.save: failed to save a location" );
+            	}
+            }
+			
+		} catch(SQLException e){
+			e.printStackTrace();
+			throw new RARException( "RentalLocationManager.store: failed to store a location: " + e );
+		}			
 	}
 	
 	public List<Reservation> restore( Reservation modelReservation ) throws RARException{
     	// TODO
-    	return null;
+		
+		String selectReservationQuery =
+				"SELECT * FROM RESERVATION "
+				+ "INNER JOIN CUSTOMER ON CUSTOMER.customer_id=RESERVATION.customer_id "
+				+ "INNER JOIN LOCATION ON LOCATION.location_id=RESERVATION.location_id "
+				+ "INNER JOIN VEHICLE_TYPE ON VEHICLE_TYPE.type_id=RESERVATION.type_id";
+		
+		List<Reservation> reservations = new ArrayList<Reservation>();
+		Statement stmt = null;
+		System.out.println("query: "+selectReservationQuery);
+		
+		try {
+			stmt = con.createStatement();
+			
+			if( stmt.execute(selectReservationQuery) ){
+				ResultSet rs = stmt.getResultSet();
+				
+				//"(location_id, type_id, customer_id, pickup_date, length, cancelled ) "
+
+				int reservation_id;
+				int location_id;
+				int type_id;
+				int customer_id;
+				Date pickupTime;
+				int rentalLength;
+				VehicleType vehicleType = null;
+				RentalLocation rentalLocation = null;
+				Customer customer = null;
+				
+				
+				while( rs.next() ){
+					reservation_id = rs.getInt(1);
+					location_id = rs.getInt(2);
+					type_id = rs.getInt(3);
+					customer_id = rs.getInt(4);
+					pickupTime = rs.getDate(5);
+					rentalLength = rs.getInt(6);
+					
+					
+					
+					vehicleType = objectLayer.createVehicleType();
+					vehicleType.setId(type_id);
+					
+					rentalLocation = objectLayer.createRentalLocation();
+					rentalLocation.setId(location_id);
+					
+					customer = objectLayer.createCustomer();
+					customer.setId(customer_id);
+					
+					Reservation reservation = objectLayer.createReservation(pickupTime, rentalLength, vehicleType, rentalLocation, customer);
+					reservation.setId(reservation_id);
+					reservations.add(reservation);
+				}
+			}
+			return reservations;
+			
+		} catch (SQLException e){
+			e.printStackTrace();
+			throw new RARException( "RentalLocationManager.get: failed to get any locations: " + e );
+		}
     }
 
 	public Customer restoreCustomerReservation(Reservation reservation) throws RARException {
