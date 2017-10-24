@@ -57,17 +57,16 @@ public class AdministratorImpl
 
 	@Override
 	public int getUserId() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.userId;
 	}
 
 	@Override
 	public void setUserId(int userId) {
-		// TODO Auto-generated method stub	
+		this.userId = userId;
 	}
 
 	public String getFirstName() {
-		return firstName;
+		return this.firstName;
 	}
 
 	public void setFirstName(String firstName) {
@@ -75,7 +74,7 @@ public class AdministratorImpl
 	}
 
 	public String getLastName() {
-		return lastName;
+		return this.lastName;
 	}
 
 	public void setLastName(String lastName) {
@@ -83,7 +82,7 @@ public class AdministratorImpl
 	}
 
 	public String getUserName() {
-		return userName;
+		return this.userName;
 	}
 
 	public void setUserName(String userName) {
@@ -91,7 +90,7 @@ public class AdministratorImpl
 	}
 
 	public String getPassword() {
-		return password;
+		return this.password;
 	}
 
 	public void setPassword(String password) {
@@ -99,7 +98,7 @@ public class AdministratorImpl
 	}
 
 	public String getEmail() {
-		return email;
+		return this.email;
 	}
 
 	public void setEmail(String email) {
@@ -107,7 +106,7 @@ public class AdministratorImpl
 	}
 
 	public String getAddress() {
-		return address;
+		return this.address;
 	}
 
 	public void setAddress(String address) {
@@ -115,7 +114,7 @@ public class AdministratorImpl
 	}
 
 	public UserStatus getUserStatus() {
-		return userStatus;
+		return this.userStatus;
 	}
 
 	public void setUserStatus(UserStatus userStatus) {
@@ -124,14 +123,12 @@ public class AdministratorImpl
 
 	@Override
 	public Date getCreatedDate() {
-		// TODO Auto-generated method stub
-		return createdDate;
+		return this.createdDate;
 	}
 
 	@Override
 	public void setCreateDate(Date createDate) {
 		this.createdDate = createDate;
-		
 	}
 
 

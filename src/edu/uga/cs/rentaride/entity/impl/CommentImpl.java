@@ -17,9 +17,10 @@ public class CommentImpl
 	implements Comment 
 {
 
-	String text;
-	Date date;
-	Rental rental;
+	private String text;
+	private Date date;
+	private Rental rental;
+	private Customer customer;
 	
 	public CommentImpl(){
 		
@@ -27,16 +28,18 @@ public class CommentImpl
 		this.date = null;
 		this.rental = null;
 		this.text = null;
+		this.customer = null;
 
 	}
 	
-	public CommentImpl(String text, Date date, Rental rental){
+	public CommentImpl(String text, Date date, Rental rental, Customer customer){
 		
 		super( -1 );
 		
 		this.date = date;
 		this.rental = rental;
 		this.text = text;
+		this.customer = customer;
 		
 	}
 	
@@ -44,7 +47,7 @@ public class CommentImpl
 	@Override
 	public String getText() {
 
-		return text;
+		return this.text;
 	}
 
 	@Override
@@ -56,7 +59,7 @@ public class CommentImpl
 	@Override
 	public Date getDate() {
 		
-		return date;
+		return this.date;
 	}
 
 	@Override
@@ -69,7 +72,7 @@ public class CommentImpl
 	@Override
 	public Rental getRental() {
 		
-		return rental;
+		return this.rental;
 	}
 
 	@Override
@@ -81,8 +84,7 @@ public class CommentImpl
 
 	@Override
 	public Customer getCustomer() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.customer;
 	}
 	
 }

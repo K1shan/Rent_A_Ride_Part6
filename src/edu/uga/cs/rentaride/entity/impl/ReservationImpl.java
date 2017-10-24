@@ -28,76 +28,91 @@ public class ReservationImpl
 	implements Reservation 
 {
 
+	private Date pickupTime;
+	private int length;
+	private Customer customer;
+	private VehicleType vehicleType;
+	private RentalLocation rentalLocation;
+	private Rental rental;
+	
+	public ReservationImpl() {
+		super ( -1 );
+		this.pickupTime = null;
+		this.length = 0;
+		this.customer = null;
+		this.vehicleType = null;
+		this.rentalLocation = null;
+		this.rental = null;
+	}
+	
+	public ReservationImpl(Date pickupTime, int length, Customer customer, VehicleType vehicleType, RentalLocation rentalLocation, Rental rental) {
+		super ( -1 );
+		this.pickupTime = pickupTime;
+		this.length = length;
+		this.customer = customer;
+		this.vehicleType = vehicleType;
+		this.rentalLocation = rentalLocation;
+		this.rental = rental;
+	}
+	
 	@Override
 	public Date getPickupTime() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.pickupTime;
 	}
 
 	@Override
 	public void setPickupTime(Date pickupTime) throws RARException {
-		// TODO Auto-generated method stub
-		
+		this.pickupTime = pickupTime;
 	}
 
 	@Override
 	public int getLength() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.length;
 	}
 
 	@Override
 	public void setLength(int length) throws RARException {
-		// TODO Auto-generated method stub
-		
+		this.length = length;
 	}
 
 	@Override
 	public Customer getCustomer() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.customer;
 	}
 
 	@Override
 	public void setCustomer(Customer customer) throws RARException {
-		// TODO Auto-generated method stub
-		
+		this.customer = customer;
 	}
 
 	@Override
 	public VehicleType getVehicleType() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.vehicleType;
 	}
 
 	@Override
 	public void setVehicleType(VehicleType vehicleType) throws RARException {
-		// TODO Auto-generated method stub
-		
+		this.vehicleType = vehicleType;
 	}
 
 	@Override
 	public RentalLocation getRentalLocation() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.rentalLocation;
 	}
 
 	@Override
 	public void setRentalLocation(RentalLocation rentalLocation) throws RARException {
-		// TODO Auto-generated method stub
-		
+		this.rentalLocation = rentalLocation;
 	}
 
 	@Override
 	public Rental getRental() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.rental;
 	}
 
 	@Override
 	public void setRental(Rental rental) {
-		// TODO Auto-generated method stub
-		
+		this.rental = rental;
 	}
 	
 }

@@ -40,7 +40,9 @@ public class CustomerImpl
 	private String licenseNumber;
 	private String cardNumber;
 	private UserStatus userStatus;
-	
+    private List<Reservation> reservations;
+    private List<Comment> comments;
+    private List<Rental> rentals;
 	
 	public CustomerImpl(){
 	
@@ -59,15 +61,17 @@ public class CustomerImpl
 		this.licenseNumber = null;
 		this.cardNumber = null;
 		this.userStatus = null;
+		this.reservations = null;
+		this.comments = null;
+		this.rentals = null;
 	}
 	
-	public CustomerImpl(String firstName, String lastName, String userName, String password, String email,
-			String address, Date createDate, Date membershipExpiration, String licenseState, String licenseNumber,
-			String cardNumber, Date cardExpiration){
+	public CustomerImpl(Date createDate, Date memberUntil, Date cardExpiration, String firstName, String lastName, String userName, String password, String email,
+			String address, String state, String licenseNumber, String cardNumber, UserStatus userStatus){
 		
 		super( -1 );
 		this.createDate = createDate;
-		this.memberUntil = membershipExpiration;
+		this.memberUntil = memberUntil;
 		this.cardExpiration = cardExpiration;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -75,29 +79,62 @@ public class CustomerImpl
 		this.email =  email;
 		this.password =  password;
 		this.address =  address;
-		this.state =  licenseState;
+		this.state =  state;
 		this.licenseNumber = licenseNumber;
 		this.cardNumber = cardNumber;
 		this.userStatus = userStatus;
-		
+		this.reservations = null;
+		this.comments = null;
+		this.rentals = null;
 	}
 	
 	@Override
 	public List<Reservation> getReservations() {
 		// TODO Auto-generated method stub
-		return null;
+		//return null;
+		 if( reservations == null )
+	            if( isPersistent() ) {
+	                Reservation reservation = new ReservationImpl();
+	                reservation.setReservation( this );
+	                reservations = getPersistencaLayer().restoreReservation( reservation );
+	                //System.out.println(  "Club.getPersonsMembership: lazy traversal" );
+	            }
+	            else
+	                throw new Exception( "This object is not persistent" );
+
+	        return reservations;
 	}
 
 	@Override
 	public List<Comment> getComments() {
 		// TODO Auto-generated method stub
-		return null;
+		if( comments == null )
+            if( isPersistent() ) {
+                Comment comment = new CommentImpl();
+                comment.setComment( this );
+                comments = getPersistencaLayer().restoreComment( comment );
+                //System.out.println(  "Club.getPersonsMembership: lazy traversal" );
+            }
+            else
+                throw new Exception( "This object is not persistent" );
+
+        return comments;
 	}
 
 	@Override
 	public List<Rental> getRentals() {
 		// TODO Auto-generated method stub
-		return null;
+		if( rentals == null )
+            if( isPersistent() ) {
+                Rental rental = new RentalImpl();
+                rental.setRental( this );
+                rentals = getPersistencaLayer().restoreRental( rental );
+                //System.out.println(  "Club.getPersonsMembership: lazy traversal" );
+            }
+            else
+                throw new Exception( "This object is not persistent" );
+
+        return rentals;
 	}
 	
 	@Override

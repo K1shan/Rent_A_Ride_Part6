@@ -28,12 +28,14 @@ public class RentalImpl
 	implements Rental 
 {
 
-	Date pickupTime;
-	Date returnTime;
-	int charges;
-	Reservation reservation;
-	Vehicle vehicle;
-	Comment comment;
+	private Date pickupTime;
+	private Date returnTime;
+	private int charges;
+	private Reservation reservation;
+	private Vehicle vehicle;
+	private Comment comment;
+	private boolean late;
+	private Customer customer;
 	
 	public RentalImpl(){
 		
@@ -45,10 +47,12 @@ public class RentalImpl
 		this.reservation = null;
 		this.vehicle = null;
 		this.comment = null;
+		this.late = false;
+		this.customer = null;
 
 	}
 	
-	public RentalImpl(Date pickupTime, Date returnTime, int charges,Reservation reservation, Vehicle vehicle, Comment comment){
+	public RentalImpl(Date pickupTime, Date returnTime, int charges,Reservation reservation, Vehicle vehicle, Comment comment, boolean late, Customer customer){
 		
 		super( -1 );
 		
@@ -58,20 +62,20 @@ public class RentalImpl
 		this.reservation = reservation;
 		this.vehicle = vehicle;
 		this.comment = comment;
+		this.late = late;
+		this.customer = customer;
 	}
 	
 	
 
 	@Override
 	public boolean getLate() {
-		// TODO Auto-generated method stub
-		return false;
+		return this.late;
 	}
 
 	@Override
 	public Customer getCustomer() {
-		// TODO Auto-generated method stub
-		return null;
+		return customer;
 	}
 
 	public Date getPickupTime() {
