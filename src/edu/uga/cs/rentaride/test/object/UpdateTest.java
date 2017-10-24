@@ -68,10 +68,15 @@ public class UpdateTest
          Club tennisClub = null;
 		*/
          
-         /*
+         List<Administrator> admins = null;
+         Iterator<Administrator> adminIter = null;
+         
          try {
         	 System.out.println("hi");
-        	*/
+        	 Administrator modelAdministrator = objectLayer.createAdministrator();
+        	 modelAdministrator.setFirstName("Krys");
+        	 admins = objectLayer.findAdministrator(modelAdministrator);
+        	 adminIter = admins.iterator();
         	 
         	 /*
              Club modelClub = objectLayer.createClub();
@@ -140,7 +145,7 @@ public class UpdateTest
             */
          
          
-         /*
+         
          }
          catch( RARException ce)
          {
@@ -154,11 +159,12 @@ public class UpdateTest
              // close the connection
              try {
                  con.close();
+                 System.out.println( "\n\nUpdateTest.java: Connection closed successfully.\n\n" );
              }
              catch( Exception e ) {
                  System.err.println( "Exception: " + e );
              }
          }   
-         */     
+         
     }    
 }

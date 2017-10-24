@@ -96,6 +96,7 @@ public class DeleteTest
         	 // close connection
         	 try {
         		 con.close();
+                 System.out.println( "\n\nDeleteTest.java: Connection closed successfully.\n\n" );
         	 }
         	 catch( Exception e ) {
                  System.err.println( "Exception: " + e );

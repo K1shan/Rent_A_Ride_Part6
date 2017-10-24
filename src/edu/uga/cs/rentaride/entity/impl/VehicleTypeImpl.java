@@ -17,6 +17,7 @@ import edu.uga.cs.rentaride.entity.VehicleStatus;
 import edu.uga.cs.rentaride.entity.VehicleType;
 import edu.uga.cs.rentaride.persistence.impl.Persistent;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -35,17 +36,17 @@ public class VehicleTypeImpl
 	public VehicleTypeImpl(){
 		super( -1 );
 		this.name = null;
-		this.hourlyPrices = null;
-		this.vehicles = null;
-		this.reservations = null;
+		this.hourlyPrices = new ArrayList<HourlyPrice>();
+		this.vehicles = new ArrayList<Vehicle>();
+		this.reservations = new ArrayList<Reservation>();
 	}
 	
 	public VehicleTypeImpl(String name){
 		super( -1 );
 		this.name = name;
-		this.hourlyPrices = hourlyPrices;
-		this.vehicles = vehicles;
-		this.reservations = reservations;
+		this.hourlyPrices = new ArrayList<HourlyPrice>();
+		this.vehicles = new ArrayList<Vehicle>();
+		this.reservations = new ArrayList<Reservation>();
 	}
 	
 	@Override
@@ -58,8 +59,9 @@ public class VehicleTypeImpl
 		this.name = name;
 	}
 
-	public void setHourlyPrices(List<HourlyPrice> hourlyPrices) {
-		this.hourlyPrices = hourlyPrices;
+	@Override
+	public void setHourlyPrices(HourlyPrice hourlyPrice) {
+		this.hourlyPrices.add(hourlyPrice);
 	}
 	
 	@Override
@@ -67,8 +69,9 @@ public class VehicleTypeImpl
 		return this.hourlyPrices;
 	}
 
-	public void setVehicles(List<Vehicle> vehicles) {
-		this.vehicles = vehicles;
+	@Override
+	public void setVehicles(Vehicle vehicle) {
+		this.vehicles.add(vehicle);
 	}
 	
 	@Override
@@ -76,8 +79,9 @@ public class VehicleTypeImpl
 		return this.vehicles;
 	}
 
-	public void setReservations(List<Reservation> reservations) {
-		this.reservations = reservations;
+	@Override
+	public void setReservations(Reservation reservation) {
+		this.reservations.add(reservation);
 	}
 	
 	@Override
@@ -87,8 +91,12 @@ public class VehicleTypeImpl
 
 	@Override
 	public String toString() {
-		return "VehicleTypeImpl [type_id=" +this.getId()+", name=" + name + ", hourlyPrices=" + hourlyPrices + ", vehicles=" + vehicles
-				+ ", reservations=" + reservations + "]";
+		return "VehicleTypeImpl "
+				+ "[type_id=" +this.getId()
+				+ ", name=" + name 
+				+ ", hourlyPrices=" + hourlyPrices 
+				+ ", vehicles=" + vehicles
+				+ ", reservations=" + reservations + 
+				"]";
 	}
-	
 }

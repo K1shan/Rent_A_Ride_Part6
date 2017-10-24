@@ -132,10 +132,11 @@ public class RentalImpl
 
 	@Override
 	public String toString() {
-		return "RentalImpl [pickupTime=" + pickupTime + ", returnTime=" + returnTime + ", charges=" + charges
-				+ ", reservationId=" + this.reservation.getId() 
-				+ ", vehicleId=" + this.vehicle.getId()
-				+ ", customer=" + this.reservation.getCustomer().getFirstName()+" "+this.reservation.getCustomer().getLastName() 
-				+ "]";
+		return "RentalImpl ["
+				+ "pickupTime=" + pickupTime + ", returnTime=" + returnTime + ", charges=" + charges
+				+ ", reservations=" + this.reservation
+				+ ", vehicleId=" + this.vehicle
+				+ ", customer=" + this.reservation.getCustomer() + 
+				"]";
 	}
 }
