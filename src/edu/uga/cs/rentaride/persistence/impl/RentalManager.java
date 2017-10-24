@@ -371,10 +371,54 @@ public class RentalManager {
 			e.printStackTrace();
 			throw new RARException("RentalManager.get: failed to get any rentals: " + e);
 		}
-	}
+  }
+    public void store( Rental rental ) throws RARException{
+    	
+		String insertRentalLocationQuery = 
+				"INSERT INTO RENTAL "
+				+ "(pickup_date, return_date, late, charges) "
+				+ "VALUES "
+				+ "(?, ?, ?, ?)";
+		
+		String updateRentalLocationQuery =
+				"UPDATE INTO LOCATION "
+				+ "(vehicle_id, customer_id, pickup_date, return_date, late, charges) "
+				+ "VALUES "
+				+ "(?, ?, ?, ?)";
+		
+		PreparedStatement pstmt;
+		int inscnt;
+		long locationId;
+    	
+    }
     
     public void delete(Rental rental) throws RARException{
-    	// TODO
+    	
+		String deleteRental = "DELETE FROM RENTAL WHERE rental_id = ?";              
+		PreparedStatement stmt = null;
+		int inscnt = 0;
+		             
+        if( !rental.isPersistent() )
+            return;
+        
+        try {
+        	
+            stmt = (PreparedStatement) con.prepareStatement( deleteRental );         
+            stmt.setLong( 1, rental.getId() );
+            inscnt = stmt.executeUpdate();          
+            if( inscnt == 1 ) {
+            	
+                return;
+            }
+            else
+                throw new RARException( "Rental.delete: failed to delete a Rental" );
+        }
+        catch( SQLException e ) {
+        	
+            e.printStackTrace();
+            throw new RARException( "Rental.delete: failed to delete a Rental: " + e );       
+            }
+    	
     }
     
     

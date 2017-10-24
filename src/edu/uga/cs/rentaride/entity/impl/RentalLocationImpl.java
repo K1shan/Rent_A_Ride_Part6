@@ -63,14 +63,5 @@ public class RentalLocationImpl
 		return "RentalLocationImpl [name=" + name + ", address=" + address + ", capacity=" + capacity + "]";
 	}
 
-	@Override
-	public List<Reservation> getReservations() {
-		return this.reservations;
-	}
-
-	@Override
-	public List<Vehicle> getVehicles() {
-		return this.vehicles;
-	}
 	
 }
