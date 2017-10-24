@@ -63,5 +63,17 @@ public class RentalLocationImpl
 		return "RentalLocationImpl [name=" + name + ", address=" + address + ", capacity=" + capacity + "]";
 	}
 
+	@Override
+	public List<Reservation> getReservations() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Vehicle> getVehicles() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 }

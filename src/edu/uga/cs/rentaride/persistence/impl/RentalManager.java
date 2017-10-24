@@ -372,26 +372,7 @@ public class RentalManager {
 			throw new RARException("RentalManager.get: failed to get any rentals: " + e);
 		}
   }
-    public void store( Rental rental ) throws RARException{
-    	
-		String insertRentalLocationQuery = 
-				"INSERT INTO RENTAL "
-				+ "(pickup_date, return_date, late, charges) "
-				+ "VALUES "
-				+ "(?, ?, ?, ?)";
-		
-		String updateRentalLocationQuery =
-				"UPDATE INTO LOCATION "
-				+ "(vehicle_id, customer_id, pickup_date, return_date, late, charges) "
-				+ "VALUES "
-				+ "(?, ?, ?, ?)";
-		
-		PreparedStatement pstmt;
-		int inscnt;
-		long locationId;
-    	
-    }
-    
+
     public void delete(Rental rental) throws RARException{
     	
 		String deleteRental = "DELETE FROM RENTAL WHERE rental_id = ?";              
