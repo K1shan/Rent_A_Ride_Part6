@@ -73,7 +73,10 @@ public class CommentImpl
 
 	@Override
 	public String toString() {
-		return "CommentImpl [text=" + text + ", date=" + date + ", rentalId=" + rental.getId() + "]";
+		return "CommentImpl ["
+				+ "text=" + text 
+				+ ", date=" + date 
+				+ ", rental=" + rental + 
+				"]";
 	}
-	
 }

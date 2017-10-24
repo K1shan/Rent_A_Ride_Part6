@@ -133,6 +133,7 @@ public class WriteTest
              // close the connection
              try {
                  con.close();
+                 System.out.println( "\n\nWriteTest.java: Connection closed successfully.\n\n" );
              }
              catch( Exception e ) {
                  System.err.println( "Exception: " + e );

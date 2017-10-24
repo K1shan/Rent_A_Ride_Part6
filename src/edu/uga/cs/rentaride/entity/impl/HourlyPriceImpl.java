@@ -54,6 +54,10 @@ public class HourlyPriceImpl
 
 	@Override
 	public String toString() {
-		return "HourlyPriceImpl [type="+this.getVehicleType().getName()+ ", maxHours=" + maxHours + ", price=" + price + ", vehicleType=" + vehicleType + "]";
+		return "HourlyPriceImpl "
+				+ "[type="+this.getVehicleType().getName()
+				+ ", maxHours=" + maxHours 
+				+ ", price=" + price +
+				"]";
 	}
 }
