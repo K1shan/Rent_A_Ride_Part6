@@ -25,28 +25,27 @@ public class RentARideParamsImpl
 	implements RentARideParams 
 {
 
+	private int membershipPrice;
+	private int lateFee;
+	
 	@Override
 	public int getMembershipPrice() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.membershipPrice;
 	}
 
 	@Override
 	public void setMembershipPrice(int membershipPrice) throws RARException {
-		// TODO Auto-generated method stub
-		
+		this.membershipPrice = membershipPrice;
 	}
 
 	@Override
 	public int getLateFee() {
-		// TODO Auto-generated method stub
-		return 0;
+		return lateFee;
 	}
 
 	@Override
 	public void setLateFee(int lateFee) throws RARException {
-		// TODO Auto-generated method stub
-		
+		this.lateFee = lateFee;
 	}
 	
 }
