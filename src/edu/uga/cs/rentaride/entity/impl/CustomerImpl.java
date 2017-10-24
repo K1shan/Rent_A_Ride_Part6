@@ -65,6 +65,9 @@ public class CustomerImpl
 		this.reservations = null;
 		this.comments = null;
 		this.rentals = null;
+		this.reservations = null;
+		this.comments = null;
+		this.rentals = null;
 	}
 	
 	public CustomerImpl(String firstName, String lastName, String userName, String password, String email,
@@ -228,44 +231,42 @@ public class CustomerImpl
 
 	@Override
 	public List<Reservation> getReservations() {
-		/*if(reservations == null)
+		if(reservations == null)
             if( isPersistent() ) {
                 Reservation reservation = new ReservationImpl();
                 reservation.setReservation( this );
                 reservations = getPersistencaLayer().restoreReservation( reservation );
-                //System.out.println(  "Club.getPersonsMembership: lazy traversal" );
             }
             else
-                throw new Exception( "This object is not persistent" );*/
+                throw new Exception( "This object is not persistent" );
 
         return reservations;
 	}
 
 	@Override
 	public List<Comment> getComments() {
-		/*if(comments == null)
+		if(comments == null)
             if( isPersistent() ) {
                 Comment comment = new CommentImpl();
                 comment.setComment( this );
                 comments = getPersistencaLayer().restoreComment( comment );
             }
             else
-                throw new Exception( "This object is not persistent" );*/
+                throw new Exception( "This object is not persistent" );
 
         return comments;
 	}
 
 	@Override
 	public List<Rental> getRentals() {
-		/*if(rentals == null)
+		if(rentals == null)
             if( isPersistent() ) {
                 Rental rental = new RentalImpl();
                 rental.setRental( this );
                 rentals = getPersistencaLayer().restoreRental( rental );
-                //System.out.println(  "Club.getPersonsMembership: lazy traversal" );
             }
             else
-                throw new Exception( "This object is not persistent" );*/
+                throw new Exception( "This object is not persistent" );
 
         return rentals;
 	}
