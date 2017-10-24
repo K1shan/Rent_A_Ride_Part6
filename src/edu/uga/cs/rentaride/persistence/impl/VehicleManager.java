@@ -320,6 +320,9 @@ public class VehicleManager {
 					}
 					name = rs.getString(12);
 					
+					// TODO
+					// OBJECT CREATION
+					
 					vehicleType = objectLayer.createVehicleType();
 					vehicleType.setId(type_id);
 					vehicleType.setName(name);

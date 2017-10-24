@@ -42,6 +42,7 @@ public class WriteTest
          Customer       customer2;
          RentalLocation	rentalLocation1;
          Vehicle vehicle1;
+         Reservation reservation1;
 
 
          /*
@@ -88,11 +89,11 @@ public class WriteTest
              admin2 = objectLayer.createAdministrator("AdminFirstName", "AdminLastName", "admin2user", "password", "email@email.com", "111 Goodbye St., Big Town, GA. 30129", mydate);
              persistence.storeAdministrator(admin2);
             
-            // create rental locations
+             // create rental locations
              rentalLocation1 = objectLayer.createRentalLocation("atlanta", "999 cool street", 500);
              persistence.storeRentalLocation(rentalLocation1);
 
-            // create vehicle types
+             // create vehicle types
              truckVehicleType = objectLayer.createVehicleType("truck");
              persistence.storeVehicleType(truckVehicleType);
              
@@ -103,13 +104,13 @@ public class WriteTest
              truckHourlyPrice1 = objectLayer.createHourlyPrice(20, 50, truckVehicleType);
              persistence.storeHourlyPrice(truckHourlyPrice1);
 
-            // create vehicles
+             // create vehicles
              vehicle1 = objectLayer.createVehicle("honda", "civic", 2012, "123456789", 20000, mydate, truckVehicleType, rentalLocation1, VehicleCondition.GOOD, VehicleStatus.INLOCATION);
              persistence.storeVehicle(vehicle1);
             		
              // create reservations
-             
-             
+             reservation1 = objectLayer.createReservation(mydate, 200, truckVehicleType, rentalLocation1, customer1);
+             persistence.storeReservation(reservation1);
              
              // create rentals
              

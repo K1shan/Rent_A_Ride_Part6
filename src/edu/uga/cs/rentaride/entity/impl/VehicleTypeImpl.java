@@ -43,9 +43,9 @@ public class VehicleTypeImpl
 	public VehicleTypeImpl(String name){
 		super( -1 );
 		this.name = name;
-		this.hourlyPrices = null;
-		this.vehicles = null;
-		this.reservations = null;
+		this.hourlyPrices = hourlyPrices;
+		this.vehicles = vehicles;
+		this.reservations = reservations;
 	}
 	
 	@Override

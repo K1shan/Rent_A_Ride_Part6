@@ -109,7 +109,6 @@ public class RentalLocationManager {
 			e.printStackTrace();
 			throw new RARException( "RentalLocationManager.store: failed to store a location: " + e );
 		}
-		
     }
 	
 	
