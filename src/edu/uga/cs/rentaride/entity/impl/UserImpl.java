@@ -129,7 +129,7 @@ public class UserImpl extends Persistent implements User {
 	}
 
 	@Override
-	public void setCreateDate(Date createDate) {
+	public void setCreateDate(Date createdDate) {
 		
 		this.createdDate = createdDate;
 	}
