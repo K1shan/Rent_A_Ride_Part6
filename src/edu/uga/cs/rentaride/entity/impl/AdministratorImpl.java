@@ -121,4 +121,16 @@ public class AdministratorImpl
 				+ ", password=" + password + ", email=" + email + ", address=" + address + ", createdDate="
 				+ createdDate + ", userStatus=" + userStatus + "]";
 	}
+
+	@Override
+	public int getUserId() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void setUserId(int userId) {
+		// TODO Auto-generated method stub
+		
+	}
 }

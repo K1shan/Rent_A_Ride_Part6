@@ -338,11 +338,6 @@ public class ObjectLayerImpl
 	}
 
 	@Override
-	public RentARideParams findRentARideParams() throws RARException {
-		return persistence.restoreRentARideConfig();
-	}
-
-	@Override
 	public void storeRentARideParams(RentARideParams rentARideParams) throws RARException {
 		persistence.restoreRentARideConfig();
 	}
@@ -350,5 +345,11 @@ public class ObjectLayerImpl
 	@Override
 	public void setPersistence(PersistenceLayer persistence) {
 		this.persistence = persistence;
+	}
+
+	@Override
+	public RentARideParams findRentARideParams() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
