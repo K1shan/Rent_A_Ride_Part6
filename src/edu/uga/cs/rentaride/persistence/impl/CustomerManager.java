@@ -362,8 +362,8 @@ public class CustomerManager{
 	            String pword;
 	            String email;
 	            String address;
-	            
 	            Date createDate;
+	            
 	            long customerId;
 	            Date memberUntil;
 	            String licState;

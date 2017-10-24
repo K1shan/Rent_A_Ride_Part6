@@ -18,6 +18,7 @@ import edu.uga.cs.rentaride.entity.VehicleStatus;
 import edu.uga.cs.rentaride.entity.VehicleType;
 import edu.uga.cs.rentaride.persistence.impl.Persistent;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 import edu.uga.cs.rentaride.RARException;
@@ -49,7 +50,7 @@ public class RentalImpl
 		super( -1 );
 		this.pickupTime = pickupTime;
 		this.returnTime = null;
-		this.charges = vehicle.getVehicleType().getHourlyPrices().get(0).getPrice();
+		this.charges = 0;//vehicle.getVehicleType().getHourlyPrices().get(0).getPrice();
 		this.reservation = reservation;
 		this.vehicle = vehicle;
 		this.comment = comment;
@@ -58,7 +59,18 @@ public class RentalImpl
 	@SuppressWarnings("deprecation")
 	@Override
 	public boolean getLate() {
-		if(this.returnTime.getHours() - this.pickupTime.getHours() > this.reservation.getLength()){
+		
+		if(this.returnTime == null){
+			Date date = new Date();
+			Timestamp timedate = new Timestamp(date.getTime());
+			if(timedate.getHours()-this.pickupTime.getTime() < this.reservation.getLength()){
+				return false;
+			}else{
+				return true;
+			}
+		}
+		
+		if(this.returnTime.getTime() - this.pickupTime.getTime() > this.reservation.getLength()){
 			return true;
 		}else{
 			return false;
@@ -116,5 +128,14 @@ public class RentalImpl
 
 	public void setComment(Comment comment) {
 		this.comment = comment;
+	}
+
+	@Override
+	public String toString() {
+		return "RentalImpl [pickupTime=" + pickupTime + ", returnTime=" + returnTime + ", charges=" + charges
+				+ ", reservationId=" + this.reservation.getId() 
+				+ ", vehicleId=" + this.vehicle.getId()
+				+ ", customer=" + this.reservation.getCustomer().getFirstName()+" "+this.reservation.getCustomer().getLastName() 
+				+ "]";
 	}
 }

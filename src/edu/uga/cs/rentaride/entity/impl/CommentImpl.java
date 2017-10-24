@@ -70,5 +70,10 @@ public class CommentImpl
 	public Customer getCustomer() {
 		return this.getCustomer();
 	}
+
+	@Override
+	public String toString() {
+		return "CommentImpl [text=" + text + ", date=" + date + ", rentalId=" + rental.getId() + "]";
+	}
 	
 }

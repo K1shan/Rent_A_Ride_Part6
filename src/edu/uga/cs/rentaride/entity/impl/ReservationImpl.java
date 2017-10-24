@@ -108,8 +108,11 @@ public class ReservationImpl
 
 	@Override
 	public String toString() {
-		return "ReservationImpl [pickupTime=" + pickupTime + ", rentalLength=" + rentalLength + ", vehicleType="
-				+ vehicleType + ", rentalLocation=" + rentalLocation + ", customer=" + customer + ", rental=" + rental
-				+ "]";
+		return "ReservationImpl [pickupTime=" + this.pickupTime + ", rentalLength=" + this.rentalLength 
+				+ ", vehicleTypeName=" + this.vehicleType.getName()
+				+ ", rentalLocationName=" + this.rentalLocation.getName()
+				+ ", customerName=" + this.customer.getFirstName()+" "+this.customer.getLastName()
+				+
+				"]";
 	}
 }

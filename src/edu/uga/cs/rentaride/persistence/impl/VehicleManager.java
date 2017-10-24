@@ -180,8 +180,12 @@ public class VehicleManager {
 	public List<Vehicle> restore( Vehicle modelVehicle ) throws RARException{
 		
 		String selectVehicleSql = "SELECT "
-				+ "vehicle_id, VEHICLE.type_id, location_id, make, model, year, mileage, tag, service_date, status, cond, name "
-				+ "FROM VEHICLE INNER JOIN VEHICLE_TYPE on VEHICLE_TYPE.type_id=VEHICLE.type_id";
+				+ "VEHICLE.vehicle_id, VEHICLE.type_id, VEHICLE.location_id, VEHICLE.make, VEHICLE.model, VEHICLE.year, VEHICLE.mileage, VEHICLE.tag, VEHICLE.service_date, VEHICLE.status, VEHICLE.cond, "
+				+ "VEHICLE_TYPE.name, "
+				+ "LOCATION.name "
+				+ "FROM VEHICLE "
+				+ "INNER JOIN VEHICLE_TYPE on VEHICLE_TYPE.type_id=VEHICLE.type_id "
+				+ "INNER JOIN LOCATION ON LOCATION.location_id=VEHICLE.location_id";
 		
 		
 		Statement stmt = null;
@@ -277,6 +281,8 @@ public class VehicleManager {
 			stmt = con.createStatement();
 			if(stmt.execute(query.toString())) {
 				ResultSet rs = stmt.getResultSet();
+				
+				// VEHICLE
 				int vehicle_id;
 				int type_id;
 				int location_id;
@@ -289,10 +295,15 @@ public class VehicleManager {
 				int status;
 				int cond;
 				String name;
+				
+				// LOCATION
+				String location_name;
+				
 				VehicleType vehicleType = null;
 				RentalLocation rentalLocation = null;
-				VehicleStatus vehicleStatus;
-				VehicleCondition vehicleCondition;
+				Vehicle vehicle = null;
+				VehicleStatus vehicleStatus = VehicleStatus.INLOCATION;
+				VehicleCondition vehicleCondition = VehicleCondition.GOOD;
 				
 				while( rs.next() ){
 					vehicle_id = rs.getInt(1);
@@ -304,30 +315,26 @@ public class VehicleManager {
 					mileage = rs.getInt(7);
 					tag = rs.getString(8);
 					service_date = rs.getDate(9);
-					
 					status = rs.getInt(10);
-					if(status == 0){
-						vehicleStatus = VehicleStatus.INLOCATION;
-					}else{
+					if(status == 1){
 						vehicleStatus = VehicleStatus.INRENTAL;
 					}
-					
 					cond = rs.getInt(11);
-					if(cond == 0){
-						vehicleCondition = VehicleCondition.GOOD; 
-					}else{
+					if(cond == 1){
 						vehicleCondition = VehicleCondition.NEEDSMAINTENANCE;
 					}
 					name = rs.getString(12);
+					location_name = rs.getString(13);
 					
-					// TODO
-					// OBJECT CREATION
+					rentalLocation = objectLayer.createRentalLocation();
+					rentalLocation.setId(location_id);
+					rentalLocation.setName(location_name);
 					
 					vehicleType = objectLayer.createVehicleType();
 					vehicleType.setId(type_id);
 					vehicleType.setName(name);
 					
-					Vehicle vehicle = objectLayer.createVehicle(make, model, year, tag, mileage, service_date, vehicleType, rentalLocation, vehicleCondition, vehicleStatus);
+					vehicle = objectLayer.createVehicle(make, model, year, tag, mileage, service_date, vehicleType, rentalLocation, vehicleCondition, vehicleStatus);
 					vehicle.setId(vehicle_id);
 					vehicles.add(vehicle);
 				}

@@ -41,8 +41,10 @@ public class WriteTest
          Customer       customer1;
          Customer       customer2;
          RentalLocation	rentalLocation1;
-         Vehicle vehicle1;
-         Reservation reservation1;
+         Vehicle 		vehicle1;
+         Reservation 	reservation1;
+         Rental			rental1;
+         Comment		comment1;
 
 
          /*
@@ -113,10 +115,12 @@ public class WriteTest
              persistence.storeReservation(reservation1);
              
              // create rentals
-             
-             
+             rental1 = objectLayer.createRental(mydate, reservation1, vehicle1);
+             persistence.storeRental(rental1);
              
              // create comments
+             comment1 = objectLayer.createComment("great experience", mydate, rental1);
+             persistence.storeComment(comment1);
              
 
              System.out.println( "Entity objects created and saved in the persistence module" );
