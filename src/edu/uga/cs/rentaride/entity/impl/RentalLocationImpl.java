@@ -67,29 +67,11 @@ public class RentalLocationImpl
 
 	@Override
 	public List<Reservation> getReservations() {
-		/*if(reservations == null)
-            if( isPersistent() ) {
-                Reservation reservation = new ReservationImpl();
-                reservation.setReservation( this );
-                reservations = getPersistencaLayer().restoreReservation( reservation );
-            }
-            else
-                throw new Exception( "This object is not persistent" );*/
-
         return this.reservations;
 	}
 
 	@Override
 	public List<Vehicle> getVehicles() {
-		/*if(vehicles == null)
-            if( isPersistent() ) {
-                Vehicle vehicle = new VehicleImpl();
-                vehicle.setVehicle( this );
-                vehicles = getPersistencaLayer().restoreVehicle( vehicle );
-            }
-            else
-                throw new Exception( "This object is not persistent" );*/
-
         return vehicles;
 	}
 

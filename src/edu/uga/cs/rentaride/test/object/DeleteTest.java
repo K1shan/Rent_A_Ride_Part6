@@ -54,32 +54,85 @@ public class DeleteTest
          objectLayer.setPersistence( persistence ); 
          
 
+         Iterator<Administrator> adminIter = null;
+         Iterator<Customer> customerIter = null;
+         Iterator<Comment> commentIter = null;
+         Iterator<Rental> rentalIter = null;
          //TODO
 
          try {
         	 
-        	// find administrator
-        	 Administrator wayne = null;
-             Administrator modelAdmin = objectLayer.createAdministrator();
-             modelAdmin.setUserName("wayne");
-             List<Administrator> administrators = objectLayer.findAdministrator(modelAdmin);
-             Iterator<Administrator> adminIter = administrators.iterator();
-             while(adminIter.hasNext()){
-            	wayne = adminIter.next();
-            	if(wayne == null ) {
-                    System.out.println( "Administrator with username " + modelAdmin.getUserName() +" does not exist" );
+ 	 		Comment runningComment = null;
+ 	 		Comment modelComment = objectLayer.createComment();
+ 	 		modelComment.setId(1);;
+ 	 		List<Comment> comments = objectLayer.findComment(modelComment);
+ 	 		commentIter = comments.iterator();
+ 	 		while(commentIter.hasNext()) {
+ 	 			runningComment = commentIter.next();
+ 	 			System.out.println( runningComment );
+ 	 			if( runningComment == null ) {
+ 	 				System.out.println( "bird1 does not exist" );
+ 	 				return;
+ 	 			}
+ 	 		}
+
+   	 	
+		    if( runningComment != null ) {
+	
+	            objectLayer.deleteComment(runningComment);
+	            System.out.println( "Change Customer Status" );
+	        }
+	        else
+	            System.out.println( "Failed to find bird1" );
+	    	 
+	 		Customer runningCustomer = null;
+	    	 	Customer modelCustomer = objectLayer.createCustomer();
+	        modelCustomer.setUserName("atticus");
+	        List<Customer> customers = objectLayer.findCustomer(modelCustomer);
+	        customerIter = customers.iterator();
+	   	 	while( customerIter.hasNext() ) {
+	   	 		runningCustomer = customerIter.next();
+	            System.out.println( runningCustomer );
+	            if( runningCustomer == null ) {
+	                System.out.println( "bird1 does not exist" );
+	                return;
+	            }
+	    	 	}
+       	 	
+        	    if( runningCustomer != null ) {
+
+                    objectLayer.deleteCustomer(runningCustomer);
+                    System.out.println( "Change Customer Status" );
+                }
+                else
+                    System.out.println( "Failed to find bird1" );
+            
+            
+        	 	Administrator runningAdmin = null;   	 	
+        	 	Administrator modelAdmin = objectLayer.createAdministrator();
+        	 	modelAdmin.setUserName("wayne");;
+        	 	List<Administrator> admin = objectLayer.findAdministrator(modelAdmin);
+        	 	adminIter = admin.iterator();
+        	 	
+        	 	while( adminIter.hasNext() ) {
+                runningAdmin = adminIter.next();
+                System.out.println( runningAdmin );
+                if( runningAdmin == null ) {
+                    System.out.println( "bird1 does not exist" );
                     return;
                 }
-            	// the guidelines only say to delete, so I didn't bother printing out all the info like the example did
-             }
-             
-             //delete administrator
-             if (wayne!=null) {
-            	 objectLayer.deleteAdministrator(wayne);
-            	 System.out.println("Deleted " + modelAdmin.getUserName());
-             }
-             else
-            	 System.out.println("Failed to find " + modelAdmin.getUserName()); 
+        	 	}
+        	 	
+        	    if( runningAdmin != null ) {
+
+                    objectLayer.deleteAdministrator(runningAdmin);;
+                    System.out.println( "Deleted Wayne" );
+                }
+                else
+                    System.out.println( "Failed to find wayne" );
+        	    
+        	    
+        	 
          }
          
          catch (RARException re)

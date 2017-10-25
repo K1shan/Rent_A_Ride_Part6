@@ -408,7 +408,8 @@ public class CustomerManager{
 	}
 
 	public void delete(Customer customer) throws RARException{
-		String deleteCustomerSql = "delete from customer where id = ?";
+		
+		String deleteCustomerSql = "UPDATE CUSTOMER INNER JOIN `USER` ON CUSTOMER.user_id = USER.user_id SET CUSTOMER.status = 2 WHERE USER.uname = ?";
 		PreparedStatement stmt;
 		int inscnt;
 		
@@ -417,7 +418,7 @@ public class CustomerManager{
 		
 		try {
 			stmt = (PreparedStatement) con.prepareStatement(deleteCustomerSql);
-			stmt.setLong(1, customer.getId());
+			stmt.setNString(1, customer.getUserName());
 			inscnt = stmt.executeUpdate();
 			if(inscnt == 1) {
 				return;

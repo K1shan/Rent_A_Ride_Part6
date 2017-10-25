@@ -231,14 +231,14 @@ public class ReservationManager {
 					rentalLocation = objectLayer.createRentalLocation();
 					rentalLocation.setId(location_location_id);
 					rentalLocation.setName(location_name);
-					
-					rental = objectLayer.createRental(rental_pickupTime, reservation, vehicle);
-					rental.setId(rental_id);
-					rental.setRental(rental);
+//					
+//					rental = objectLayer.createRental(rental_pickupTime, reservation, vehicle);
+//					rental.setId(rental_id);
+//					rental.setRental(rental);
 					
 					reservation = objectLayer.createReservation(pickupTime, rentalLength, vehicleType, rentalLocation, customer);
 					reservation.setId(reservation_id);
-					reservation.setRental(rental);
+//					reservation.setRental(rental);
 					reservations.add(reservation);
 				}
 			}

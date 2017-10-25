@@ -255,16 +255,17 @@ public class AdministratorManager {
 	}//restore
 	
 	public void delete(Administrator admin) throws RARException {
-		String deleteAdministratorSql = "delete from administrator where id = ?";
+		String deleteAdministratorSql = "DELETE ADMIN FROM ADMIN INNER JOIN `USER` ON ADMIN.user_id = USER.user_id WHERE USER.uname = ?;";
 		PreparedStatement stmt;
 		int inscnt;
-		
+
 		if (!admin.isPersistent()) // checks if Administrator object is persistent. If not, nothing to delete
 			return;
 		
 		try {
 			stmt = (PreparedStatement) con.prepareStatement(deleteAdministratorSql);
-			stmt.setLong(1, admin.getId());
+			stmt.setString(1, admin.getUserName());
+
 			inscnt = stmt.executeUpdate();
 			if(inscnt == 1) {
 				return;

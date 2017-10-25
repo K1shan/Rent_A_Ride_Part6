@@ -82,7 +82,7 @@ public class ObjectLayerImpl
 
 	@Override
 	public void deleteAdministrator(Administrator administrator) throws RARException {
-		// TODO Auto-generated method stub
+		persistence.deleteAdministrator(administrator);
 	}
 
 	
@@ -116,6 +116,10 @@ public class ObjectLayerImpl
 	@Override
 	public void storeCustomer(Customer customer) throws RARException {
 		persistence.storeCustomer(customer);
+	}
+	
+	public void deleteCustomer(Customer customer) throws RARException {	
+		persistence.deleteCustomer(customer);
 	}
 
 	@Override

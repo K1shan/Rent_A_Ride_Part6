@@ -122,6 +122,7 @@ public class WriteTest
              comment1 = objectLayer.createComment("great experience", mydate, rental1);
              persistence.storeComment(comment1);
              
+             
 
              System.out.println( "Entity objects created and saved in the persistence module" );
              

@@ -231,44 +231,19 @@ public class CustomerImpl
 
 	@Override
 	public List<Reservation> getReservations() {
-		/*if(reservations == null)
-            if( isPersistent() ) {
-                Reservation reservation = new ReservationImpl();
-                reservation.setReservation( this );
-                reservations = getPersistencaLayer().restoreReservation( reservation );
-            }
-            else
-                throw new Exception( "This object is not persistent" );*/
-
+  
         return this.reservations;
 	}
 
 	@Override
 	public List<Comment> getComments() {
-		/*if(comments == null)
-            if( isPersistent() ) {
-                Comment comment = new CommentImpl();
-                comment.setComment( this );
-                comments = getPersistencaLayer().restoreComment( comment );
-            }
-            else
-                throw new Exception( "This object is not persistent" );*/
-
         return this.comments;
 	}
 
 	@Override
 	public List<Rental> getRentals() {
-		/*if(rentals == null)
-            if( isPersistent() ) {
-                Rental rental = new RentalImpl();
-                rental.setRental( this );
-                rentals = getPersistencaLayer().restoreRental( rental );
-            }
-            else
-                throw new Exception( "This object is not persistent" );*/
-
         return this.rentals;
+
 	}
 
 	@Override
