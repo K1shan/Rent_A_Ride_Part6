@@ -7,9 +7,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import com.mysql.jdbc.PreparedStatement;
-
 import edu.uga.cs.rentaride.RARException;
 import edu.uga.cs.rentaride.entity.Administrator;
 import edu.uga.cs.rentaride.entity.Comment;
@@ -27,8 +25,6 @@ import edu.uga.cs.rentaride.entity.VehicleStatus;
 import edu.uga.cs.rentaride.entity.VehicleType;
 import edu.uga.cs.rentaride.object.ObjectLayer;
 
-
-
 public class RentalLocationManager {
 	private ObjectLayer objectLayer = null;
 	private Connection con = null;
@@ -38,9 +34,7 @@ public class RentalLocationManager {
 		this.objectLayer = objectLayer;
 	}//constructor
 	
-	
 	public void store( RentalLocation rentalLocation ) throws RARException{
-		
 		String insertRentalLocationQuery = 
 				"INSERT INTO LOCATION "
 				+ "(name, address, capacity) "
@@ -58,7 +52,6 @@ public class RentalLocationManager {
 		long locationId;
 		
 		try {
-
 			if( !rentalLocation.isPersistent() ){
 				pstmt = (PreparedStatement) con.prepareStatement( insertRentalLocationQuery );
 			}else{
@@ -111,60 +104,73 @@ public class RentalLocationManager {
 		}
     }
 	
-	
 	public List<RentalLocation> restore( RentalLocation modelRentalLocation ) throws RARException{
-		// TODO
+		String selectRentalLocationQuery = "SELECT * FROM LOCATION";
 		
-		String selectRentalLocationQuery =
-				"SELECT * FROM LOCATION";
-		
+		Statement 	stmt = null;
+		StringBuffer query = new StringBuffer(100);
+		StringBuffer condition = new StringBuffer(100);
 		List<RentalLocation> rentalLocations = new ArrayList<RentalLocation>();
-		Statement stmt = null;
+		condition.setLength(0);
+		query.append(selectRentalLocationQuery);
+		
+		// NULL CHECKER
+		if( modelRentalLocation != null ){
+			if( modelRentalLocation.getId() >= 0 ){
+				query.append( " where LOCATION.location_id = " + modelRentalLocation.getId() );
+			}else if( modelRentalLocation.getName() != null ){  // name is unique
+				query.append( " where LOCATION.name='" + modelRentalLocation.getName() + "'" );
+			}else{
+				if( modelRentalLocation.getAddress() != null ){
+					condition.append( " where LOCATION.address='" + modelRentalLocation.getAddress() + "'" );
+				}
+				if( modelRentalLocation.getCapacity() >= 0 ){
+					condition.append( " where LOCATION.capacity='" + modelRentalLocation.getCapacity() );
+				}
+				if( condition.length() > 0 ){
+					query.append( condition );
+				}
+			}
+		}
 		
 		try {
+			System.out.println("query: " + selectRentalLocationQuery);
 			stmt = con.createStatement();
-			
-			if( stmt.execute(selectRentalLocationQuery) ){
+	            if( stmt.execute(selectRentalLocationQuery) ){
 				ResultSet rs = stmt.getResultSet();
-				int id;
-				String name;
-				String address;
-				int capacity;
-				
+				int 	location_id;
+				String 	location_name;
+				String 	location_address;
+				int 	location_capacity;
 				while( rs.next() ){
-					id = rs.getInt(1);
-					name = rs.getString(2);
-					address = rs.getString(3);
-					capacity = rs.getInt(4);
+					location_id = rs.getInt(1);
+					location_name = rs.getString(2);
+					location_address = rs.getString(3);
+					location_capacity = rs.getInt(4);
 					
-					RentalLocation rentalLocation = objectLayer.createRentalLocation(name, address, capacity);
-					rentalLocation.setId(id);
+					RentalLocation rentalLocation = objectLayer.createRentalLocation(location_name, location_address, location_capacity);
+					rentalLocation.setId(location_id);
 					rentalLocations.add(rentalLocation);
 				}
-					
 			}
 			return rentalLocations;
-			
 		} catch (SQLException e){
 			e.printStackTrace();
 			throw new RARException( "RentalLocationManager.get: failed to get any locations: " + e );
 		}
 	}
     
-    
     public void delete( RentalLocation rentalLocation ) throws RARException{
-    	// TODO
-    	
     	String deleteRentalLoco = "DELETE FROM LOCATION WHERE location_id = ?";              
 		PreparedStatement stmt = null;
 		int inscnt = 0;
 		             
         if( !rentalLocation.isPersistent() ) // is the Club object persistent?  If not, nothing to actually delete
             return;
-        
         try {
             stmt = (PreparedStatement) con.prepareStatement(deleteRentalLoco);         
             stmt.setLong( 1, rentalLocation.getId() );
+			System.out.println("query: " + stmt.asSql());
             inscnt = stmt.executeUpdate();          
             if( inscnt == 1 ) {
                 return;
@@ -173,10 +179,8 @@ public class RentalLocationManager {
                 throw new RARException( "RentalLocationManager.delete: failed to delete a RentalLocation" );
         }
         catch( SQLException e ) {
-            e.printStackTrace();
-            throw new RARException( "RentalLocationManager.delete: failed to delete a RentalLocation: " + e );       
+        		e.printStackTrace();
+        		throw new RARException( "RentalLocationManager.delete: failed to delete a RentalLocation: " + e );       
             }
     }
-    
-    
 }
