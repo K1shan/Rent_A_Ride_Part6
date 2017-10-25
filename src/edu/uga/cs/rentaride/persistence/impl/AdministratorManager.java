@@ -207,6 +207,11 @@ public class AdministratorManager {
 		List<Administrator> administrators = new ArrayList<Administrator>();
 		Statement stmt = null;
 		
+		// NULL CHECKER
+		if( modelAdministrator != null ){
+			
+		}
+				
 		try {
 			
 			stmt = con.createStatement();

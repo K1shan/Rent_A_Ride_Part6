@@ -138,12 +138,7 @@ public class VehicleTypeManager{
                 query.append( " where VEHICLE_TYPE.type_id = " + modelVehicleType.getId() );
             else if( modelVehicleType.getName() != null ) // userName is unique, so it is sufficient to get a person
                 query.append( " where VEHICLE_TYPE.name = '" + modelVehicleType.getName() + "'" );
-            else {
-            	if( condition.length() > 0 ) {
-                    query.append(  " where " );
-                    query.append( condition );
-                }
-            }
+            
         }
         
         try {
