@@ -85,10 +85,8 @@ public class RentalManager {
 			
 			if( rental.getPickupTime() != null ){
 				java.util.Date myDate = rental.getPickupTime();
-				Timestamp timestamp = new Timestamp(myDate.getTime());
-				pstmt.setTimestamp(3, timestamp);
-	        	//java.sql.Date sqlDate = new java.sql.Date(myDate.getTime());
-	    		//pstmt.setDate( 3, sqlDate );
+	        	java.sql.Date sqlDate = new java.sql.Date(myDate.getTime());
+	    		pstmt.setDate( 3, sqlDate );
 			}else{
 	            throw new RARException( "RentalManager.save: can't save a rental: pickupTime undefined" );
 	        }
@@ -97,12 +95,8 @@ public class RentalManager {
 				pstmt.setDate(4, null);
 			}else{
 				java.util.Date myDate = rental.getReturnTime();
-				Timestamp timestamp = new Timestamp(myDate.getTime());
-				pstmt.setTimestamp(4, timestamp);
-//				
-//				java.util.Date myDate = rental.getReturnTime();
-//				java.sql.Date sqlDate = new java.sql.Date(myDate.getTime());
-//				pstmt.setDate( 4, sqlDate );
+				java.sql.Date sqlDate = new java.sql.Date(myDate.getTime());
+				pstmt.setDate( 4, sqlDate );
 			}
 			
     		if( rental.getLate() == false) {
@@ -179,6 +173,7 @@ public class RentalManager {
 		
 		System.out.println("query: "+ selectRentalQuery);
 		
+		// NULL CHECKER
 		if( modelRental != null ){
 			
 		}
