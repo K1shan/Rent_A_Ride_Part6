@@ -1,2 +1,4 @@
 
 *.class
+
+src/edu/uga/cs/rentaride/test/object/DeleteTest.java

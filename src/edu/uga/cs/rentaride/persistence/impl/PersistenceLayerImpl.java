@@ -370,7 +370,12 @@ public class PersistenceLayerImpl
 
 	@Override
 	public void deleteAdministrator(Administrator administrator) throws RARException {
-		// TODO Auto-generated method stub
+		administratorManager.delete(administrator);
+	}
+
+	@Override
+	public void deleteCustomer(Customer customer) throws RARException {
+		customerManager.delete(customer);
 		
 	}
 }

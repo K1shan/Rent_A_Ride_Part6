@@ -106,7 +106,7 @@ public interface PersistenceLayer
      * @param customer the Customer to be deleted
      * @throws RARException in case an error occurred during the delete operation 
      */
-    // public void deleteCustomer( Customer customer ) throws RARException;      
+     public void deleteCustomer( Customer customer ) throws RARException;      
     
     /** 
      * Restore all RentalLocation objects that match attributes of the model RentalLocation.
