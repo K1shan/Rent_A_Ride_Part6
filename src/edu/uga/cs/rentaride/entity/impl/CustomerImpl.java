@@ -18,6 +18,7 @@ import edu.uga.cs.rentaride.entity.VehicleStatus;
 import edu.uga.cs.rentaride.entity.VehicleType;
 import edu.uga.cs.rentaride.persistence.impl.Persistent;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -40,7 +41,9 @@ public class CustomerImpl
 	private String licenseNumber;
 	private String cardNumber;
 	private UserStatus userStatus;
-	
+	private List<Reservation> reservations;
+	private List<Comment> comments;
+	private List<Rental> rentals;
 	
 	public CustomerImpl(){
 	
@@ -59,6 +62,12 @@ public class CustomerImpl
 		this.licenseNumber = null;
 		this.cardNumber = null;
 		this.userStatus = null;
+		this.reservations = null;
+		this.comments = null;
+		this.rentals = null;
+		this.reservations = null;
+		this.comments = null;
+		this.rentals = null;
 	}
 	
 	public CustomerImpl(String firstName, String lastName, String userName, String password, String email,
@@ -79,6 +88,9 @@ public class CustomerImpl
 		this.licenseNumber = licenseNumber;
 		this.cardNumber = cardNumber;
 		this.userStatus = UserStatus.ACTIVE;
+		this.reservations = new ArrayList<Reservation>();
+		this.comments = new ArrayList<Comment>();
+		this.rentals = new ArrayList<Rental>();
 	}
   
 	@Override
@@ -219,17 +231,44 @@ public class CustomerImpl
 
 	@Override
 	public List<Reservation> getReservations() {
-		return null;
+		if(reservations == null)
+            if( isPersistent() ) {
+                Reservation reservation = new ReservationImpl();
+                reservation.setReservation( this );
+                reservations = getPersistencaLayer().restoreReservation( reservation );
+            }
+            else
+                throw new Exception( "This object is not persistent" );
+
+        return reservations;
 	}
 
 	@Override
 	public List<Comment> getComments() {
-		return null;
+		if(comments == null)
+            if( isPersistent() ) {
+                Comment comment = new CommentImpl();
+                comment.setComment( this );
+                comments = getPersistencaLayer().restoreComment( comment );
+            }
+            else
+                throw new Exception( "This object is not persistent" );
+
+        return comments;
 	}
 
 	@Override
 	public List<Rental> getRentals() {
-		return null;
+		if(rentals == null)
+            if( isPersistent() ) {
+                Rental rental = new RentalImpl();
+                rental.setRental( this );
+                rentals = getPersistencaLayer().restoreRental( rental );
+            }
+            else
+                throw new Exception( "This object is not persistent" );
+
+        return rentals;
 	}
 
 	@Override

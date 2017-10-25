@@ -18,6 +18,7 @@ import edu.uga.cs.rentaride.entity.VehicleStatus;
 import edu.uga.cs.rentaride.entity.VehicleType;
 import edu.uga.cs.rentaride.persistence.impl.Persistent;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -52,6 +53,7 @@ public class VehicleImpl
 		this.rentalLocation = null;
 		this.condition = null;
 		this.status = null;
+		this.rentals = null;
 	}	
 	
 	public VehicleImpl(String make, String model, int year, String registrationTag, int mileage, Date lastServiced,
@@ -68,6 +70,7 @@ public class VehicleImpl
 		this.rentalLocation = rentalLocation;
 		this.condition = condition;
 		this.status = status;
+		this.rentals = new ArrayList<Rental>();
 	}
 
 	public String getMake() {

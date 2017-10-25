@@ -36,9 +36,9 @@ public class VehicleTypeImpl
 	public VehicleTypeImpl(){
 		super( -1 );
 		this.name = null;
-		this.hourlyPrices = new ArrayList<HourlyPrice>();
-		this.vehicles = new ArrayList<Vehicle>();
-		this.reservations = new ArrayList<Reservation>();
+		this.hourlyPrices = null;
+		this.vehicles = null;
+		this.reservations = null;
 	}
 	
 	public VehicleTypeImpl(String name){

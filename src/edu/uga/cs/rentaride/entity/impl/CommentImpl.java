@@ -75,8 +75,7 @@ public class CommentImpl
 	public String toString() {
 		return "CommentImpl ["
 				+ "text=" + text 
-				+ ", date=" + date 
-				+ ", rental=" + rental + 
+				+ ", date=" + date +
 				"]";
 	}
 }

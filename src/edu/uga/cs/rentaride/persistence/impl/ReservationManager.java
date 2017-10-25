@@ -150,7 +150,8 @@ public class ReservationManager {
 				+ "INNER JOIN CUSTOMER ON CUSTOMER.customer_id=RESERVATION.customer_id "
 				+ "INNER JOIN USER ON USER.user_id=CUSTOMER.user_id "
 				+ "INNER JOIN LOCATION ON LOCATION.location_id=RESERVATION.location_id "
-				+ "INNER JOIN VEHICLE_TYPE ON VEHICLE_TYPE.type_id=RESERVATION.type_id";
+				+ "INNER JOIN VEHICLE_TYPE ON VEHICLE_TYPE.type_id=RESERVATION.type_id"
+				+ "INNER JOIN RENTAL ON RENTAL.reservation_id=RESERVATION.reservation_id";
 		
 		List<Reservation> reservations = new ArrayList<Reservation>();
 		Statement stmt = null;
@@ -231,8 +232,13 @@ public class ReservationManager {
 					rentalLocation.setId(location_location_id);
 					rentalLocation.setName(location_name);
 					
+					rental = objectLayer.createRental(rental_pickupTime, reservation, vehicle);
+					rental.setId(rental_id);
+					rental.setRental(rental);
+					
 					reservation = objectLayer.createReservation(pickupTime, rentalLength, vehicleType, rentalLocation, customer);
 					reservation.setId(reservation_id);
+					reservation.setRental(rental);
 					reservations.add(reservation);
 				}
 			}

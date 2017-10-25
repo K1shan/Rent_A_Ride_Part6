@@ -365,10 +365,24 @@ public class RentalManager {
 					
 					rental = objectLayer.createRental(rental_pickupTime, reservation, vehicle);
 					rental.setId(rental_id);
-					rentals.add(rental);
 					
-					comment = objectLayer.createComment(comment_text, comment_date, rental);
+					comment = objectLayer.createComment();
+					rental = objectLayer.createRental();
+					
 					comment.setId(comment_comment_id);
+					comment.setText(comment_text);
+					comment.setDate(vehicle_service_date);
+					
+					rental.setId(rental_id);
+					rental.setPickupTime(rental_pickupTime);
+					rental.setReservation(reservation);
+					rental.setVehicle(vehicle);
+
+					comment.setRental(rental);
+					rental.setComment(comment);
+					comment.setRental(rental);
+
+					rentals.add(rental);
 				}
 			}
 			return rentals;

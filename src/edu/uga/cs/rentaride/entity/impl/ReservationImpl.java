@@ -52,6 +52,7 @@ public class ReservationImpl
 		this.vehicleType = vehicleType;
 		this.rentalLocation = rentalLocation;
 		this.customer = customer;
+		this.rental = null;
 	}
 
 	public Date getPickupTime() {
@@ -112,7 +113,7 @@ public class ReservationImpl
 				+ ", vehicleTypeName=" + this.vehicleType.getName()
 				+ ", rentalLocationName=" + this.rentalLocation.getName()
 				+ ", customerName=" + this.customer.getFirstName()+" "+this.customer.getLastName()
-				+
+				+ ", rental=" + this.getRental() +
 				"]";
 	}
 }
