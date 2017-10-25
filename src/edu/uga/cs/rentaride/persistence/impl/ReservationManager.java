@@ -46,7 +46,6 @@ public class ReservationManager {
 	 * 
 	 */
 	public void store( Reservation reservation ) throws RARException{
-		// TODO
 		
 		String insertReservationQuery =
 				"INSERT INTO RESERVATION "
