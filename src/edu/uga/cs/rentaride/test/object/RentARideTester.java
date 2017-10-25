@@ -210,8 +210,8 @@ public class RentARideTester
         	 // DELETE everything
         	 objectLayer.deleteAdministrator(admin1);
         	 objectLayer.deleteAdministrator(admin2);
-        	 //objectLayer.deleteCustomer(customerMichael);
-        	 //objectLayer.deleteCustomer(customerLuke);
+        	 objectLayer.deleteCustomer(customerMichael);
+        	 objectLayer.deleteCustomer(customerLuke);
         	 objectLayer.deleteVehicleType(truckVehicleType);
         	 objectLayer.deleteVehicleType(convertibleVehicleType);
         	 objectLayer.deleteRentalLocation(rentalLocationAthens);

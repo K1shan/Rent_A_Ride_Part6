@@ -255,7 +255,8 @@ public class AdministratorManager {
 	}//restore
 	
 	public void delete(Administrator admin) throws RARException {
-		String deleteAdministratorSql = "DELETE ADMIN FROM ADMIN INNER JOIN `USER` ON ADMIN.user_id = USER.user_id WHERE USER.uname = ?;";
+		
+		String deleteAdministratorSql = "DELETE `USER` FROM `USER` INNER JOIN ADMIN ON USER.user_id=ADMIN.user_id WHERE USER.uname = ?;";
 		PreparedStatement stmt;
 		int inscnt;
 
@@ -277,5 +278,27 @@ public class AdministratorManager {
 			e.printStackTrace();
 			throw new RARException("AdministratorManager.delete: failed to delete an administrator" + e);
 		}
+//		String deleteAdministratorSql = "DELETE ADMIN FROM ADMIN INNER JOIN `USER` ON ADMIN.user_id = USER.user_id WHERE USER.uname = ?;";
+//		PreparedStatement stmt;
+//		int inscnt;
+//
+//		if (!admin.isPersistent()) // checks if Administrator object is persistent. If not, nothing to delete
+//			return;
+//		
+//		try {
+//			stmt = (PreparedStatement) con.prepareStatement(deleteAdministratorSql);
+//			stmt.setString(1, admin.getUserName());
+//
+//			inscnt = stmt.executeUpdate();
+//			if(inscnt == 1) {
+//				return;
+//			}
+//			else
+//				throw new RARException("AdministratorManager.delete: failed to delete an administrator");
+//		}
+//		catch(SQLException e) {
+//			e.printStackTrace();
+//			throw new RARException("AdministratorManager.delete: failed to delete an administrator" + e);
+//		}
 	}
 }
