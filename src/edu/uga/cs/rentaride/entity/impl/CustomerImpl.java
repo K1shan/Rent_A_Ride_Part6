@@ -231,54 +231,54 @@ public class CustomerImpl
 
 	@Override
 	public List<Reservation> getReservations() {
-		if(reservations == null)
+		/*if(reservations == null)
             if( isPersistent() ) {
                 Reservation reservation = new ReservationImpl();
                 reservation.setReservation( this );
                 reservations = getPersistencaLayer().restoreReservation( reservation );
             }
             else
-                throw new Exception( "This object is not persistent" );
+                throw new Exception( "This object is not persistent" );*/
 
-        return reservations;
+        return this.reservations;
 	}
 
 	@Override
 	public List<Comment> getComments() {
-		if(comments == null)
+		/*if(comments == null)
             if( isPersistent() ) {
                 Comment comment = new CommentImpl();
                 comment.setComment( this );
                 comments = getPersistencaLayer().restoreComment( comment );
             }
             else
-                throw new Exception( "This object is not persistent" );
+                throw new Exception( "This object is not persistent" );*/
 
-        return comments;
+        return this.comments;
 	}
 
 	@Override
 	public List<Rental> getRentals() {
-		if(rentals == null)
+		/*if(rentals == null)
             if( isPersistent() ) {
                 Rental rental = new RentalImpl();
                 rental.setRental( this );
                 rentals = getPersistencaLayer().restoreRental( rental );
             }
             else
-                throw new Exception( "This object is not persistent" );
+                throw new Exception( "This object is not persistent" );*/
 
-        return rentals;
+        return this.rentals;
 	}
 
 	@Override
 	public String toString() {
-		return "CustomerImpl ["
-				+ "customerId=" + this.getId() + ", firstName=" + firstName + ", lastName=" + lastName + ", userName=" + userName
-				+ ", password=" + password + ", email=" + email + ", address=" + address 
-				+ ", createDate=" + createDate + ", memberUntil=" + memberUntil + ", licenseState=" + state
-				+ ", licenseNum=" + licenseNumber + ", cardNumber=" + cardNumber + ", cardExpiration=" + cardExpiration
-				+ ", userStatus=" + userStatus
-				+ "]";
+		return "CustomerImpl [createDate=" + createDate + ", memberUntil=" + memberUntil + ", cardExpiration="
+				+ cardExpiration + ", firstName=" + firstName + ", lastName=" + lastName + ", userName=" + userName
+				+ ", email=" + email + ", password=" + password + ", address=" + address + ", state=" + state
+				+ ", licenseNumber=" + licenseNumber + ", cardNumber=" + cardNumber + ", userStatus=" + userStatus
+				+ ", reservations=" + reservations + ", comments=" + comments + ", rentals=" + rentals + "]";
 	}
+
+	
 }
