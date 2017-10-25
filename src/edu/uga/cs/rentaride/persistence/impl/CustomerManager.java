@@ -409,7 +409,7 @@ public class CustomerManager{
 
 	public void delete(Customer customer) throws RARException{
 		
-		String deleteCustomerSql = "UPDATE CUSTOMER INNER JOIN `USER` ON CUSTOMER.user_id = USER.user_id SET CUSTOMER.status = 2 WHERE USER.uname = ?";
+		String deleteCustomerSql = "DELETE `USER` FROM `USER` INNER JOIN CUSTOMER ON CUSTOMER.user_id=USER.user_id WHERE USER.uname = ?";
 		PreparedStatement stmt;
 		int inscnt;
 		
@@ -430,6 +430,27 @@ public class CustomerManager{
 			e.printStackTrace();
 			throw new RARException("CustomerManager.delete: failed to delete a customer" + e);
 		}
+//		String deleteCustomerSql = "UPDATE CUSTOMER INNER JOIN `USER` ON CUSTOMER.user_id = USER.user_id SET CUSTOMER.status = 2 WHERE USER.uname = ?";
+//		PreparedStatement stmt;
+//		int inscnt;
+//		
+//		if (!customer.isPersistent()) // checks if Customer object is persistent. If not, nothing to delete
+//			return;
+//		
+//		try {
+//			stmt = (PreparedStatement) con.prepareStatement(deleteCustomerSql);
+//			stmt.setNString(1, customer.getUserName());
+//			inscnt = stmt.executeUpdate();
+//			if(inscnt == 1) {
+//				return;
+//			}
+//			else
+//				throw new RARException("CustomerManager.delete: failed to delete a customer");
+//		}
+//		catch(SQLException e) {
+//			e.printStackTrace();
+//			throw new RARException("CustomerManager.delete: failed to delete a customer" + e);
+//		}
 	}
 	
 }
