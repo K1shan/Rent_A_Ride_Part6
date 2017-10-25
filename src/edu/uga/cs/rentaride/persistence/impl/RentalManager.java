@@ -47,7 +47,6 @@ public class RentalManager {
 	 * 
 	 */
 	public void store( Rental rental ) throws RARException{
-    	// TODO
 		
 		String insertRentalQuery = 
 				"INSERT INTO RENTAL "
@@ -148,7 +147,6 @@ public class RentalManager {
     }
 	
 	public List<Rental> restore( Rental modelRental ) throws RARException{
-		// TODO
 		
 		String selectRentalQuery = "SELECT "
 				+ "RENTAL.*, "
