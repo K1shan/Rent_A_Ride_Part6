@@ -46,7 +46,6 @@ public class VehicleManager {
 	 * 
 	 */
 	public void store( Vehicle vehicle ) throws RARException{
-    	// TODO
 		
 		String insertVehicleQuery = 
 				"INSERT INTO VEHICLE "
