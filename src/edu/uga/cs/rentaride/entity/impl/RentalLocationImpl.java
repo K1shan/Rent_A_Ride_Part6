@@ -66,39 +66,19 @@ public class RentalLocationImpl
 	}
 
 	@Override
-	public String toString() {
-		return "RentalLocationImpl [name=" + name + ", address=" + address + ", capacity=" + capacity + "]";
-	}
-
-	@Override
 	public List<Reservation> getReservations() {
-//		if(reservations == null)
-//            if( isPersistent() ) {
-//                Reservation reservation = new ReservationImpl();
-//                reservation.setReservation( this );
-//                reservations = getPersistencaLayer().restoreReservation( reservation );
-//            }
-//            else
-//                throw new Exception( "This object is not persistent" );
-//
-//        return reservations;
-		
-		return null;
+        return this.reservations;
 	}
 
 	@Override
 	public List<Vehicle> getVehicles() {
-//		if(vehicles == null)
-//            if( isPersistent() ) {
-//                Vehicle vehicle = new VehicleImpl();
-//                vehicle.setVehicle( this );
-//                vehicles = getPersistencaLayer().restoreVehicle( vehicle );
-//            }
-//            else
-//                throw new Exception( "This object is not persistent" );
-//
-//        return vehicles;
-		return null;
+        return vehicles;
+	}
+
+	@Override
+	public String toString() {
+		return "RentalLocationImpl [name=" + name + ", address=" + address + ", capacity=" + capacity
+				+ ", reservations=" + reservations + ", vehicles=" + vehicles + "]";
 	}
 
 	

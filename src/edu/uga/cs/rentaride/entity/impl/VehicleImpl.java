@@ -170,13 +170,11 @@ public class VehicleImpl
 
 	@Override
 	public String toString() {
-		return "VehicleImpl "
-				+ "[make=" + this.make + ", model=" + this.model + ", year=" + this.year 
-				+ ", registrationTag=" + this.registrationTag + ", mileage=" + this.mileage 
-				+ ", lastServiced=" + this.lastServiced 
-				+ ", vehicleTypeName=" + this.vehicleType.getName() 
-				+ ", rentalLocationName=" + this.rentalLocation.getName() 
-				+ ", condition=" + this.condition + ", status=" + this.status +
-				"]";
+		return "VehicleImpl [make=" + make + ", model=" + model + ", year=" + year + ", registrationTag="
+				+ registrationTag + ", mileage=" + mileage + ", lastServiced=" + lastServiced + ", vehicleType="
+				+ vehicleType + ", rentalLocation=" + rentalLocation + ", condition=" + condition + ", status=" + status
+				+ ", rentals=" + rentals + "]";
 	}
+
+	
 }
