@@ -40,7 +40,6 @@ public class CommentManager {
 	}//constructor
 	
     public void store( Comment comment ) throws RARException{
-    	// TODO
     	
     	String insertCommentQuery =
 				"INSERT INTO COMMENT "
@@ -118,7 +117,6 @@ public class CommentManager {
     }
     
     public List<Comment> restore( Comment modelComment ) throws RARException{
-		// TODO
     	
     	String selectCommentQuery =
     			"SELECT "
