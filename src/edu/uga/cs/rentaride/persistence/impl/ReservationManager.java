@@ -157,6 +157,11 @@ public class ReservationManager {
 		Statement stmt = null;
 		System.out.println("query: "+selectReservationQuery);
 		
+		// NULL CHECKER
+		if( modelReservation != null ){
+			
+		}
+				
 		try {
 			stmt = con.createStatement();
 			

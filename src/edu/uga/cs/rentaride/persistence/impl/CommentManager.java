@@ -143,6 +143,12 @@ public class CommentManager {
 		Statement stmt = null;
 		System.out.println("query: "+selectCommentQuery);
 		
+		// NULL CHECK
+		if( modelComment != null ){
+			
+		}
+
+		
 		try {
 			stmt = con.createStatement();
 

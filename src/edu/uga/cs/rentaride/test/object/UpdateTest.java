@@ -60,41 +60,61 @@ public class UpdateTest
          List<Vehicle> vehicles = null;
          Iterator<Vehicle> vehicleIter = null;
          Vehicle hondaVehicle = null;
+         List<Customer> customers= null;
+         Iterator<Customer> customerIter = null;
          
+         Customer customerAlex = null;
          
          try {
-        	 Vehicle modelVehicle = objectLayer.createVehicle();
-        	 modelVehicle.setMake("Honda");
-        	 vehicles = objectLayer.findVehicle(modelVehicle);
-        	 vehicleIter = vehicles.iterator();
-        	 while( vehicleIter.hasNext() ){
-        		 hondaVehicle = vehicleIter.next();
-        		 System.out.println(hondaVehicle);
-        		 RentalLocation rentalLocation = hondaVehicle.getRentalLocation();
-        		 System.out.println("	Located at: " + rentalLocation );
-        	 }
         	 
-        	 if( hondaVehicle == null ){
-        		 System.out.println( "Honda vehicle does not exist" );
-        		 return;
-        	 }
-        	 
-        	 hondaVehicle.setMake( "Super Honda" );
-        	 objectLayer.storeVehicle(hondaVehicle);
-        	 System.out.println( "Updated the name of the Honda make to Super Honda" );
-         
-        	 Customer alex = null;
         	 Customer modelCustomer = objectLayer.createCustomer();
         	 modelCustomer.setFirstName("Alex");
-        	 modelCustomer.setLastName("White");
-        	 List<Customer> customers = objectLayer.findCustomer(modelCustomer);
-        	 Iterator<Customer> customerIter = customers.iterator();
+        	 customers = objectLayer.findCustomer(modelCustomer);
+        	 customerIter = customers.iterator();
+        	 
         	 while(customerIter.hasNext()){
-        		 alex = customerIter.next();
-        		 System.out.println( alex );
-        		 System.out.println( "	Reservation at: " );
-        		 System.out.println(alex.getReservations());
+        		 customerAlex = customerIter.next();
+        		 System.out.println(customerAlex);
         	 }
+//             
+//        	 List<Rental> rentals2 = objectLayer.findRental(myrental);
+//        	 System.out.println( "\n\nSELECT NULL TEST" );
+//             for (Rental rental : rentals2) {
+//            	 System.out.println(rental);
+//             }
+        	 
+//        	 Vehicle modelVehicle = objectLayer.createVehicle();
+//        	 modelVehicle.setMake("Honda");
+//        	 vehicles = objectLayer.findVehicle(modelVehicle);
+//        	 vehicleIter = vehicles.iterator();
+//        	 while( vehicleIter.hasNext() ){
+//        		 hondaVehicle = vehicleIter.next();
+//        		 System.out.println(hondaVehicle);
+//        		 RentalLocation rentalLocation = hondaVehicle.getRentalLocation();
+//        		 System.out.println("	Located at: " + rentalLocation );
+//        	 }
+//        	 
+//        	 if( hondaVehicle == null ){
+//        		 System.out.println( "Honda vehicle does not exist" );
+//        		 return;
+//        	 }
+//        	 
+//        	 hondaVehicle.setMake( "Super Honda" );
+//        	 objectLayer.storeVehicle(hondaVehicle);
+//        	 System.out.println( "Updated the name of the Honda make to Super Honda" );
+//         
+//        	 Customer alex = null;
+//        	 Customer modelCustomer = objectLayer.createCustomer();
+//        	 modelCustomer.setFirstName("Alex");
+//        	 modelCustomer.setLastName("White");
+//        	 List<Customer> customers = objectLayer.findCustomer(modelCustomer);
+//        	 Iterator<Customer> customerIter = customers.iterator();
+//        	 while(customerIter.hasNext()){
+//        		 alex = customerIter.next();
+//        		 System.out.println( alex );
+//        		 System.out.println( "	Reservation at: " );
+//        		 System.out.println(alex.getReservations());
+//        	 }
          }
          catch( RARException ce)
          {

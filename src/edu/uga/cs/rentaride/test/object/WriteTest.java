@@ -78,7 +78,7 @@ public class WriteTest
         	 mydate.getDate();
         	 
         	 // create 2 users
-             customer1 = objectLayer.createCustomer( "alex1", "shit", "bird1", "password", "emailemail.com1", "133 Maple St., Big Town, AZ. 87888", mydate, mydate, "GA", "22222", "1111", mydate );
+             customer1 = objectLayer.createCustomer( "Alex", "shit", "bird1", "password", "emailemail.com1", "133 Maple St., Big Town, AZ. 87888", mydate, mydate, "GA", "22222", "1111", mydate );
              persistence.storeCustomer( customer1 );
 
              customer2 = objectLayer.createCustomer( "alex2", "shit", "bird2", "password", "emailemail.com", "133 Maple St., Big Town, AZ. 87888", mydate, mydate, "GA", "22222", "1111", mydate );
@@ -121,6 +121,10 @@ public class WriteTest
              // create comments
              comment1 = objectLayer.createComment("great experience", mydate, rental1);
              persistence.storeComment(comment1);
+             
+            
+             
+             
              
              
 

@@ -108,6 +108,11 @@ public class HourlyPriceManager {
         
         query.append( selectHourlyPriceQuery );
 
+        // NULL CHECK
+		if( modelHourlyPrice != null ){
+			
+		}
+        
         try {
 
             stmt = (Statement) con.createStatement();
