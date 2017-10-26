@@ -58,12 +58,16 @@ public class UpdateTest
 		
          
          List<Vehicle> vehicles = null;
-         Iterator<Vehicle> vehicleIter = null;
-         Vehicle hondaVehicle = null;
          List<Customer> customers= null;
-         Iterator<Customer> customerIter = null;
+         List<RentalLocation> locations = null;
          
+         Iterator<Vehicle> vehicleIter = null;
+         Iterator<Customer> customerIter = null;
+         Iterator<RentalLocation> locationIter = null;
+         
+         Vehicle hondaVehicle = null;
          Customer customerAlex = null;
+         RentalLocation locationAtlanta = null;
          
          try {
         	 
@@ -75,6 +79,16 @@ public class UpdateTest
         	 while(customerIter.hasNext()){
         		 customerAlex = customerIter.next();
         		 System.out.println(customerAlex);
+        	 }
+        	 
+        	 RentalLocation modelLocation = objectLayer.createRentalLocation();
+        	 modelLocation.setName("Atlanta");
+        	 locations = objectLayer.findRentalLocation(modelLocation);
+        	 locationIter = locations.iterator();
+        	 
+        	 while(locationIter.hasNext()){
+        		 locationAtlanta = locationIter.next();
+        		 System.out.println(locationAtlanta);
         	 }
 //             
 //        	 List<Rental> rentals2 = objectLayer.findRental(myrental);
