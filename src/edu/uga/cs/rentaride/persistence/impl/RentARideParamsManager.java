@@ -95,8 +95,47 @@ public class RentARideParamsManager {
 	
 
 	public RentARideParams restore() throws RARException{
-		// TODO
-		return null;
+		
+		String selectParamsSql = "SELECT"
+			+ "RENT_A_RIDE_PARAMS.member_fee, RENT_A_RIDE_PARAMS.late_fee";
+		
+		Statement stmt = null;
+		StringBuffer query = new StringBuffer(100);
+		StringBuffer condition = new StringBuffer(100);
+		
+		condition.setLength(0);
+
+		query.append(selectParamsSql);
+
+		System.out.println("query: "+ selectParamsSql);
+		
+		RentARideParams params = null;
+
+		try{
+			stmt = con.createStatement();
+			if(stmt.execute(query.toString())) {
+				ResultSet rs = stmt.getResultSet();
+				
+				int member_fee;
+				int late_fee;
+				
+				while(rs.next()){
+					member_fee = rs.getInt(1);
+					late_fee = rs.getInt(2);
+					
+					params = objectLayer.createRentARideParams();
+					params.setMembershipPrice(member_fee);
+					params.setLateFee(late_fee);
+					
+				}
+			}
+			return params;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new RARException("RentARideParamsManager.get: failed to get any params: " + e);
+		} 
+
 	}
 	
     
