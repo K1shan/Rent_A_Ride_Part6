@@ -203,12 +203,63 @@ public class AdministratorManager {
 				+ "ADMIN.admin_id "
 				+ "FROM USER INNER JOIN ADMIN ON USER.user_id = ADMIN.user_id";
 		
+		StringBuffer query = new StringBuffer(100);
+		StringBuffer condition = new StringBuffer(100);
 		System.out.println("query: "+selectAdministratorQuery);
 		List<Administrator> administrators = new ArrayList<Administrator>();
 		Statement stmt = null;
+		condition.setLength(0);
+		query.append(selectAdministratorQuery);
 		
 		// NULL CHECKER
 		if( modelAdministrator != null ){
+			
+			if( modelAdministrator.getId() >= 0 ){
+				query.append( " where ADMIN.admin_id = " + modelAdministrator.getId() );
+			}else if( modelAdministrator.getUserName() != null) {
+				query.append( " where USER.admin_id = " + modelAdministrator.getUserName());
+			}else {
+				
+				if(modelAdministrator.getPassword() != null){
+					condition.append( " USER.pword = '" + modelAdministrator.getPassword() + "'");
+				}
+				
+				if(modelAdministrator.getEmail() != null ) {
+                    if( condition.length() > 0 ){
+                        condition.append( " and" );
+                    }
+                    condition.append( " USER.email = '" + modelAdministrator.getEmail() + "'" );
+                }
+				
+				if(modelAdministrator.getFirstName() != null) {
+                    if( condition.length() > 0 ){
+                        condition.append( " and" );
+                    }
+                    condition.append( " USER.fname = '" + modelAdministrator.getFirstName() + "'" );
+                }
+				
+				if(modelAdministrator.getLastName() != null) {
+                    if( condition.length() > 0 ){
+                        condition.append( " and" );
+                    }
+                    condition.append( " USER.lname = '" + modelAdministrator.getLastName() + "'" );
+                }
+				
+				if(modelAdministrator.getAddress() != null) {
+                    if( condition.length() > 0 ){
+                        condition.append( " and" );
+                    }
+                    condition.append( " USER.address = '" + modelAdministrator.getAddress() + "'" );
+                }   
+				
+				if(modelAdministrator.getCreatedDate() != null) {
+                    if( condition.length() > 0 ){
+                        condition.append( " and" );
+                    }
+                    condition.append( " USER.create_date = '" + modelAdministrator.getCreatedDate() + "'" );
+                }
+
+			}
 			
 		}
 				
@@ -216,7 +267,7 @@ public class AdministratorManager {
 			
 			stmt = con.createStatement();
 			
-			if( stmt.execute(selectAdministratorQuery)){
+			if( stmt.execute(query.toString()) ){
 				
 				ResultSet r = stmt.getResultSet();
 				
