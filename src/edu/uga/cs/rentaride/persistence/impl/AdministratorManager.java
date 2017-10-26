@@ -205,7 +205,6 @@ public class AdministratorManager {
 		
 		StringBuffer query = new StringBuffer(100);
 		StringBuffer condition = new StringBuffer(100);
-		System.out.println("query: "+selectAdministratorQuery);
 		List<Administrator> administrators = new ArrayList<Administrator>();
 		Statement stmt = null;
 		condition.setLength(0);
@@ -266,7 +265,7 @@ public class AdministratorManager {
 		try {
 			
 			stmt = con.createStatement();
-			
+			System.out.println("query: " + query.toString());
 			if( stmt.execute(query.toString()) ){
 				
 				ResultSet r = stmt.getResultSet();

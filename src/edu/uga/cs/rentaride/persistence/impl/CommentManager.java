@@ -169,7 +169,7 @@ public class CommentManager {
 		
 		try {
 			stmt = con.createStatement();
-
+			System.out.println("query: " + query.toString());
 			if( stmt.execute(query.toString()) ){
 				ResultSet rs = stmt.getResultSet();
 

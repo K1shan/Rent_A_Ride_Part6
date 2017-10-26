@@ -98,17 +98,16 @@ public class HourlyPriceManager {
 	
 	public List<HourlyPrice> restore( HourlyPrice modelHourlyPrice ) throws RARException{
 		String       selectHourlyPriceQuery = 
-				"SELECT HOURLY_PRICE.hourly_id, HOURLY_PRICE.type_id, HOURLY_PRICE.max_hrs, HOURLY_PRICE.price, VEHICLE_TYPE.name FROM HOURLY_PRICE, VEHICLE_TYPE WHERE HOURLY_PRICE.type_id=VEHICLE_TYPE.type_id";
+				"SELECT HOURLY_PRICE.hourly_id, HOURLY_PRICE.type_id, HOURLY_PRICE.max_hrs, HOURLY_PRICE.price, VEHICLE_TYPE.name "
+				+ "FROM HOURLY_PRICE, VEHICLE_TYPE "
+				+ "WHERE HOURLY_PRICE.type_id=VEHICLE_TYPE.type_id";
+		
         Statement    stmt = null;
         StringBuffer query = new StringBuffer( 100 );
         StringBuffer condition = new StringBuffer( 100 );
         List<HourlyPrice> hourlyPrices = new ArrayList<HourlyPrice>();
-
         condition.setLength( 0 );
-        
         query.append( selectHourlyPriceQuery );
-
-        //type_id, max_hrs, price
         
         // NULL CHECK
 		if( modelHourlyPrice != null ){
@@ -128,11 +127,8 @@ public class HourlyPriceManager {
 		}
         
         try {
-        	System.out.println("query: " + selectHourlyPriceQuery);
             stmt = (Statement) con.createStatement();
-
-            // retrieve the persistent Hourly Price objects
-            //
+			System.out.println("query: " + query.toString());
             if( stmt.execute( query.toString() ) ) { // statement returned a result
                 ResultSet rs = stmt.getResultSet();
                 int  	hourly_id;

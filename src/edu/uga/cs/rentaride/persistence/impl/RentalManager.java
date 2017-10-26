@@ -166,12 +166,8 @@ public class RentalManager {
 		StringBuffer query = new StringBuffer(100);
 		StringBuffer condition = new StringBuffer(100);
 		List<Rental> rentals = new ArrayList<Rental>();
-		
 		condition.setLength(0);
-		
 		query.append(selectRentalQuery);
-		
-		System.out.println("query: "+ selectRentalQuery);
 		
 		// NULL CHECKER
 		if( modelRental != null ){
@@ -180,6 +176,7 @@ public class RentalManager {
 		
 		try {
 			stmt = con.createStatement();
+			System.out.println("query: " + query.toString());
 			if( stmt.execute(query.toString() ) ){
 				ResultSet rs = stmt.getResultSet();
 				

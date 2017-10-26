@@ -46,7 +46,6 @@ public class VehicleManager {
 	 * 
 	 */
 	public void store( Vehicle vehicle ) throws RARException{
-		
 		String insertVehicleQuery = 
 				"INSERT INTO VEHICLE "
 				+ "(type_id, location_id, make, model, year, mileage, tag, service_date, status, cond) "
@@ -177,7 +176,6 @@ public class VehicleManager {
 	}
 	
 	public List<Vehicle> restore( Vehicle modelVehicle ) throws RARException{
-		
 		String selectVehicleSql = "SELECT "
 				+ "VEHICLE.vehicle_id, VEHICLE.type_id, VEHICLE.location_id, VEHICLE.make, VEHICLE.model, VEHICLE.year, VEHICLE.mileage, VEHICLE.tag, VEHICLE.service_date, VEHICLE.status, VEHICLE.cond, "
 				+ "VEHICLE_TYPE.name, "
@@ -186,26 +184,18 @@ public class VehicleManager {
 				+ "INNER JOIN VEHICLE_TYPE on VEHICLE_TYPE.type_id=VEHICLE.type_id "
 				+ "INNER JOIN LOCATION ON LOCATION.location_id=VEHICLE.location_id";
 		
-		
 		Statement stmt = null;
 		StringBuffer query = new StringBuffer(100);
 		StringBuffer condition = new StringBuffer(100);
 		List<Vehicle> vehicles = new ArrayList<Vehicle>();
-		
 		condition.setLength(0);
-		
-		//form the query based on the given Vehicle object instance
 		query.append(selectVehicleSql);
-		
-		System.out.println("query: "+ selectVehicleSql);
+		System.out.println("query: "+ query.toString());
 		
 		if(modelVehicle != null) {
 			if (modelVehicle.getId() >= 0) { // id is unique, so it is sufficient to get a vehicle
-				query.append("where id = " + modelVehicle.getId());
-			}
-			// else if(modelCustomer.getUserName() != null) removed this else if because Vehicle has no equivalent
-		
-			else {
+				query.append("where vehicle_id = " + modelVehicle.getId());
+			}else {
 				if(modelVehicle.getVehicleType() != null) { // not sure if this is okay or I should get the type name itself
 					condition.append( " type_id = '" + modelVehicle.getVehicleType().getId() + "'");
 				}
@@ -244,7 +234,6 @@ public class VehicleManager {
 					condition.append( " service_date = '" + modelVehicle.getLastServiced() + "'");
 				}
 				
-				
 				// VehicleStatus not yet implemented, may have to change methods used below
 				if(modelVehicle.getStatus() != null) {
 					int status; 
@@ -258,7 +247,6 @@ public class VehicleManager {
 					condition.append( " status = '" + status + "'");
 				}
 				
-				
 				// VehicleCondition not yet implemented, may have to change methods used below
 				if(modelVehicle.getCondition() != null) {
 					int cond = 0;
@@ -267,7 +255,6 @@ public class VehicleManager {
 					}
 					condition.append( " cond = '" + cond + "'");
 				}
-				
 				
 				if( condition.length() > 0 ) {
                     query.append(  " where " );
@@ -348,8 +335,7 @@ public class VehicleManager {
 	
     
     public void delete( Vehicle vehicle ) throws RARException{
-    	
-		String deleteVehicle = "DELETE FROM VEHICLE WHERE vehicle_id = ?";              
+    	String deleteVehicle = "DELETE FROM VEHICLE WHERE vehicle_id = ?";              
 		PreparedStatement stmt = null;
 		int inscnt = 0;
 		             

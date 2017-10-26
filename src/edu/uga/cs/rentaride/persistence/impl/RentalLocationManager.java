@@ -105,7 +105,7 @@ public class RentalLocationManager {
     }
 	
 	public List<RentalLocation> restore( RentalLocation modelRentalLocation ) throws RARException{
-		String selectRentalLocationQuery = "SELECT * FROM LOCATION";
+		String selectRentalLocationQuery = "SELECT * FROM LOCATION ";
 		
 		Statement 	stmt = null;
 		StringBuffer query = new StringBuffer(100);
@@ -123,9 +123,12 @@ public class RentalLocationManager {
 			}else{
 				if( modelRentalLocation.getAddress() != null ){
 					condition.append( " where LOCATION.address='" + modelRentalLocation.getAddress() + "'" );
+					if( modelRentalLocation.getCapacity() > 0 ){
+						condition.append( " AND LOCATION.capacity=" + modelRentalLocation.getCapacity() );
+					}
 				}
-				if( modelRentalLocation.getCapacity() >= 0 ){
-					condition.append( " where LOCATION.capacity='" + modelRentalLocation.getCapacity() );
+				else if( modelRentalLocation.getCapacity() > 0 ){
+					condition.append( " where LOCATION.capacity=" + modelRentalLocation.getCapacity() );
 				}
 				if( condition.length() > 0 ){
 					query.append( condition );
@@ -134,8 +137,8 @@ public class RentalLocationManager {
 		}
 		
 		try {
-			System.out.println("query: " + selectRentalLocationQuery);
 			stmt = con.createStatement();
+			System.out.println("query: " + query.toString());
 	            if( stmt.execute(query.toString()) ){
 				ResultSet rs = stmt.getResultSet();
 				int 	location_id;
