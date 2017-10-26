@@ -65,9 +65,11 @@ public class UpdateTest
          Iterator<Customer> customerIter = null;
          Iterator<RentalLocation> locationIter = null;
          
-         Vehicle hondaVehicle = null;
+         Vehicle vehicleCheck = null;
          Customer customerAlex = null;
-         RentalLocation locationAtlanta = null;
+         RentalLocation locationAttributeName = null;
+         RentalLocation locationAttributeAddress = null;
+         RentalLocation locationAttributeCapacity = null;
          
          try {
         	 
@@ -76,20 +78,54 @@ public class UpdateTest
         	 customers = objectLayer.findCustomer(modelCustomer);
         	 customerIter = customers.iterator();
         	 
+        	 System.out.println("\nMatching customer objects\n");
         	 while(customerIter.hasNext()){
         		 customerAlex = customerIter.next();
         		 System.out.println(customerAlex);
         	 }
         	 
-        	 RentalLocation modelLocation = objectLayer.createRentalLocation();
-        	 modelLocation.setName("Atlanta");
-        	 locations = objectLayer.findRentalLocation(modelLocation);
-        	 locationIter = locations.iterator();
+        	 RentalLocation modelLocation1 = objectLayer.createRentalLocation();
+        	 RentalLocation modelLocation2 = objectLayer.createRentalLocation();
+        	 RentalLocation modelLocation3 = objectLayer.createRentalLocation();
+
+        	 modelLocation1.setName("Atlanta");
+        	 modelLocation2.setAddress("999 cool street");
+        	 modelLocation3.setCapacity(400);
         	 
+        	 locations = objectLayer.findRentalLocation(modelLocation1);
+        	 locationIter = locations.iterator();
+        	 System.out.println("\nMatching location name objects\n");
         	 while(locationIter.hasNext()){
-        		 locationAtlanta = locationIter.next();
-        		 System.out.println(locationAtlanta);
+        		 locationAttributeName = locationIter.next();
+        		 System.out.println(locationAttributeName);
         	 }
+        	 
+        	 locations = objectLayer.findRentalLocation(modelLocation2);
+        	 locationIter = locations.iterator();
+        	 System.out.println("\nMatching location address objects\n");
+        	 while(locationIter.hasNext()){
+        		 locationAttributeAddress = locationIter.next();
+        		 System.out.println(locationAttributeAddress);
+        	 }
+        	 
+        	 locations = objectLayer.findRentalLocation(modelLocation3);
+        	 locationIter = locations.iterator();
+        	 System.out.println("\nMatching location capacity objects\n");
+        	 while(locationIter.hasNext()){
+        		 locationAttributeCapacity = locationIter.next();
+        		 System.out.println(locationAttributeCapacity);
+        	 }
+        	 
+//        	 Vehicle modelVehicle = objectLayer.createRentalLocation();
+//        	 modelLocation.setName("Atlanta");
+//        	 locations = objectLayer.findRentalLocation(modelLocation);
+//        	 locationIter = locations.iterator();
+//        	 
+//        	 System.out.println("\nMatching location objects\n");
+//        	 while(locationIter.hasNext()){
+//        		 locationAtlanta = locationIter.next();
+//        		 System.out.println(locationAtlanta);
+//        	 }
 //             
 //        	 List<Rental> rentals2 = objectLayer.findRental(myrental);
 //        	 System.out.println( "\n\nSELECT NULL TEST" );

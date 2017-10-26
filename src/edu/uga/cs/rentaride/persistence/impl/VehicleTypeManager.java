@@ -43,8 +43,7 @@ public class VehicleTypeManager{
 	 * 
 	 */
 	public void store( VehicleType vehicleType ) throws RARException{
-    	
-		String insertVehicleTypeQuery = 
+    	String insertVehicleTypeQuery = 
 				"INSERT INTO VEHICLE_TYPE "
 				+ "(name) "
 				+ "VALUES "
@@ -104,8 +103,7 @@ public class VehicleTypeManager{
     
 	
 	public List<VehicleType> restore( VehicleType modelVehicleType ) throws RARException{
-		
-		String       selectVehicleTypeQuery =
+		String selectVehicleTypeQuery =
 				"SELECT "
 				+ "VEHICLE_TYPE.type_id, VEHICLE_TYPE.name, "
 				+ "VEHICLE.*, "
@@ -126,27 +124,19 @@ public class VehicleTypeManager{
         StringBuffer query = new StringBuffer( 100 );
         StringBuffer condition = new StringBuffer( 100 );
         List<VehicleType> vehicleTypes = new ArrayList<VehicleType>();
-
         condition.setLength( 0 );
-        System.out.println("query: "+selectVehicleTypeQuery);
-        
-        // form the query based on the given Person object instance
         query.append( selectVehicleTypeQuery );
+        System.out.println("query: "+ query.toString());
         
         if( modelVehicleType != null ) {
             if( modelVehicleType.getId() >= 0 ) // id is unique, so it is sufficient to get a person
                 query.append( " where VEHICLE_TYPE.type_id = " + modelVehicleType.getId() );
             else if( modelVehicleType.getName() != null ) // userName is unique, so it is sufficient to get a person
                 query.append( " where VEHICLE_TYPE.name = '" + modelVehicleType.getName() + "'" );
-            
         }
         
         try {
-
             stmt = (Statement) con.createStatement();
-
-            // retrieve the persistent Person objects
-            //
             if( stmt.execute( query.toString() ) ) { // statement returned a result
                 ResultSet rs = stmt.getResultSet();
                 
@@ -322,8 +312,7 @@ public class VehicleTypeManager{
 	
 	
     public void delete( VehicleType vehicleType ) throws RARException{
-    	
-		String deleteVehicleT = "DELETE FROM VEHICLE_TYPE WHERE type_id = ?";              
+    	String deleteVehicleT = "DELETE FROM VEHICLE_TYPE WHERE type_id = ?";              
 		PreparedStatement stmt = null;
 		int inscnt = 0;
 		             

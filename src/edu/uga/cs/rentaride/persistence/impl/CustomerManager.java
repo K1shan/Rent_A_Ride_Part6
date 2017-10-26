@@ -248,9 +248,7 @@ public class CustomerManager{
 		Statement stmt = null;
 		condition.setLength(0);
 		query.append(selectCustomerQuery);
-		
-		System.out.println("query: "+selectCustomerQuery);
-		
+				
 		// if we want just 1 row
 		if (modelCustomer != null){
 			if(modelCustomer.getId() >= 0){
@@ -350,7 +348,7 @@ public class CustomerManager{
 		try {
 			
 			stmt = con.createStatement();
-			
+			System.out.println("query: " + query.toString());
 			if( stmt.execute( query.toString() )){
 				
 				ResultSet r = stmt.getResultSet();

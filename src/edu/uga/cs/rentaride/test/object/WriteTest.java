@@ -35,15 +35,41 @@ public class WriteTest
          
          Administrator  admin1;
          Administrator  admin2;
+         Administrator  admin3;
+         Administrator  admin4;
+         Administrator  admin5;
+
          VehicleType    truckVehicleType;
          VehicleType	convertibleVehicleType;
+         
          HourlyPrice	truckHourlyPrice1;
+         
          Customer       customer1;
          Customer       customer2;
+         Customer       customer3;
+         Customer       customer4;
+         Customer       customer5;
+
          RentalLocation	rentalLocation1;
+         RentalLocation	rentalLocation2;
+         RentalLocation	rentalLocation3;
+         RentalLocation	rentalLocation4;
+         RentalLocation	rentalLocation5;
+
          Vehicle 		vehicle1;
+         Vehicle 		vehicle2;
+         Vehicle 		vehicle3;
+         Vehicle 		vehicle4;
+         Vehicle 		vehicle5;
+         
          Reservation 	reservation1;
+         Reservation 	reservation2;
+         Reservation 	reservation3;
+         Reservation 	reservation4;
+
          Rental			rental1;
+         Rental			rental2;
+         
          Comment		comment1;
 
 
@@ -78,27 +104,47 @@ public class WriteTest
         	 mydate.getDate();
         	 
         	 // create 2 users
-             customer1 = objectLayer.createCustomer( "Alex", "shit", "bird1", "password", "emailemail.com1", "133 Maple St., Big Town, AZ. 87888", mydate, mydate, "GA", "222221", "11112", mydate );
-             persistence.storeCustomer( customer1 );
-
-             customer2 = objectLayer.createCustomer( "alex2", "shit", "bird2", "password", "emailemail.com", "133 Maple St., Big Town, AZ. 87888", mydate, mydate, "GA", "222222", "11113", mydate );
-             persistence.storeCustomer( customer2 );
-           
-             // create 2 admins
-             admin1 = objectLayer.createAdministrator("Wayne", "Kung", "wayne", "password", "wayne@email.com", "000 Hello St., Small Town, GA. 30129", mydate);
-             persistence.storeAdministrator(admin1);
+             customer1 = objectLayer.createCustomer( "Alex", "shit", "bird1", "password", "email1@uga.edu", "133 Maple St., Big Town, AZ. 87888", mydate, mydate, "GA", "222221", "11111", mydate );
+             customer2 = objectLayer.createCustomer( "Alex", "shit", "bird2", "password", "email2@uga.edu", "133 Maple St., Big Town, AZ. 87888", mydate, mydate, "GA", "222222", "11112", mydate );
+             customer3 = objectLayer.createCustomer( "Wayne", "shit", "bird3", "password", "email3@uga.edu", "133 Maple St., Big Town, AZ. 87888", mydate, mydate, "GA", "222223", "11113", mydate );
+             customer4 = objectLayer.createCustomer( "Wayne", "shit", "bird4", "password", "email4@uga.edu", "133 Maple St., Big Town, AZ. 87888", mydate, mydate, "GA", "222224", "11114", mydate );
+             customer5 = objectLayer.createCustomer( "Mike", "shit", "bird5", "password", "email5@uga.edu", "133 Maple St., Big Town, AZ. 87888", mydate, mydate, "GA", "222225", "11115", mydate );
              
-             admin2 = objectLayer.createAdministrator("AdminFirstName", "AdminLastName", "admin2user", "password", "email@email.com", "111 Goodbye St., Big Town, GA. 30129", mydate);
+             persistence.storeCustomer( customer1 );
+             persistence.storeCustomer( customer2 );
+             persistence.storeCustomer( customer3 );
+             persistence.storeCustomer( customer4 );
+             persistence.storeCustomer( customer5 );
+
+             // create 2 admins
+             admin1 = objectLayer.createAdministrator("Admin1", "Kung", "wayne1", "password", "email6@uga.edu", "000 Hello St., Small Town, GA. 30129", mydate);             
+             admin2 = objectLayer.createAdministrator("Admin1", "LAST", "admin2user", "password", "email7@uga.edu", "111 Goodbye St., Big Town, GA. 30129", mydate);
+             admin3 = objectLayer.createAdministrator("Wayne1", "Kung", "wayne3", "password", "email8@uga.edu", "000 Hello St., Small Town, GA. 30129", mydate);             
+             admin4 = objectLayer.createAdministrator("Wayne1", "Kung", "wayne4", "password", "email9@uga.edu", "000 Hello St., Small Town, GA. 30129", mydate);             
+             admin5 = objectLayer.createAdministrator("Wayne2", "Kung", "wayne5", "password", "email10@uga.edu", "000 Hello St., Small Town, GA. 30129", mydate);             
+             
+             persistence.storeAdministrator(admin1);
              persistence.storeAdministrator(admin2);
-            
+             persistence.storeAdministrator(admin3);
+             persistence.storeAdministrator(admin4);
+             persistence.storeAdministrator(admin5);
+
              // create rental locations
-             rentalLocation1 = objectLayer.createRentalLocation("Atlanta", "999 cool street", 500);
+             rentalLocation1 = objectLayer.createRentalLocation("Atlanta", "999 cool street", 400);
+             rentalLocation2 = objectLayer.createRentalLocation("Atlantis", "999 cool2 street", 400);
+             rentalLocation3 = objectLayer.createRentalLocation("Miami", "999 cool2 street", 400);
+             rentalLocation4 = objectLayer.createRentalLocation("Tampa", "999 cool street", 500);
+             rentalLocation5 = objectLayer.createRentalLocation("Savannah", "999 cool street", 500);
+
              persistence.storeRentalLocation(rentalLocation1);
+             persistence.storeRentalLocation(rentalLocation2);
+             persistence.storeRentalLocation(rentalLocation3);
+             persistence.storeRentalLocation(rentalLocation4);
+             persistence.storeRentalLocation(rentalLocation5);
 
              // create vehicle types
              truckVehicleType = objectLayer.createVehicleType("truck");
              persistence.storeVehicleType(truckVehicleType);
-             
              convertibleVehicleType = objectLayer.createVehicleType("convertible");
              persistence.storeVehicleType(convertibleVehicleType);
              
