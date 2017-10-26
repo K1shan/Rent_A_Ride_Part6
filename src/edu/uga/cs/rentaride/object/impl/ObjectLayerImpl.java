@@ -337,8 +337,10 @@ public class ObjectLayerImpl
 
 	@Override
 	public RentARideParams createRentARideParams() {
-		// TODO Auto-generated method stub
-		return null;
+		RentARideParamsImpl params = new RentARideParamsImpl();
+        params.setId( -1 );
+        Persistent.setPersistenceLayer( persistence);
+        return params;
 	}
 
 	@Override
@@ -352,8 +354,7 @@ public class ObjectLayerImpl
 	}
 
 	@Override
-	public RentARideParams findRentARideParams() {
-		// TODO Auto-generated method stub
-		return null;
+	public RentARideParams findRentARideParams() throws RARException{
+		return this.persistence.restoreRentARideConfig();
 	}
 }
