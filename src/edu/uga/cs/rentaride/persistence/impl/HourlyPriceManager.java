@@ -108,13 +108,27 @@ public class HourlyPriceManager {
         
         query.append( selectHourlyPriceQuery );
 
+        //type_id, max_hrs, price
+        
         // NULL CHECK
 		if( modelHourlyPrice != null ){
-			
+			if( modelHourlyPrice.getId() >= 0 ){
+				query.append( " where LOCATION.type_id = " + modelHourlyPrice.getId() );
+			}else{
+				if( modelHourlyPrice.getMaxHours() != 0 ){
+					condition.append( " where LOCATION.max_hrs='" + modelHourlyPrice.getMaxHours() + "'" );
+				}
+				if( modelHourlyPrice.getPrice() >= 0 ){
+					condition.append( " where LOCATION.price='" + modelHourlyPrice.getPrice() );
+				}
+				if( condition.length() > 0 ){
+					query.append( condition );
+				}
+			}
 		}
         
         try {
-
+        	System.out.println("query: " + selectHourlyPriceQuery);
             stmt = (Statement) con.createStatement();
 
             // retrieve the persistent Hourly Price objects
