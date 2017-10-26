@@ -152,12 +152,146 @@ public class ReservationManager {
 				+ "INNER JOIN VEHICLE_TYPE ON VEHICLE_TYPE.type_id=RESERVATION.type_id"
 				+ "INNER JOIN RENTAL ON RENTAL.reservation_id=RESERVATION.reservation_id";
 		
+		
+		StringBuffer query = new StringBuffer(100);
+		StringBuffer condition = new StringBuffer(100);
 		List<Reservation> reservations = new ArrayList<Reservation>();
 		Statement stmt = null;
-		System.out.println("query: "+selectReservationQuery);
+		condition.setLength(0);
+		query.append(selectReservationQuery);
 		
 		// NULL CHECKER
 		if( modelReservation != null ){
+			
+			if(modelReservation.getId() >= 0){
+				query.append( " where RESERVATION.reservation_id =" + modelReservation.getId() );
+			}else if(modelReservation.getCustomer().getId() >= 0){
+				query.append( " where CUSTOMER.customer_id = '" + modelReservation.getCustomer().getId() + "'");
+			}else if(modelReservation.getCustomer().getUserName() != null) {
+				query.append( " where USER.uname = '" + modelReservation.getCustomer().getUserName() + "'");
+			}else if(modelReservation.getRentalLocation().getId() >= 0) {
+				query.append( " where LOCATION.location_id = '" + modelReservation.getRentalLocation().getId() + "'");
+			}else if(modelReservation.getVehicleType().getId() >= 0) {
+				query.append( " where VEHICLE_TYPE.type_id = '" + modelReservation.getVehicleType().getId() + "'");
+			} else {
+				
+				if(modelReservation.getPickupTime() != null){
+					
+					if( condition.length() > 0 ){
+                        condition.append( " and" );
+                    }
+                    condition.append( " RESERVATION.pickup_date = '" + modelReservation.getPickupTime() + "'" );
+				}
+				
+				if(modelReservation.getLength() >= 0){
+								
+					if( condition.length() > 0 ){
+                        condition.append( " and" );
+                    }
+                    condition.append( " RESERVATION.length = '" + modelReservation.getLength() + "'" );
+				}
+				
+				if(modelReservation.getCustomer().getMemberUntil() != null ) {
+                    if( condition.length() > 0 ){
+                        condition.append( " and" );
+                    }
+                    condition.append( " CUSTOMER.member_until = '" + modelReservation.getCustomer().getMemberUntil() + "'" );
+                }
+				
+				if(modelReservation.getCustomer().getLicenseState() != null ) {
+                    if( condition.length() > 0 ){
+                        condition.append( " and" );
+                    }
+                    condition.append( " CUSTOMER.lic_state = '" + modelReservation.getCustomer().getLicenseState()  + "'" );
+                }
+				
+				if(modelReservation.getCustomer().getLicenseNumber() != null ) {
+                    if( condition.length() > 0 ){
+                        condition.append( " and" );
+                    }
+                    condition.append( " CUSTOMER.lic_num = '" + modelReservation.getCustomer().getLicenseNumber() + "'" );
+                }
+				
+				if(modelReservation.getCustomer().getCreditCardNumber() != null ) {
+                    if( condition.length() > 0 ){
+                        condition.append( " and" );
+                    }
+                    condition.append( " CUSTOMER.cc_num = '" + modelReservation.getCustomer().getCreditCardNumber() + "'" );
+                }
+				
+				if(modelReservation.getCustomer().getCreditCardExpiration() != null ) {
+                    if( condition.length() > 0 ){
+                        condition.append( " and" );
+                    }
+                    condition.append( " CUSTOMER.cc_exp = '" + modelReservation.getCustomer().getCreditCardExpiration() + "'" );
+                }
+				
+				if(modelReservation.getCustomer().getUserStatus() != null ) {
+                    if( condition.length() > 0 ){
+                        condition.append( " and" );
+                    }
+                    condition.append( " CUSTOMER.status = '" + modelReservation.getCustomer().getUserStatus() + "'" );
+                }
+				
+				if(modelReservation.getCustomer().getPassword() != null){
+					condition.append( " USER.pword = '" + modelReservation.getCustomer().getPassword() + "'");
+				}
+				
+				if(modelReservation.getCustomer().getEmail() != null ) {
+                    if( condition.length() > 0 ){
+                        condition.append( " and" );
+                    }
+                    condition.append( " USER.email = '" + modelReservation.getCustomer().getEmail() + "'" );
+                }
+				
+				if(modelReservation.getCustomer().getFirstName() != null) {
+                    if( condition.length() > 0 ){
+                        condition.append( " and" );
+                    }
+                    condition.append( " USER.fname = '" + modelReservation.getCustomer().getFirstName() + "'" );
+                }
+				
+				if(modelReservation.getCustomer().getLastName() != null) {
+                    if( condition.length() > 0 ){
+                        condition.append( " and" );
+                    }
+                    condition.append( " USER.lname = '" + modelReservation.getCustomer().getLastName() + "'" );
+                }
+				
+				if(modelReservation.getCustomer().getAddress() != null) {
+                    if( condition.length() > 0 ){
+                        condition.append( " and" );
+                    }
+                    condition.append( " USER.address = '" + modelReservation.getCustomer().getAddress() + "'" );
+                }   
+				
+				if(modelReservation.getCustomer().getCreatedDate() != null) {
+                    if( condition.length() > 0 ){
+                        condition.append( " and" );
+                    }
+                    condition.append( " USER.create_date = '" + modelReservation.getCustomer().getCreatedDate() + "'" );
+                }
+				
+				if( modelReservation.getRentalLocation().getAddress() != null ){
+					condition.append( " where LOCATION.address='" + modelReservation.getRentalLocation().getAddress() + "'" );
+					if( condition.length() > 0 ){
+						condition.append( " AND LOCATION.capacity=" + modelReservation.getRentalLocation().getAddress() );
+					}
+				}
+				if( modelReservation.getRentalLocation().getCapacity() > 0 ){
+					condition.append( " where LOCATION.capacity=" + modelReservation.getRentalLocation().getCapacity() );
+					if( condition.length() > 0 ){
+						query.append( condition );
+					}
+				}
+				
+				if( modelReservation.getVehicleType().getName() != null ) {
+	                query.append( " where VEHICLE_TYPE.name = '" + modelReservation.getVehicleType().getName() + "'" );
+	                if( condition.length() > 0 ){
+						query.append( condition );
+					}
+				}
+			}
 			
 		}
 				
