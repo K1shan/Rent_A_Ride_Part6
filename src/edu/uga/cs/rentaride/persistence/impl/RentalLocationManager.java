@@ -136,7 +136,7 @@ public class RentalLocationManager {
 		try {
 			System.out.println("query: " + selectRentalLocationQuery);
 			stmt = con.createStatement();
-	            if( stmt.execute(selectRentalLocationQuery) ){
+	            if( stmt.execute(query.toString()) ){
 				ResultSet rs = stmt.getResultSet();
 				int 	location_id;
 				String 	location_name;

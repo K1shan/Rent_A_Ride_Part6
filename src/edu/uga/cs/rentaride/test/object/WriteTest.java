@@ -78,10 +78,10 @@ public class WriteTest
         	 mydate.getDate();
         	 
         	 // create 2 users
-             customer1 = objectLayer.createCustomer( "Alex", "shit", "bird1", "password", "emailemail.com1", "133 Maple St., Big Town, AZ. 87888", mydate, mydate, "GA", "22222", "1111", mydate );
+             customer1 = objectLayer.createCustomer( "Alex", "shit", "bird1", "password", "emailemail.com1", "133 Maple St., Big Town, AZ. 87888", mydate, mydate, "GA", "222221", "11112", mydate );
              persistence.storeCustomer( customer1 );
 
-             customer2 = objectLayer.createCustomer( "alex2", "shit", "bird2", "password", "emailemail.com", "133 Maple St., Big Town, AZ. 87888", mydate, mydate, "GA", "22222", "1111", mydate );
+             customer2 = objectLayer.createCustomer( "alex2", "shit", "bird2", "password", "emailemail.com", "133 Maple St., Big Town, AZ. 87888", mydate, mydate, "GA", "222222", "11113", mydate );
              persistence.storeCustomer( customer2 );
            
              // create 2 admins
@@ -92,7 +92,7 @@ public class WriteTest
              persistence.storeAdministrator(admin2);
             
              // create rental locations
-             rentalLocation1 = objectLayer.createRentalLocation("atlanta", "999 cool street", 500);
+             rentalLocation1 = objectLayer.createRentalLocation("Atlanta", "999 cool street", 500);
              persistence.storeRentalLocation(rentalLocation1);
 
              // create vehicle types
