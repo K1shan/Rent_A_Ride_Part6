@@ -137,9 +137,7 @@ public class ReservationManager {
 	}
 	
 	public List<Reservation> restore( Reservation modelReservation ) throws RARException{
-    	// TODO
-		
-		String selectReservationQuery =
+    	String selectReservationQuery =
 				"SELECT RESERVATION.*, "
 				+ "CUSTOMER.customer_id, "
 				+ "USER.fname, USER.lname, "
@@ -298,7 +296,7 @@ public class ReservationManager {
 		try {
 			stmt = con.createStatement();
 			
-			if( stmt.execute(selectReservationQuery) ){
+			if( stmt.execute(query.toString()) ){
 				ResultSet rs = stmt.getResultSet();
 				
 				//"(location_id, type_id, customer_id, pickup_date, length, cancelled ) "
@@ -411,11 +409,10 @@ public class ReservationManager {
             }
             else
                 throw new RARException( "ReservationManager.delete: failed to delete a reservation" );
-        }
-        catch( SQLException e ) {
+        }catch( SQLException e ) {
             e.printStackTrace();
             throw new RARException( "ReservationManager.delete: failed to delete a reservation: " + e );       
-            }
+        }
     }
 	
 	
@@ -430,8 +427,90 @@ public class ReservationManager {
 	}
 
     public List<Reservation> restore(Customer customer) throws RARException {
-		// TODO Auto-generated method stub
-		return null;
+    	String selectCustomerReservationQuery =
+				"SELECT RESERVATION.*, "
+				+ "VEHICLE_TYPE.*, "
+				+ "LOCATION.* "
+				+ "FROM RESERVATION "
+				+ "INNER JOIN LOCATION ON LOCATION.location_id=RESERVATION.location_id "
+				+ "INNER JOIN VEHICLE_TYPE ON VEHICLE_TYPE.type_id=VEHICLE_TYPE.type_id "
+				+ "INNER JOIN CUSTOMER ON CUSTOMER.customer_id=RESERVATION.customer_id "
+				+ "INNER JOIN USER ON USER.user_id=CUSTOMER.user_id ";
+		
+		StringBuffer query = new StringBuffer(100);
+		StringBuffer condition = new StringBuffer(100);
+		List<Reservation> reservations = new ArrayList<Reservation>();
+		Statement stmt = null;
+		condition.setLength(0);
+		query.append(selectCustomerReservationQuery);
+		
+		try {
+			stmt = con.createStatement();
+			
+			if( stmt.execute(query.toString()) ){
+				ResultSet rs = stmt.getResultSet();
+				
+				// RESERVATION
+				int 	reservation_reservation_id;
+				int 	reservation_location_id;
+				int 	reservation_type_id;
+				int 	reservation_customer_id;
+				Date 	reservation_pickupTime;
+				int 	reservation_rentalLength;
+				int 	reservation_cancelled;
+				
+				// VEHICLE_TYPE
+                int   	type_type_id;
+                String 	type_name;
+                
+				// LOCATION
+				int 	location_location_id;
+				String 	location_name;
+				String 	location_address;
+				int 	location_capacity;
+				
+				Reservation 	reservation = null;
+				RentalLocation 	rentalLocation = null;
+				VehicleType 	vehicleType = null;
+				
+				while( rs.next() ){
+					
+					// RESERVATION
+					reservation_reservation_id 	= rs.getInt(1);
+					reservation_location_id 	= rs.getInt(2);
+					reservation_type_id 		= rs.getInt(3);
+					reservation_customer_id 	= rs.getInt(4);
+					reservation_pickupTime 		= rs.getDate(5);
+					reservation_rentalLength 	= rs.getInt(6);
+					reservation_cancelled 		= rs.getInt(7);
+					
+					// VEHICLE_TYPE
+	                type_type_id 				= rs.getInt(8);
+	                type_name 					= rs.getString(9);
+					
+					// LOCATION
+					location_location_id 		= rs.getInt(10);
+					location_name 				= rs.getString(11);
+					location_address 			= rs.getString(12);
+					location_capacity 			= rs.getInt(13);
+					
+					vehicleType = objectLayer.createVehicleType(type_name);
+					vehicleType.setId(type_type_id);
+					
+					rentalLocation = objectLayer.createRentalLocation(location_name, location_address, location_capacity);
+					rentalLocation.setId(location_location_id);
+					
+					reservation = objectLayer.createReservation(reservation_pickupTime, reservation_rentalLength, vehicleType, rentalLocation, customer);
+					reservation.setId(reservation_reservation_id);
+					reservations.add(reservation);
+				}
+			}
+			return reservations;
+			
+		} catch( SQLException e ) {
+            e.printStackTrace();
+            throw new RARException( "ReservationManager.restore: failed to restore reservations from customer: " + e );       
+        }
 	}
     
     public void delete(Customer customer, Reservation reservation) throws RARException {

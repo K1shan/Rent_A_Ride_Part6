@@ -70,7 +70,7 @@ public class VehicleImpl
 		this.rentalLocation = rentalLocation;
 		this.condition = condition;
 		this.status = status;
-		this.rentals = new ArrayList<Rental>();
+		this.rentals = null;
 	}
 
 	public String getMake() {
@@ -161,11 +161,8 @@ public class VehicleImpl
 
 	@Override
 	public List<Rental> getRentals() {
-		return this.rentals;
-	}
-	
-	public void addRental(Rental rental) {
-		this.rentals.add(rental);
+		// TODO
+		return null;
 	}
 
 	@Override

@@ -414,30 +414,6 @@ public class RentalManager {
     
     
     /*
-     * 
-     * Comment @ Rental
-     * 
-     */
-	public void storeComment(Rental rental, Comment comment) throws RARException {
-		// TODO Auto-generated method stub
-	}
-
-	public Rental restoreComment(Comment comment) throws RARException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public List<Comment> restoreComment(Rental rental) throws RARException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public void deleteComment(Rental rental, Comment comment) throws RARException {
-		// TODO Auto-generated method stub
-	}
-	
-	
-	/*
 	 * 
 	 * Reservation @ Rental
 	 * 
@@ -458,5 +434,28 @@ public class RentalManager {
 
 	public void deleteReservation(Rental rental, Reservation reservation) throws RARException {
 		
+	}
+    
+    /*
+     * 
+     * Comment @ Rental
+     * 
+     */
+	public void storeComment(Rental rental, Comment comment) throws RARException {
+		// TODO Auto-generated method stub
+	}
+
+	public Rental restoreComment(Comment comment) throws RARException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public List<Comment> restoreComment(Rental rental) throws RARException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void deleteComment(Rental rental, Comment comment) throws RARException {
+		// TODO Auto-generated method stub
 	}
 }

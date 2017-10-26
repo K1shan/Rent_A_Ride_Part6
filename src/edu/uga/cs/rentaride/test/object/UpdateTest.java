@@ -162,14 +162,16 @@ public class UpdateTest
         		 System.out.println(reservationIdCheck);
         	 }
         	 
-        	 // LOCATION
-        	 reservations = objectLayer.findReservation(modelReservationLocation);
-        	 reservationIter = reservations.iterator();
-        	 System.out.println("\nMatching reservation location objects where id = "+modelReservationLocation.getId());
-        	 while(reservationIter.hasNext()){
-        		 reservationLocationCheck = reservationIter.next();
-        		 System.out.println(reservationLocationCheck);
-        	 }
+//        	 // LOCATION
+//        	 reservations = objectLayer.findReservation(modelReservationLocation);
+//        	 reservationIter = reservations.iterator();
+//        	 System.out.println("\nMatching reservation location objects where id = "+modelReservationLocation.getId());
+//        	 while(reservationIter.hasNext()){
+//        		 reservationLocationCheck = reservationIter.next();
+//        		 System.out.println(reservationLocationCheck);
+//        	 }
+        	 
+        	 
         	 
 //        	 Vehicle modelVehicle = objectLayer.createRentalLocation();
 //        	 modelLocation.setName("Atlanta");

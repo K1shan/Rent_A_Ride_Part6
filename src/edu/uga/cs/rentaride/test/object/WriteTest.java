@@ -3,6 +3,7 @@ package edu.uga.cs.rentaride.test.object;
 import java.sql.Connection;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import edu.uga.cs.rentaride.RARException;
 import edu.uga.cs.rentaride.entity.Administrator;
@@ -169,12 +170,19 @@ public class WriteTest
              persistence.storeComment(comment1);
              
             
-             
+             System.out.println("");
+             List<Reservation> reservations = customer1.getReservations();
+             System.out.println( "\nReservation objects LIST:" );
+             for (Reservation reservation : reservations) {
+            	 System.out.println(reservation);
+             }
+             //System.out.println("\n\nAlex Reservations:\t" + customer1.getReservations());
+        	 //System.out.println("Alex Rentals:\t\t" + customer1.getRentals());
              
              
              
 
-             System.out.println( "Entity objects created and saved in the persistence module" );
+             System.out.println( "\nEntity objects created and saved in the persistence module" );
              
          }
          catch( Exception e ) {

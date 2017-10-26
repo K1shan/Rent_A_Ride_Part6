@@ -65,16 +65,17 @@ public interface Customer
     
     /** Return a list of all reservations made by this Customer.
      * @return a list of all reservations made by this Customer
+     * @throws RARException 
      */
-    public List<Reservation> getReservations();
+    public List<Reservation> getReservations() throws RARException;
     
     /** Return a list of all comments made by this Customer.
      * @return a list of all comments made by this Customer
      */
-    public List<Comment> getComments();
+    public List<Comment> getComments() throws RARException;
     
     /** Return a list of all rentals made by this Customer.
      * @return a list of all rentals made by this Customer
      */
-    public List<Rental> getRentals();
+    public List<Rental> getRentals() throws RARException;
 }

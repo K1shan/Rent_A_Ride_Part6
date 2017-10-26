@@ -37,8 +37,8 @@ public class RentalLocationImpl
 		this.name = name;
 		this.address = address;
 		this.capacity = capacity;
-		this.reservations = new ArrayList<Reservation>();
-		this.vehicles = new ArrayList<Vehicle>();
+		this.reservations = null;
+		this.vehicles = null;
 	}
 
 	public String getName() {

@@ -94,9 +94,7 @@ public class VehicleTypeImpl
 		return "VehicleTypeImpl "
 				+ "[type_id=" +this.getId()
 				+ ", name=" + name 
-				+ ", hourlyPrices=" + hourlyPrices 
-				+ ", vehicles=" + vehicles
-				+ ", reservations=" + reservations + 
+				+ ", hourlyPrices=" +
 				"]";
 	}
 }

@@ -20,6 +20,7 @@ import edu.uga.cs.rentaride.persistence.impl.Persistent;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import edu.uga.cs.rentaride.RARException;
@@ -88,9 +89,9 @@ public class CustomerImpl
 		this.licenseNumber = licenseNumber;
 		this.cardNumber = cardNumber;
 		this.userStatus = UserStatus.ACTIVE;
-		this.reservations = new ArrayList<Reservation>();
-		this.comments = new ArrayList<Comment>();
-		this.rentals = new ArrayList<Rental>();
+		this.reservations = null;
+		this.comments = null;
+		this.rentals = null;
 	}
   
 	@Override
@@ -230,20 +231,46 @@ public class CustomerImpl
 	}
 
 	@Override
-	public List<Reservation> getReservations() {
-  
-        return this.reservations;
+	public List<Reservation> getReservations() throws RARException{
+		if(reservations == null){
+			if(isPersistent() ){
+				reservations = getPersistenceLayer().restoreCustomerReservation( this );
+			}else{
+                throw new RARException( "This Customer object is not persistent" );
+			}
+		}
+        return reservations;
 	}
 
 	@Override
 	public List<Comment> getComments() {
-        return this.comments;
+		if(comments == null){
+			if(isPersistent() ){
+				//comments = getPersistenceLayer().restoreComm
+			}else{
+                //throw new RARException( "This Customer object is not persistent" );
+			}
+		}
+        return comments;
 	}
 
 	@Override
-	public List<Rental> getRentals() {
-        return this.rentals;
-
+	public List<Rental> getRentals() throws RARException {
+		if(rentals == null){
+			if(reservations != null){
+				Iterator<Reservation> reservationIter = reservations.iterator();
+				if(isPersistent() ){
+					Reservation reservation = null;
+					Rental rental = null;
+					while(reservationIter.hasNext()){
+		        		 reservation = reservationIter.next();
+		        		 rental = getPersistenceLayer().restoreRentalReservation(reservation);
+		        		 rentals.add(rental);
+		        	 }
+				}
+			}
+		}
+        return rentals;
 	}
 
 	@Override
