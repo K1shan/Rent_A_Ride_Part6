@@ -1,7 +1,5 @@
 package edu.uga.cs.rentaride.entity.impl;
 
-
-
 import edu.uga.cs.rentaride.entity.HourlyPrice;
 import edu.uga.cs.rentaride.entity.VehicleType;
 import edu.uga.cs.rentaride.persistence.impl.Persistent;

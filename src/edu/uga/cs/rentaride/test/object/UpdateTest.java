@@ -1,6 +1,7 @@
 package edu.uga.cs.rentaride.test.object;
 
 import java.sql.Connection;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -54,25 +55,37 @@ public class UpdateTest
          objectLayer.setPersistence( persistence ); 
          
 
-         //Club tennisClub = null;
-		
+         Date mydate = new Date();
+    	 mydate.getDate();
          
          List<Vehicle> vehicles = null;
          List<Customer> customers= null;
          List<RentalLocation> locations = null;
+         List<Reservation> reservations = null;
          
          Iterator<Vehicle> vehicleIter = null;
          Iterator<Customer> customerIter = null;
          Iterator<RentalLocation> locationIter = null;
+         Iterator<Reservation> reservationIter = null;
          
          Vehicle vehicleCheck = null;
          Customer customerAlex = null;
          RentalLocation locationAttributeName = null;
          RentalLocation locationAttributeAddress = null;
          RentalLocation locationAttributeCapacity = null;
+         Reservation reservationIdCheck = null;
+         Reservation reservationLocationCheck = null;
+         Reservation reservationTypeCheck = null;
+         Reservation reservationCustomerCheck = null;
+         Reservation reservationPickupCheck = null;
+         Reservation reservationLengthCheck = null;
+         Reservation reservationCancelledCheck = null;
          
          try {
         	 
+        	 /*
+        	  * CUSTOMER CHECKER
+        	  */
         	 Customer modelCustomer = objectLayer.createCustomer();
         	 modelCustomer.setFirstName("Alex");
         	 customers = objectLayer.findCustomer(modelCustomer);
@@ -84,37 +97,81 @@ public class UpdateTest
         		 System.out.println(customerAlex);
         	 }
         	 
-        	 RentalLocation modelLocation1 = objectLayer.createRentalLocation();
-        	 RentalLocation modelLocation2 = objectLayer.createRentalLocation();
-        	 RentalLocation modelLocation3 = objectLayer.createRentalLocation();
+        	 /*
+        	  * LOCATION CHECKER
+        	  */
+        	 RentalLocation modelLocationName = objectLayer.createRentalLocation();
+        	 RentalLocation modelLocationAddress = objectLayer.createRentalLocation();
+        	 RentalLocation modelLocationCapacity = objectLayer.createRentalLocation();
 
-        	 modelLocation1.setName("Atlanta");
-        	 modelLocation2.setAddress("999 cool street");
-        	 modelLocation3.setCapacity(400);
+        	 modelLocationName.setName("Atlanta");
+        	 modelLocationAddress.setAddress("999 cool street");
+        	 modelLocationCapacity.setCapacity(400);
         	 
-        	 locations = objectLayer.findRentalLocation(modelLocation1);
+        	 // NAME
+        	 locations = objectLayer.findRentalLocation(modelLocationName);
         	 locationIter = locations.iterator();
-        	 System.out.println("\nMatching location name objects\n");
+        	 System.out.println("\nMatching location name objects");
         	 while(locationIter.hasNext()){
         		 locationAttributeName = locationIter.next();
         		 System.out.println(locationAttributeName);
         	 }
         	 
-        	 locations = objectLayer.findRentalLocation(modelLocation2);
+        	 // ADDRESS
+        	 locations = objectLayer.findRentalLocation(modelLocationAddress);
         	 locationIter = locations.iterator();
-        	 System.out.println("\nMatching location address objects\n");
+        	 System.out.println("\nMatching location address objects");
         	 while(locationIter.hasNext()){
         		 locationAttributeAddress = locationIter.next();
         		 System.out.println(locationAttributeAddress);
         	 }
         	 
-        	 locations = objectLayer.findRentalLocation(modelLocation3);
+        	 // CAPACITY
+        	 locations = objectLayer.findRentalLocation(modelLocationCapacity);
         	 locationIter = locations.iterator();
-        	 System.out.println("\nMatching location capacity objects\n");
+        	 System.out.println("\nMatching location capacity objects");
         	 while(locationIter.hasNext()){
         		 locationAttributeCapacity = locationIter.next();
         		 System.out.println(locationAttributeCapacity);
         	 }
+        	 
+        	 /*
+        	  * RESERVATION CHECKER
+        	  */
+        	 Reservation modelReservationId = objectLayer.createReservation();
+        	 Reservation modelReservationLocation = objectLayer.createReservation();
+        	 Reservation modelReservationType = objectLayer.createReservation();
+        	 Reservation modelReservationCustomer = objectLayer.createReservation();
+        	 Reservation modelReservationPickup = objectLayer.createReservation();
+        	 Reservation modelReservationLength = objectLayer.createReservation();
+        	 Reservation modelReservationCancelled = objectLayer.createReservation();
+
+        	 modelReservationId.setId(2);
+        	 modelReservationLocation.setRentalLocation(modelLocationName);
+        	 //modelReservationType.setVehicleType(vehicleType);
+        	 modelReservationCustomer.setCustomer(customerAlex);
+        	 modelReservationPickup.setPickupTime(mydate);
+        	 modelReservationLength.setLength(24);
+
+        	 // ID
+        	 reservations = objectLayer.findReservation(modelReservationId);
+        	 reservationIter = reservations.iterator();
+        	 System.out.println("\nMatching reservation id objects where id = "+modelReservationId.getId());
+        	 while(reservationIter.hasNext()){
+        		 reservationIdCheck = reservationIter.next();
+        		 System.out.println(reservationIdCheck);
+        	 }
+        	 
+//        	 // LOCATION
+//        	 reservations = objectLayer.findReservation(modelReservationLocation);
+//        	 reservationIter = reservations.iterator();
+//        	 System.out.println("\nMatching reservation location objects where id = "+modelReservationLocation.getId());
+//        	 while(reservationIter.hasNext()){
+//        		 reservationLocationCheck = reservationIter.next();
+//        		 System.out.println(reservationLocationCheck);
+//        	 }
+        	 
+        	 
         	 
 //        	 Vehicle modelVehicle = objectLayer.createRentalLocation();
 //        	 modelLocation.setName("Atlanta");

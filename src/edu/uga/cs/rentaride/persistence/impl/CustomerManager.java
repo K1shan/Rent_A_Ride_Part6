@@ -406,18 +406,22 @@ public class CustomerManager{
 	}
 
 	public void delete(Customer customer) throws RARException{
-		
-		String deleteCustomerSql = "DELETE `USER` FROM `USER` INNER JOIN CUSTOMER ON CUSTOMER.user_id=USER.user_id WHERE USER.uname = ?";
-		PreparedStatement stmt;
+		String deleteCustomerSql = 
+				"DELETE `USER` "
+				+ "FROM `USER` "
+				+ "INNER JOIN CUSTOMER ON CUSTOMER.user_id=USER.user_id "
+				+ "WHERE CUSTOMER.customer_id=?";
+		PreparedStatement pstmt;
 		int inscnt;
 		
 		if (!customer.isPersistent()) // checks if Customer object is persistent. If not, nothing to delete
 			return;
 		
 		try {
-			stmt = (PreparedStatement) con.prepareStatement(deleteCustomerSql);
-			stmt.setNString(1, customer.getUserName());
-			inscnt = stmt.executeUpdate();
+			pstmt = (PreparedStatement) con.prepareStatement(deleteCustomerSql);
+			pstmt.setLong(1, customer.getId() );
+			System.out.println( "query: " + pstmt.asSql() );
+			inscnt = pstmt.executeUpdate();
 			if(inscnt == 1) {
 				return;
 			}

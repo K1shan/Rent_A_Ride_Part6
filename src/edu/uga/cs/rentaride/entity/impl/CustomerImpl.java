@@ -1,25 +1,14 @@
 package edu.uga.cs.rentaride.entity.impl;
 
-
-
-import edu.uga.cs.rentaride.entity.Administrator;
 import edu.uga.cs.rentaride.entity.Comment;
 import edu.uga.cs.rentaride.entity.Customer;
-import edu.uga.cs.rentaride.entity.HourlyPrice;
 import edu.uga.cs.rentaride.entity.Rental;
-import edu.uga.cs.rentaride.entity.RentalLocation;
-import edu.uga.cs.rentaride.entity.RentARideParams;
 import edu.uga.cs.rentaride.entity.Reservation;
-import edu.uga.cs.rentaride.entity.User;
 import edu.uga.cs.rentaride.entity.UserStatus;
-import edu.uga.cs.rentaride.entity.Vehicle;
-import edu.uga.cs.rentaride.entity.VehicleCondition;
-import edu.uga.cs.rentaride.entity.VehicleStatus;
-import edu.uga.cs.rentaride.entity.VehicleType;
 import edu.uga.cs.rentaride.persistence.impl.Persistent;
 
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import edu.uga.cs.rentaride.RARException;
@@ -88,9 +77,9 @@ public class CustomerImpl
 		this.licenseNumber = licenseNumber;
 		this.cardNumber = cardNumber;
 		this.userStatus = UserStatus.ACTIVE;
-		this.reservations = new ArrayList<Reservation>();
-		this.comments = new ArrayList<Comment>();
-		this.rentals = new ArrayList<Rental>();
+		this.reservations = null;
+		this.comments = null;
+		this.rentals = null;
 	}
   
 	@Override
@@ -110,7 +99,6 @@ public class CustomerImpl
 
 	@Override
 	public void setLastName(String lastName) {
-		
 		this.lastName = lastName;
 	}
 
@@ -151,7 +139,6 @@ public class CustomerImpl
 
 	@Override
 	public void setCreateDate(Date createDate) {
-		
 		this.createDate = createDate;
 	}
 
@@ -172,7 +159,6 @@ public class CustomerImpl
 
 	@Override
 	public void setUserStatus(UserStatus userStatus) {
-		
 		this.userStatus = userStatus;
 	}
 
@@ -198,7 +184,6 @@ public class CustomerImpl
 
 	@Override
 	public String getLicenseNumber() {
-
 		return this.licenseNumber;
 	}
 
@@ -219,31 +204,62 @@ public class CustomerImpl
 
 	@Override
 	public Date getCreditCardExpiration() {
-		
 		return this.cardExpiration;
 	}
 
 	@Override
 	public void setCreditCardExpiration(Date cardExpiration) {
 		this.cardExpiration = cardExpiration;
-		
 	}
 
 	@Override
-	public List<Reservation> getReservations() {
-  
-        return this.reservations;
+	public List<Reservation> getReservations() throws RARException{
+		if(reservations == null){
+			if(isPersistent() ){
+				reservations = getPersistenceLayer().restoreCustomerReservation( this );
+			}else{
+                throw new RARException( "This Customer object is not persistent" );
+			}
+		}
+        return reservations;
 	}
 
 	@Override
-	public List<Comment> getComments() {
-        return this.comments;
+	public List<Comment> getComments() throws RARException{
+		if(comments == null){
+			if(rentals != null ){
+				if(isPersistent() ){
+					Iterator<Rental> rentalIter = rentals.iterator();
+					Rental rental = null;
+					while(rentalIter.hasNext()){
+						rental = rentalIter.next();
+						comments.addAll(getPersistenceLayer().restoreRentalComment(rental));
+					}
+				}else{
+	                throw new RARException( "This Customer object is not persistent" );
+				}
+			}
+		}
+        return comments;
 	}
 
 	@Override
-	public List<Rental> getRentals() {
-        return this.rentals;
-
+	public List<Rental> getRentals() throws RARException {
+		if(rentals == null){
+			if(reservations != null){
+				if(isPersistent() ){
+					Rental rental = new RentalImpl();
+					for(Reservation reservation : reservations){
+						rental = getPersistenceLayer().restoreRentalReservation(reservation);
+						rentals.add(rental);
+				        return rentals;
+					}
+				}else{
+	                throw new RARException( "This Customer object is not persistent" );
+				}
+			}
+		}
+        return rentals;
 	}
 
 	@Override
@@ -251,8 +267,8 @@ public class CustomerImpl
 		return "CustomerImpl [createDate=" + createDate + ", memberUntil=" + memberUntil + ", cardExpiration="
 				+ cardExpiration + ", firstName=" + firstName + ", lastName=" + lastName + ", userName=" + userName
 				+ ", email=" + email + ", password=" + password + ", address=" + address + ", state=" + state
-				+ ", licenseNumber=" + licenseNumber + ", cardNumber=" + cardNumber + ", userStatus=" + userStatus
-				+ ", reservations=" + reservations + ", comments=" + comments + ", rentals=" + rentals + "]";
+				+ ", licenseNumber=" + licenseNumber + ", cardNumber=" + cardNumber + ", userStatus=" + userStatus+
+				"]";
 	}
 
 	

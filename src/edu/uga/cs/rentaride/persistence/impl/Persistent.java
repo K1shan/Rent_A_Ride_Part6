@@ -8,7 +8,7 @@ public abstract class Persistent
     implements Persistable
 {
     private long id;
-    private static PersistenceLayer persistencaLayer;
+    private static PersistenceLayer persistenceLayer;
     
     public Persistent()
     {
@@ -35,13 +35,13 @@ public abstract class Persistent
         return id >= 0;
     }
 
-    public static PersistenceLayer getPersistencaLayer()
+    public static PersistenceLayer getPersistenceLayer()
     {
-        return persistencaLayer;
+        return persistenceLayer;
     }
 
     public static void setPersistenceLayer(PersistenceLayer pLayer)
     {
-        persistencaLayer = pLayer;
+        persistenceLayer = pLayer;
     }
 }

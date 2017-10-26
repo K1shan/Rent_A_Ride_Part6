@@ -1,17 +1,12 @@
 package edu.uga.cs.rentaride.entity.impl;
 
-
-
-import java.util.ArrayList;
 import java.util.List;
 
-import edu.uga.cs.rentaride.entity.Comment;
-import edu.uga.cs.rentaride.entity.Rental;
+import edu.uga.cs.rentaride.RARException;
 import edu.uga.cs.rentaride.entity.RentalLocation;
 import edu.uga.cs.rentaride.entity.Reservation;
 import edu.uga.cs.rentaride.entity.Vehicle;
 import edu.uga.cs.rentaride.persistence.impl.Persistent;
-
 
 public class RentalLocationImpl 
 	extends Persistent
@@ -37,8 +32,8 @@ public class RentalLocationImpl
 		this.name = name;
 		this.address = address;
 		this.capacity = capacity;
-		this.reservations = new ArrayList<Reservation>();
-		this.vehicles = new ArrayList<Vehicle>();
+		this.reservations = null;
+		this.vehicles = null;
 	}
 
 	public String getName() {
@@ -66,12 +61,26 @@ public class RentalLocationImpl
 	}
 
 	@Override
-	public List<Reservation> getReservations() {
-        return this.reservations;
+	public List<Reservation> getReservations() throws RARException {
+		if(reservations == null){
+			if(isPersistent() ){
+				reservations = getPersistenceLayer().restoreReservationRentalLocation( this );
+			}else{
+                throw new RARException( "This Location object is not persistent" );
+			}
+		}
+        return reservations;
 	}
 
 	@Override
-	public List<Vehicle> getVehicles() {
+	public List<Vehicle> getVehicles() throws RARException {
+		if(vehicles == null){
+			if(isPersistent() ){
+				vehicles = getPersistenceLayer().restoreVehicleRentalLocation( this );
+			}else{
+                throw new RARException( "This Location object is not persistent" );
+			}
+		}
         return vehicles;
 	}
 

@@ -310,19 +310,22 @@ public class AdministratorManager {
 	}//restore
 	
 	public void delete(Administrator admin) throws RARException {
-		
-		String deleteAdministratorSql = "DELETE `USER` FROM `USER` INNER JOIN ADMIN ON USER.user_id=ADMIN.user_id WHERE USER.uname = ?;";
-		PreparedStatement stmt;
+		String deleteAdministratorSql = 
+				"DELETE `USER` "
+				+ "FROM `USER` "
+				+ "INNER JOIN ADMIN ON USER.user_id=ADMIN.user_id "
+				+ "WHERE ADMIN.admin_id=?;";
+		PreparedStatement pstmt;
 		int inscnt;
 
 		if (!admin.isPersistent()) // checks if Administrator object is persistent. If not, nothing to delete
 			return;
 		
 		try {
-			stmt = (PreparedStatement) con.prepareStatement(deleteAdministratorSql);
-			stmt.setString(1, admin.getUserName());
-
-			inscnt = stmt.executeUpdate();
+			pstmt = (PreparedStatement) con.prepareStatement(deleteAdministratorSql);
+			pstmt.setLong( 1, admin.getId() );
+			System.out.println( "query: " + pstmt.asSql() );
+			inscnt = pstmt.executeUpdate();
 			if(inscnt == 1) {
 				return;
 			}

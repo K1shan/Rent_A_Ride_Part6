@@ -47,7 +47,7 @@ public interface RentalLocation
     /** Get a list of reservations made for this rental location.
      * @return a List of reservations made for this rental location
      */
-    public List<Reservation> getReservations();
+    public List<Reservation> getReservations() throws RARException;
     
     // Not needed;  reservations for this location are added one-by-one by creating 
     // Reservation objects or changing existing ones for this rental location.
@@ -56,7 +56,7 @@ public interface RentalLocation
     /** Get a list of vehicles located at this rental location.
      * @return a List of vehicles located at this rental location
      */
-    public List<Vehicle> getVehicles();
+    public List<Vehicle> getVehicles() throws RARException;
     
     // Not needed;  vehicles located at this location are added one-by-one by creating
     // Vehicle objects or re-assigning existing ones to this rental location.

@@ -166,10 +166,10 @@ public class RentARideTester
              persistence.storeVehicle( convertible2 );
              
         	 // 2 CUSTOMERS
-             customerMichael = objectLayer.createCustomer( "Michael", "Vincent", "atticus", "password", "mike@gmail.com", "12 Laurchris Drive SE, Rome, GA, 30161", dateMemberTill, dateMemberTill, "GA", "22222", "1111", dateMemberTill );
+             customerMichael = objectLayer.createCustomer( "Michael", "Vincent", "atticus", "password", "mike@gmail.com", "12 Laurchris Drive SE, Rome, GA, 30161", dateMemberTill, dateMemberTill, "GA", "22222", "11111", dateMemberTill );
              persistence.storeCustomer( customerMichael );
 
-             customerLuke = objectLayer.createCustomer( "Luke", "Robert", "blobby", "password", "luke@gmail.com", "999 Strickland Street, Medium Town, AZ. 87889", dateMemberTill, dateMemberTill, "GA", "22222", "1111", dateMemberTill );
+             customerLuke = objectLayer.createCustomer( "Luke", "Robert", "blobby", "password", "luke@gmail.com", "999 Strickland Street, Medium Town, AZ. 87889", dateMemberTill, dateMemberTill, "GA", "22223", "1111", dateMemberTill );
              persistence.storeCustomer( customerLuke );
         	 
         	 // 4 RESERVATIONS
@@ -204,9 +204,6 @@ public class RentARideTester
              rental2.setComment(comment2);
              persistence.storeComment(comment2);
              
-             
-             
-        	 
         	 // DELETE everything
         	 objectLayer.deleteAdministrator(admin1);
         	 objectLayer.deleteAdministrator(admin2);
