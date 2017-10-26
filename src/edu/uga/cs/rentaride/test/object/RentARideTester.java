@@ -204,18 +204,15 @@ public class RentARideTester
              rental2.setComment(comment2);
              persistence.storeComment(comment2);
              
-             
-             
-        	 
         	 // DELETE everything
-//        	 objectLayer.deleteAdministrator(admin1);
-//        	 objectLayer.deleteAdministrator(admin2);
-//        	 objectLayer.deleteCustomer(customerMichael);
-//        	 objectLayer.deleteCustomer(customerLuke);
-//        	 objectLayer.deleteVehicleType(truckVehicleType);
-//        	 objectLayer.deleteVehicleType(convertibleVehicleType);
-//        	 objectLayer.deleteRentalLocation(rentalLocationAthens);
-//        	 objectLayer.deleteRentalLocation(rentalLocationAtlanta);
+        	 objectLayer.deleteAdministrator(admin1);
+        	 objectLayer.deleteAdministrator(admin2);
+        	 objectLayer.deleteCustomer(customerMichael);
+        	 objectLayer.deleteCustomer(customerLuke);
+        	 objectLayer.deleteVehicleType(truckVehicleType);
+        	 objectLayer.deleteVehicleType(convertibleVehicleType);
+        	 objectLayer.deleteRentalLocation(rentalLocationAthens);
+        	 objectLayer.deleteRentalLocation(rentalLocationAtlanta);
          }
          
          catch (RARException re) {

@@ -72,6 +72,7 @@ public class VehicleTypeManager{
                 throw new RARException( "CustomerManager.save: can't save a user: FirstName undefined" );
             }
 			
+			System.out.println( "query: " + pstmt.asSql() );
             inscnt = pstmt.executeUpdate();
 			
             if( !vehicleType.isPersistent() ) {
@@ -152,17 +153,21 @@ public class VehicleTypeManager{
 	
 	
     public void delete( VehicleType vehicleType ) throws RARException{
-    	String deleteVehicleT = "DELETE FROM VEHICLE_TYPE WHERE type_id = ?";              
-		PreparedStatement stmt = null;
+    	String deleteVehicleT = 
+    			"DELETE VEHICLE_TYPE "
+    			+ "FROM VEHICLE_TYPE "
+    			+ "WHERE type_id=?";              
+		PreparedStatement pstmt = null;
 		int inscnt = 0;
 		             
         if( !vehicleType.isPersistent() )
             return;
         
         try {
-            stmt = (PreparedStatement) con.prepareStatement( deleteVehicleT );         
-            stmt.setLong( 1, vehicleType.getId() );
-            inscnt = stmt.executeUpdate();          
+            pstmt = (PreparedStatement) con.prepareStatement( deleteVehicleT );         
+            pstmt.setLong( 1, vehicleType.getId() );
+			System.out.println( "query: " + pstmt.asSql() );
+            inscnt = pstmt.executeUpdate();          
             if( inscnt == 1 ) {
                 return;
             }
