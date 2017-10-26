@@ -423,8 +423,100 @@ public class RentalManager {
 	}
 
 	public Rental restoreReservation(Reservation reservation) throws RARException {
-		// TODO Auto-generated method stub
-		return null;
+		String selectReservationRentalQuery =
+				"SELECT "
+				+ "RENTAL.*, "
+				+ "VEHICLE.* "
+				+ "FROM RENTAL "
+				+ "INNER JOIN VEHICLE ON VEHICLE.vehicle_id=RENTAL.vehicle_id "
+				+ "INNER JOIN RESERVATION ON RESERVATION.reservation_id=RENTAL.reservation_id "
+				+ "INNER JOIN LOCATION ON LOCATION.location_id=RESERVATION.location_id";
+		
+        Statement    stmt = null;
+        StringBuffer query = new StringBuffer( 100 );
+        StringBuffer condition = new StringBuffer( 100 );
+        Rental rental = null;
+        condition.setLength( 0 );
+        query.append( selectReservationRentalQuery );
+    	
+        if( reservation != null ){
+        	if( reservation.getId() >= 0 ){
+        		query.append( " where RESERVATION.reservation_id=" + reservation.getId() );
+        	}else{
+        		
+        	}
+        }
+        try {
+            stmt = (Statement) con.createStatement();
+            System.out.println("query: "+ query.toString());
+            if( stmt.execute( query.toString() ) ) {
+                ResultSet rs = stmt.getResultSet();
+                // RENTAL
+				int		rental_rental_id;
+				int 	rental_reservation_id;
+				int		rental_vehicle_id;
+				Date 	rental_pickupTime = null;
+				Date 	rental_returnTime = null;
+				int 	rental_late;
+				int 	rental_charges;
+				// VEHICLE
+				int 	vehicle_vehicle_id;
+				int 	vehicle_type_id;
+				int 	vehicle_location_id;
+				String 	vehicle_make;
+				String 	vehicle_model;
+				int 	vehicle_year;
+				int 	vehicle_mileage;
+				String 	vehicle_tag;
+				Date 	vehicle_service_date;
+				int 	vehicle_status;
+				int 	vehicle_cond;
+	            VehicleType vehicleType = null;
+	            Vehicle vehicle = null;
+				Customer customer = null;
+				VehicleStatus vehicle_vehicleStatus = VehicleStatus.INLOCATION;
+				VehicleCondition vehicle_vehicleCondition = VehicleCondition.GOOD;
+                while( rs.next() ){
+                	// RENTAL
+					rental_rental_id 		= rs.getInt(1);
+					rental_reservation_id 	= rs.getInt(2);
+					rental_vehicle_id 		= rs.getInt(3);
+					rental_pickupTime 		= rs.getDate(4);
+					rental_returnTime		= rs.getDate(5);
+					rental_late 			= rs.getInt(6);
+					rental_charges 			= rs.getInt(7);
+					// VEHICLE
+					vehicle_vehicle_id 		= rs.getInt(8);
+					vehicle_type_id 		= rs.getInt(9);
+					vehicle_location_id 	= rs.getInt(10);
+					vehicle_make 			= rs.getString(11);
+					vehicle_model 			= rs.getString(12);
+					vehicle_year 			= rs.getInt(13);
+					vehicle_mileage 		= rs.getInt(14);
+					vehicle_tag 			= rs.getString(15);
+					vehicle_service_date 	= rs.getDate(16);
+					vehicle_status 			= rs.getInt(17);
+					if(vehicle_status == 1){
+						vehicle_vehicleStatus = VehicleStatus.INRENTAL;
+					}
+					vehicle_cond 			= rs.getInt(18);
+					if(vehicle_cond == 1){
+						vehicle_vehicleCondition = VehicleCondition.NEEDSMAINTENANCE;
+					}
+					
+					vehicle = objectLayer.createVehicle(vehicle_make, vehicle_model, vehicle_year, vehicle_tag, vehicle_mileage, vehicle_service_date, reservation.getVehicleType(), reservation.getRentalLocation(), vehicle_vehicleCondition, vehicle_vehicleStatus);
+                	vehicle.setId(vehicle_vehicle_id);
+                	rental = objectLayer.createRental(rental_pickupTime, reservation, vehicle);
+                	rental.setId(rental_rental_id);
+                	return rental;
+                }
+            }
+    		return rental;
+
+        } catch( SQLException e ) {
+            e.printStackTrace();
+            throw new RARException( "RentalManager.restoreReservation: failed to restore a Reservation: " + e );       
+        }
 	}
 
 	public Reservation restoreReservation(Rental rental) throws RARException {

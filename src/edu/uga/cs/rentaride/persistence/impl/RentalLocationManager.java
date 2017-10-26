@@ -141,18 +141,18 @@ public class RentalLocationManager {
 			System.out.println("query: " + query.toString());
 	            if( stmt.execute(query.toString()) ){
 				ResultSet rs = stmt.getResultSet();
-				int 	location_id;
+				int 	location_location_id;
 				String 	location_name;
 				String 	location_address;
 				int 	location_capacity;
 				while( rs.next() ){
-					location_id = rs.getInt(1);
-					location_name = rs.getString(2);
-					location_address = rs.getString(3);
-					location_capacity = rs.getInt(4);
+					location_location_id= rs.getInt(1);
+					location_name 		= rs.getString(2);
+					location_address 	= rs.getString(3);
+					location_capacity 	= rs.getInt(4);
 					
 					RentalLocation rentalLocation = objectLayer.createRentalLocation(location_name, location_address, location_capacity);
-					rentalLocation.setId(location_id);
+					rentalLocation.setId(location_location_id);
 					rentalLocations.add(rentalLocation);
 				}
 			}

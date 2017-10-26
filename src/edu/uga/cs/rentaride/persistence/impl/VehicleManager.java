@@ -269,18 +269,19 @@ public class VehicleManager {
 				ResultSet rs = stmt.getResultSet();
 				
 				// VEHICLE
-				int vehicle_id;
-				int type_id;
-				int location_id;
-				String make;
-				String model;
-				int year;
-				int mileage;
-				String tag;
-				Date service_date;
-				int status;
-				int cond;
-				String name;
+				int 	vehicle_vehicle_id;
+				int 	vehicle_type_id;
+				int 	vehicle_location_id;
+				String 	vehicle_make;
+				String 	vehicle_model;
+				int 	vehicle_year;
+				int 	vehicle_mileage;
+				String 	vehicle_tag;
+				Date 	vehicle_service_date;
+				int 	vehicle_status;
+				int 	vehicle_cond;
+				
+				String 	type_name;
 				
 				// LOCATION
 				String location_name;
@@ -292,36 +293,36 @@ public class VehicleManager {
 				VehicleCondition vehicleCondition = VehicleCondition.GOOD;
 				
 				while( rs.next() ){
-					vehicle_id = rs.getInt(1);
-					type_id = rs.getInt(2);
-					location_id = rs.getInt(3);
-					make = rs.getString(4);
-					model = rs.getString(5);
-					year = rs.getInt(6);
-					mileage = rs.getInt(7);
-					tag = rs.getString(8);
-					service_date = rs.getDate(9);
-					status = rs.getInt(10);
-					if(status == 1){
-						vehicleStatus = VehicleStatus.INRENTAL;
+					vehicle_vehicle_id 	= rs.getInt(1);
+					vehicle_type_id 	= rs.getInt(2);
+					vehicle_location_id = rs.getInt(3);
+					vehicle_make 		= rs.getString(4);
+					vehicle_model 		= rs.getString(5);
+					vehicle_year 		= rs.getInt(6);
+					vehicle_mileage 	= rs.getInt(7);
+					vehicle_tag 		= rs.getString(8);
+					vehicle_service_date= rs.getDate(9);
+					vehicle_status 		= rs.getInt(10);
+					if(vehicle_status == 1){
+						vehicleStatus 	= VehicleStatus.INRENTAL;
 					}
-					cond = rs.getInt(11);
-					if(cond == 1){
-						vehicleCondition = VehicleCondition.NEEDSMAINTENANCE;
+					vehicle_cond = rs.getInt(11);
+					if(vehicle_cond == 1){
+						vehicleCondition= VehicleCondition.NEEDSMAINTENANCE;
 					}
-					name = rs.getString(12);
-					location_name = rs.getString(13);
+					type_name 			= rs.getString(12);
+					location_name 		= rs.getString(13);
 					
 					rentalLocation = objectLayer.createRentalLocation();
-					rentalLocation.setId(location_id);
+					rentalLocation.setId(vehicle_location_id);
 					rentalLocation.setName(location_name);
 					
 					vehicleType = objectLayer.createVehicleType();
-					vehicleType.setId(type_id);
-					vehicleType.setName(name);
+					vehicleType.setId(vehicle_type_id);
+					vehicleType.setName(type_name);
 					
-					vehicle = objectLayer.createVehicle(make, model, year, tag, mileage, service_date, vehicleType, rentalLocation, vehicleCondition, vehicleStatus);
-					vehicle.setId(vehicle_id);
+					vehicle = objectLayer.createVehicle(vehicle_make, vehicle_model, vehicle_year, vehicle_tag, vehicle_mileage, vehicle_service_date, vehicleType, rentalLocation, vehicleCondition, vehicleStatus);
+					vehicle.setId(vehicle_vehicle_id);
 					vehicles.add(vehicle);
 				}
 			}
@@ -375,8 +376,100 @@ public class VehicleManager {
 	}
     
     public List<Vehicle> restoreLocation(RentalLocation rentalLocation) throws RARException {
-		// TODO Auto-generated method stub
-		return null;
+    	String selectLocationVehicleQuery =
+				"SELECT "
+				+ "VEHICLE.*, "
+				+ "VEHICLE_TYPE.*, "
+				+ "LOCATION.* "
+				+ "FROM VEHICLE "
+				+ "INNER JOIN LOCATION ON LOCATION.location_id=VEHICLE.location_id "
+				+ "INNER JOIN VEHICLE_TYPE ON VEHICLE_TYPE.type_id=VEHICLE.type_id";
+		
+        Statement    stmt = null;
+        StringBuffer query = new StringBuffer( 100 );
+        StringBuffer condition = new StringBuffer( 100 );
+        List<Vehicle> vehicles = new ArrayList<Vehicle>();
+        condition.setLength( 0 );
+        query.append( selectLocationVehicleQuery );
+    	
+        if( rentalLocation != null ){
+        	if( rentalLocation.getId() >= 0 ){
+        		query.append( " and VEHICLE.location_id=" + rentalLocation.getId() );
+        	}else{
+        		if( rentalLocation.getName() != null ){
+            		query.append(" and LOCATION.name='"+rentalLocation.getName()+"'");
+        		}
+        	}
+        }
+        try {
+            stmt = (Statement) con.createStatement();
+            System.out.println("query: "+ query.toString());
+            if( stmt.execute( query.toString() ) ) {
+                ResultSet rs = stmt.getResultSet();
+                // VEHICLE
+				int 	vehicle_vehicle_id;
+				int 	vehicle_type_id;
+				int 	vehicle_location_id;
+				String 	vehicle_make;
+				String 	vehicle_model;
+				int 	vehicle_year;
+				int 	vehicle_mileage;
+				String 	vehicle_tag;
+				Date 	vehicle_service_date;
+				int 	vehicle_status;
+				int 	vehicle_cond;
+				// VEHICLE_TYPE
+				int		type_type_id;
+				String	type_name;
+				// LOCATION
+				int 	location_location_id;
+				String 	location_name;
+				String 	location_address;
+				int 	location_capacity;
+				Vehicle vehicle = null;
+				VehicleType vehicleType = null;
+				VehicleStatus vehicleStatus = VehicleStatus.INLOCATION;
+				VehicleCondition vehicleCondition = VehicleCondition.GOOD;
+                while( rs.next() ){
+                	// VEHICLE
+                	vehicle_vehicle_id 	= rs.getInt(1);
+					vehicle_type_id 	= rs.getInt(2);
+					vehicle_location_id = rs.getInt(3);
+					vehicle_make 		= rs.getString(4);
+					vehicle_model 		= rs.getString(5);
+					vehicle_year 		= rs.getInt(6);
+					vehicle_mileage 	= rs.getInt(7);
+					vehicle_tag 		= rs.getString(8);
+					vehicle_service_date= rs.getDate(9);
+					vehicle_status 		= rs.getInt(10);
+					if(vehicle_status == 1){
+						vehicleStatus 	= VehicleStatus.INRENTAL;
+					}
+					vehicle_cond 		= rs.getInt(11);
+					if(vehicle_cond == 1){
+						vehicleCondition= VehicleCondition.NEEDSMAINTENANCE;
+					}
+					// VEHICLE_TYPE
+					type_type_id		= rs.getInt(12);
+					type_name			= rs.getString(13);
+					// LOCATION
+					location_location_id = rs.getInt(14);
+					location_name 		= rs.getString(15);
+					location_address 	= rs.getString(16);
+					location_capacity 	= rs.getInt(17);
+					//OBJECTS
+					vehicleType = objectLayer.createVehicleType(type_name);
+					vehicleType.setId(type_type_id);
+                	vehicle = objectLayer.createVehicle(vehicle_make, vehicle_model, vehicle_year, vehicle_tag, vehicle_mileage, vehicle_service_date, vehicleType, rentalLocation, vehicleCondition, vehicleStatus);
+                	vehicle.setId(vehicle_vehicle_id);
+                	vehicles.add(vehicle);
+                }
+            }
+            return vehicles;
+        } catch( SQLException e ) {
+            e.printStackTrace();
+            throw new RARException( "VehicleTypeManager.restorePrice: failed to restore a Price: " + e );       
+        }
 	}
     
     public void deleteLocation(Vehicle vehicle, RentalLocation rentalLocation) throws RARException {
@@ -399,8 +492,91 @@ public class VehicleManager {
 	}
     
     public List<Vehicle> restoreType(VehicleType vehicleType) throws RARException {
-		// TODO Auto-generated method stub
-		return null;
+    	String selectTypeVehicleQuery =
+				"SELECT "
+				+ "VEHICLE.*,"
+				+ "LOCATION.* "
+				+ "FROM VEHICLE "
+				+ "INNER JOIN VEHICLE_TYPE ON VEHICLE_TYPE.type_id=VEHICLE.type_id "
+				+ "INNER JOIN LOCATION ON LOCATION.location_id=VEHICLE.location_id";
+		
+        Statement    stmt = null;
+        StringBuffer query = new StringBuffer( 100 );
+        StringBuffer condition = new StringBuffer( 100 );
+        List<Vehicle> vehicles = new ArrayList<Vehicle>();
+        condition.setLength( 0 );
+        query.append( selectTypeVehicleQuery );
+        System.out.println("query: "+ query.toString());
+    	
+        if( vehicleType != null ){
+        	if( vehicleType.getId() >= 0 ){
+        		query.append( " and VEHICLE_TYPE.type_id=" + vehicleType.getId() );
+        	}else if( vehicleType.getName() != null ){
+        		query.append(" and VEHICLE_TYPE.name='"+vehicleType.getName()+"'");
+        	}
+        }
+        try {
+            stmt = (Statement) con.createStatement();
+            if( stmt.execute( query.toString() ) ) {
+                ResultSet rs = stmt.getResultSet();
+                // VEHICLE
+				int 	vehicle_vehicle_id;
+				int 	vehicle_type_id;
+				int 	vehicle_location_id;
+				String 	vehicle_make;
+				String 	vehicle_model;
+				int 	vehicle_year;
+				int 	vehicle_mileage;
+				String 	vehicle_tag;
+				Date 	vehicle_service_date;
+				int 	vehicle_status;
+				int 	vehicle_cond;
+				Vehicle vehicle = null;
+				//LOCATION
+				int 	location_location_id;
+				String 	location_name;
+				String 	location_address;
+				int 	location_capacity;
+				RentalLocation rentalLocation = null;
+				VehicleStatus vehicleStatus = VehicleStatus.INLOCATION;
+				VehicleCondition vehicleCondition = VehicleCondition.GOOD;
+                while( rs.next() ){
+                	// VEHICLE
+                	vehicle_vehicle_id 	= rs.getInt(1);
+					vehicle_type_id 	= rs.getInt(2);
+					vehicle_location_id = rs.getInt(3);
+					vehicle_make 		= rs.getString(4);
+					vehicle_model 		= rs.getString(5);
+					vehicle_year 		= rs.getInt(6);
+					vehicle_mileage 	= rs.getInt(7);
+					vehicle_tag 		= rs.getString(8);
+					vehicle_service_date= rs.getDate(9);
+					vehicle_status 		= rs.getInt(10);
+					if(vehicle_status == 1){
+						vehicleStatus 	= VehicleStatus.INRENTAL;
+					}
+					vehicle_cond 		= rs.getInt(11);
+					if(vehicle_cond == 1){
+						vehicleCondition= VehicleCondition.NEEDSMAINTENANCE;
+					}
+					//LOCATION
+					location_location_id = rs.getInt(12);
+					location_name 		= rs.getString(13);
+					location_address 	= rs.getString(14);
+					location_capacity 	= rs.getInt(15);
+					//OBJECTS
+					rentalLocation = objectLayer.createRentalLocation(location_name, location_address, location_capacity);
+					rentalLocation.setId(location_location_id);
+                	vehicle = objectLayer.createVehicle(vehicle_make, vehicle_model, vehicle_year, vehicle_tag, vehicle_mileage, vehicle_service_date, vehicleType, rentalLocation, vehicleCondition, vehicleStatus);
+                	vehicle.setId(vehicle_vehicle_id);
+                	vehicles.add(vehicle);
+                }
+            }
+            return vehicles;
+        } catch( SQLException e ) {
+            e.printStackTrace();
+            throw new RARException( "VehicleTypeManager.restorePrice: failed to restore a Price: " + e );       
+        }
 	}
     
     public void deleteType(Vehicle vehicle, VehicleType vehicleType) throws RARException {

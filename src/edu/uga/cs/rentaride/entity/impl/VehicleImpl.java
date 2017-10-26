@@ -1,27 +1,14 @@
 package edu.uga.cs.rentaride.entity.impl;
 
-
-
-import edu.uga.cs.rentaride.entity.Administrator;
-import edu.uga.cs.rentaride.entity.Comment;
-import edu.uga.cs.rentaride.entity.Customer;
-import edu.uga.cs.rentaride.entity.HourlyPrice;
 import edu.uga.cs.rentaride.entity.Rental;
 import edu.uga.cs.rentaride.entity.RentalLocation;
-import edu.uga.cs.rentaride.entity.RentARideParams;
-import edu.uga.cs.rentaride.entity.Reservation;
-import edu.uga.cs.rentaride.entity.User;
-import edu.uga.cs.rentaride.entity.UserStatus;
 import edu.uga.cs.rentaride.entity.Vehicle;
 import edu.uga.cs.rentaride.entity.VehicleCondition;
 import edu.uga.cs.rentaride.entity.VehicleStatus;
 import edu.uga.cs.rentaride.entity.VehicleType;
 import edu.uga.cs.rentaride.persistence.impl.Persistent;
-
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import edu.uga.cs.rentaride.RARException;
 
 
@@ -160,18 +147,25 @@ public class VehicleImpl
 	}
 
 	@Override
-	public List<Rental> getRentals() {
-		// TODO
-		return null;
+	public List<Rental> getRentals() throws RARException {
+		if(rentals == null){
+			if(isPersistent() ){
+				rentals = getPersistenceLayer().restoreVehicleRental( this );
+			}else{
+                throw new RARException( "This Vehicle object is not persistent" );
+			}
+		}
+        return rentals;
 	}
 
 	@Override
 	public String toString() {
-		return "VehicleImpl [make=" + make + ", model=" + model + ", year=" + year + ", registrationTag="
-				+ registrationTag + ", mileage=" + mileage + ", lastServiced=" + lastServiced + ", vehicleType="
-				+ vehicleType + ", rentalLocation=" + rentalLocation + ", condition=" + condition + ", status=" + status
-				+ ", rentals=" + rentals + "]";
-	}
-
-	
+		return "VehicleImpl ["
+				+ "make=" + make + ", model=" + model 
+				+ ", year=" + year + ", registrationTag=" + registrationTag 
+				+ ", mileage=" + mileage + ", lastServiced=" + lastServiced 
+				+ ", vehicleType=" + vehicleType + ", rentalLocationName=" + rentalLocation.getName() 
+				+ ", condition=" + condition + ", status=" + status +
+				"]";
+	}	
 }

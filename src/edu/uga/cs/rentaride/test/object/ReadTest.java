@@ -32,6 +32,16 @@ public class ReadTest
          Connection  con = null;
          ObjectLayer objectLayer = null;
          PersistenceLayer persistence = null;
+         
+         List<Administrator> administrators;
+         List<Customer> customers;
+         List<Reservation> reservations;
+         List<RentalLocation> rentalLocations;
+         List<Vehicle> vehicles;
+         List<VehicleType> vehicleTypes;
+         List<HourlyPrice> hourlyPrices;
+         List<Rental> rentals;
+         List<Comment> comments;
 
          // get a database connection
          try {
@@ -55,41 +65,82 @@ public class ReadTest
                   
          try {
              
-        	 // select all customers
-        	 System.out.println("");
-        	 List<Customer> customers = objectLayer.findCustomer( null );
-             System.out.println( "\nCustomer objects:" );
-             for( Customer customer : customers) {
-                 System.out.println( customer );
-             }
-             
-             // select all administrators
+        	// select all administrators
              System.out.println("");
-             List<Administrator> administrators = objectLayer.findAdministrator(null);
+             administrators = objectLayer.findAdministrator(null);
              System.out.println( "\nAdministrator objects:" );
              for (Administrator administrator : administrators) {
             	 System.out.println(administrator);
              }
              
-             //select all rentalLocations
+        	 // select all customers
+        	 System.out.println("");
+        	 customers = objectLayer.findCustomer( null );
+             System.out.println( "\nCustomer objects:" );
+             for( Customer customer : customers) {
+                 System.out.println( customer );
+                 // customer reservations
+                 reservations = customer.getReservations();
+                 for(Reservation reservation : reservations){
+            		 System.out.println(reservation);
+            	 }
+                 // customer rentals
+//                 rentals = customer.getRentals();
+//                 for (Rental rental : rentals) {
+//                	 System.out.println(rental);
+//                	 System.out.println("OUT");
+//                 }
+//                 // customer comments
+//                 comments = customer.getComments();
+//                 for (Comment comment : comments) {
+//                	 System.out.println(comment);
+//                 }
+             }
+             
+             // select all rentalLocations
              System.out.println("");
-             List<RentalLocation> rentalLocations = objectLayer.findRentalLocation( null );
+             rentalLocations = objectLayer.findRentalLocation( null );
              System.out.println( "\nRentalLocation objects:" );
              for (RentalLocation rentalLocation : rentalLocations) {
             	 System.out.println(rentalLocation);
+            	 // location vehicles
+            	 vehicles = rentalLocation.getVehicles();
+            	 for(Vehicle vehicle : vehicles){
+            		 System.out.println(vehicle);
+            	 }
+            	 // location reservations
+            	 reservations = rentalLocation.getReservations();
+            	 for(Reservation reservation : reservations){
+            		 System.out.println(reservation);
+            	 }
              }
             
              // select all vehicleTypes
              System.out.println("");
-             List<VehicleType> vehicleTypes = objectLayer.findVehicleType( null );
+             vehicleTypes = objectLayer.findVehicleType( null );
              System.out.println( "\nVehicleType objects:" );
              for (VehicleType vehicleType : vehicleTypes) {
             	 System.out.println(vehicleType);
+            	 // type prices
+            	 hourlyPrices = vehicleType.getHourlyPrices();
+            	 for(HourlyPrice hourlyPrice : hourlyPrices ){
+            		 System.out.println(hourlyPrice);
+            	 }
+            	 // type vehicles
+            	 vehicles = vehicleType.getVehicles();
+            	 for(Vehicle vehicle : vehicles){
+            		 System.out.println(vehicle);
+            	 }
+            	 // type reservations
+            	 reservations = vehicleType.getReservations();
+            	 for(Reservation reservation : reservations){
+            		 System.out.println(reservation);
+            	 }
              }
              
              // select all hourlyPrices
              System.out.println("");
-             List<HourlyPrice> hourlyPrices = objectLayer.findHourlyPrice( null );
+             hourlyPrices = objectLayer.findHourlyPrice( null );
              System.out.println( "\nHourlyPrice objects:" );
              for (HourlyPrice hourlyPrice : hourlyPrices) {
             	 System.out.println(hourlyPrice);
@@ -97,7 +148,7 @@ public class ReadTest
              
              // select all vehicles
              System.out.println("");
-             List<Vehicle> vehicles = objectLayer.findVehicle( null );
+             vehicles = objectLayer.findVehicle( null );
              System.out.println( "\nVehicle objects:" );
              for (Vehicle vehicle : vehicles) {
             	 System.out.println(vehicle);
@@ -105,7 +156,7 @@ public class ReadTest
              
              // select all reservations
              System.out.println("");
-             List<Reservation> reservations = objectLayer.findReservation( null );
+             reservations = objectLayer.findReservation( null );
              System.out.println( "\nReservation objects:" );
              for (Reservation reservation : reservations) {
             	 System.out.println(reservation);
@@ -113,7 +164,7 @@ public class ReadTest
              
              // select all rentals
              System.out.println("");
-             List<Rental> rentals = objectLayer.findRental( null );
+             rentals = objectLayer.findRental( null );
              System.out.println( "\nRental objects:" );
              for (Rental rental : rentals) {
             	 System.out.println(rental);
@@ -121,7 +172,7 @@ public class ReadTest
              
              // select all comments
              System.out.println("");
-             List<Comment> comments = objectLayer.findComment( null );
+             comments = objectLayer.findComment( null );
              System.out.println( "\nComment objects:" );
              for (Comment comment : comments) {
             	 System.out.println(comment);
