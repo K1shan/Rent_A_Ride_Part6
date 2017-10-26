@@ -139,19 +139,16 @@ public class CommentManager {
 				+ "INNER JOIN CUSTOMER ON CUSTOMER.customer_id=RESERVATION.customer_id "
 				+ "INNER JOIN USER ON USER.user_id=CUSTOMER.user_id";
 		
-		List<Comment> comments = new ArrayList<Comment>();
-		Statement stmt = null;
-		System.out.println("query: "+selectCommentQuery);
-		
 		StringBuffer query = new StringBuffer(100);
 		StringBuffer condition = new StringBuffer(100);
+		List<Comment> comments = new ArrayList<Comment>();
+		Statement stmt = null;
 		condition.setLength(0);
 		query.append(selectCommentQuery);
 		
-		//rental_id, text, comment_date
-		
 		// NULL CHECK
 		if( modelComment != null ){
+			
 			if( modelComment.getId() >= 0 ){
 				query.append( " where LOCATION.location_id = " + modelComment.getId() );
 			}else if( modelComment.getRental() != null ){  // name is unique
@@ -171,7 +168,6 @@ public class CommentManager {
 
 		
 		try {
-			System.out.println("query: " + selectCommentQuery);
 			stmt = con.createStatement();
 
 			if( stmt.execute(query.toString()) ){
