@@ -40,7 +40,6 @@ public class CommentManager {
 	}//constructor
 	
     public void store( Comment comment ) throws RARException{
-    	// TODO
     	
     	String insertCommentQuery =
 				"INSERT INTO COMMENT "
@@ -118,7 +117,6 @@ public class CommentManager {
     }
     
     public List<Comment> restore( Comment modelComment ) throws RARException{
-		// TODO
     	
     	String selectCommentQuery =
     			"SELECT "
@@ -145,16 +143,38 @@ public class CommentManager {
 		Statement stmt = null;
 		System.out.println("query: "+selectCommentQuery);
 		
+		StringBuffer query = new StringBuffer(100);
+		StringBuffer condition = new StringBuffer(100);
+		condition.setLength(0);
+		query.append(selectCommentQuery);
+		
+		//rental_id, text, comment_date
+		
 		// NULL CHECK
 		if( modelComment != null ){
-			
+			if( modelComment.getId() >= 0 ){
+				query.append( " where LOCATION.location_id = " + modelComment.getId() );
+			}else if( modelComment.getRental() != null ){  // name is unique
+				query.append( " where LOCATION.rental='" + modelComment.getRental() + "'" );
+			}else{
+				if( modelComment.getText() != null ){
+					condition.append( " where LOCATION.text='" + modelComment.getText() + "'" );
+				}
+				if( modelComment.getDate() != null ){
+					condition.append( " where LOCATION.date='" + modelComment.getDate() );
+				}
+				if( condition.length() > 0 ){
+					query.append( condition );
+				}
+			}
 		}
 
 		
 		try {
+			System.out.println("query: " + selectCommentQuery);
 			stmt = con.createStatement();
 
-			if( stmt.execute(selectCommentQuery) ){
+			if( stmt.execute(query.toString()) ){
 				ResultSet rs = stmt.getResultSet();
 
 				// RENTAL
